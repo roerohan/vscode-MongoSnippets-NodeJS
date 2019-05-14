@@ -1,0 +1,23 @@
+{
+    "Mongo DB Connect": {
+        "prefix": "!mdbc",
+        "body": [
+            "const mongoose = require('mongoose');",
+            "$0",
+            "mongoose.Promise = global.Promise;",
+            "$0",
+            "// Connect MongoDB at default port 27017.",
+            "mongoose.connect('mongodb://localhost:27017/${1:DB Name}', {",
+            "    useNewUrlParser: true,",
+            "    useCreateIndex: true,",
+            "}, (err) => {",
+            "    if (!err) {",
+            "        console.log('MongoDB Connection Succeeded.')",
+            "    } else {",
+            "        console.log('Error in DB connection: ' + err)",
+            "    }",
+            "});"
+        ],
+        "description": "Generates code for MongoConnect using mongoose library in npm."
+    }
+}
