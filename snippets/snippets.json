@@ -1,11 +1,11 @@
 {
-    "Mongo DB Connect": {
+    "MongoDB Connect": {
         "prefix": "!mdbc",
         "body": [
             "const mongoose = require('mongoose');",
-            "$0",
+            "",
             "mongoose.Promise = global.Promise;",
-            "$0",
+            "",
             "// Connect MongoDB at default port 27017.",
             "mongoose.connect('mongodb://localhost:27017/${1:DB Name}', {",
             "    useNewUrlParser: true,",
@@ -16,8 +16,61 @@
             "    } else {",
             "        console.log('Error in DB connection: ' + err)",
             "    }",
-            "});"
+            "});",
+            "$0"
         ],
         "description": "Generates code for MongoConnect using mongoose library in npm."
+    },
+    "MongoDB Generate User Model": {
+        "prefix": "!mdbgum",
+        "body": [
+            "${1:const mongoose = require('mongoose'); // Erase if already required}",
+            "",
+            "// Declare the Schema of the Mongo model",
+            "var userSchema = new mongoose.Schema({",
+            "    name:{",
+            "        type:String,",
+            "        required:true,",
+            "        ${2:unique:true,}",
+            "        index:true,",
+            "    },",
+            "    email:{",
+            "        type:String,",
+            "        ${3:required:true,}",
+            "        unique:true,",
+            "        index:true,",
+            "    },",
+            "    mobile:{",
+            "        type:${4:String},",
+            "        ${5:required:true,}",
+            "        unique:true,",
+            "        index:true,",
+            "    },",
+            "    password:{",
+            "        type:String,",
+            "        required:true,",
+            "        index:true,",
+            "    },",
+            "});",
+            "$0",
+            "//Export the model",
+            "module.exports = mongoose.model('${6:User}', userSchema);"
+        ],
+        "description": "Generates typical User model with 4 fields"
+    },
+    "MongoDB findOne": {
+        "prefix": "!mdbfo",
+        "body": [
+            "${1:ModelName}.findOne({",
+            "    \"${2:field}\": ${3:\"search for\"},",
+            "}).then((doc) => {",
+            "    if (!doc) {",
+            "        console.log(\"${4:message}\")",
+            "    } else{",
+            "        $0",
+            "    }",
+            "});"
+        ],
+        "description": "Generates code for findOne query in mongoose."
     }
 }
