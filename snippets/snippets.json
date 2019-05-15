@@ -163,7 +163,7 @@
             "   $0",
             "});"
         ],
-        "description": "Generates code for deleteOne query in mongoose."
+        "description": "Generates code for deleteMany query in mongoose."
     },
     "MongoDB findOneAndDelete": {
         "prefix": "!mdbfoad",
