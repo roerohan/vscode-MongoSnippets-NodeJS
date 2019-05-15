@@ -46,6 +46,11 @@ Initial release of mongo-snippets-for-node-js
 
 You can contribute to mongo-snippets-for-node-js on the GitHub page [vscode-MongoSnippets-NodeJS](https://github.com/roerohan/vscode-MongoSnippets-NodeJS). Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CONTRIBUTING.md) for further details.
 
+## License
+
+Click the following hyperlink to view the license.
+* [License](#https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/LICENSE)
+
 ### For more information
 
 You can checkout the source code and contribute on:
