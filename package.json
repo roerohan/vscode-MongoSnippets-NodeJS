@@ -7,7 +7,7 @@
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS"
     },
     "version": "0.0.1",
-    "publisher": "Rohan Mukherjee",
+    "publisher": "roerohan",
     "icon": "icon.png",
     "engines": {
         "vscode": "^1.33.0"
