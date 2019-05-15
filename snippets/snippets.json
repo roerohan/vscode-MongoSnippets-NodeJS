@@ -61,8 +61,8 @@
     "MongoDB findOne": {
         "prefix": "!mdbfo",
         "body": [
-            "${1:ModelName}.findOne({",
-            "    \"${2:field}\": ${3:\"search for\"},",
+            "${1:Model}.findOne({",
+            "    ${2:field}: ${3:filter},",
             "}).then((doc) => {",
             "    if (!doc) {",
             "        console.log(\"${4:message}\")",
@@ -72,5 +72,165 @@
             "});"
         ],
         "description": "Generates code for findOne query in mongoose."
+    },
+    "MongoDB find": {
+        "prefix": "!mdbf",
+        "body": [
+            "{1:Model}.find({ ",
+            "    ${2:field}: ${3:filter}",
+            "}, (err, doc) {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "     if(!doc){",
+            "         console.log(\"{4:message}\")",
+            "     } else{",
+            "       $0",
+            "     }",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for find query in mongoose."
+    },
+    "MongoDB findById": {
+        "prefix": "!mdbfbi",
+        "body": [
+            "{1:Model}.findById({ ",
+            "    ${2:id}",
+            "}, (err, doc) {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "     if(!doc){",
+            "         console.log(\"${3:message}\")",
+            "     } else{",
+            "       $0",
+            "     }",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for findById query in mongoose."
+    },
+    "MongoDB countDocuments": {
+        "prefix": "!mdbcd",
+        "body": [
+            "${1:Model}.countDocuments({",
+            "    ${2:type}: {3:filter}",
+            "}, (err, count) => {",
+            "    if (err) {",
+            "        console.log(`Error: ` + err)",
+            "    else",
+            "    console.log('There are %d ${4:documents}', count);",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for countDocuments query in mongoose."
+    },
+    "MongoDB aggregate": {
+        "prefix": "!mdba",
+        "body": [
+            "{1:Model}.aggregate([",
+            "    { ${2:$group}: { _id: null, ${3:maxBalance}: { $max: '${4:$balance}'}}}",
+            "    { ${5:$project}: { _id: 0, ${6:maxBalance}: 1}}",
+            "]).",
+            "  then(function (res) {",
+            "    console.log(res);",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for aggregate query in mongoose."
+    },
+    "MongoDB deleteOne": {
+        "prefix": "!mdbdo",
+        "body": [
+            "${1:Model}.deleteOne({ ",
+            "    ${2:field}: '${3:filter}' ",
+            "}, (err) {",
+            "   console.log(`Error: ` + err)",
+            "   $0",
+            "});"
+        ],
+        "description": "Generates code for deleteOne query in mongoose."
+    },
+    "MongoDB deleteMany": {
+        "prefix": "!mdbdm",
+        "body": [
+            "${1:Model}.deleteMany({ ",
+            "    ${2:field}: '${3:filter}' ",
+            "    ${4:field}: '{ ${5:$gte}: ${6:0}' }",
+            "}, (err) {",
+            "   console.log(`Error: ` + err)",
+            "   $0",
+            "});"
+        ],
+        "description": "Generates code for deleteOne query in mongoose."
+    },
+    "MongoDB findOneAndDelete": {
+        "prefix": "!mdbfoad",
+        "body": [
+            "{1:Model}.findOneAndDelete({ ",
+            "    ${2:field}: ${3:filter}",
+            "}, (err, doc) {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "     if(!doc){",
+            "         console.log(\"{4:message}\")",
+            "     } else{",
+            "       $0",
+            "     }",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for findOneAndDelete query in mongoose."
+    },
+    "MongoDB findOneAndUpdate": {
+        "prefix": "!mdbfoau",
+        "body": [
+            "${1:Model}.findOneAndUpdate({",
+            "    ${2:find-field}: ${3:filter},",
+            "}, {",
+            "    ${2:update-field}: ${3:filter},",
+            "}, (err, doc) => {",
+            "    if (err) {",
+            "        console.log(`Error: ` + err)",
+            "    } else {",
+            "        $0",
+            "    }",
+            "});"
+        ],
+        "description": "Generates code for findOneAndUpdate query in mongoose."
+    },
+    "MongoDB updateOne": {
+        "prefix": "!mdbuo",
+        "body": [
+            "{1:Model}.updateOne({ ",
+            "    ${2:find-field}: ${3:filter}",
+            "}, {",
+            "    ${4:update-field}: ${5:filter}",
+            "}",
+            "}, (err) {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for updateOne query in mongoose."
+    },
+    "MongoDB updateMany": {
+        "prefix": "!mdbum",
+        "body": [
+            "{1:Model}.updateMany({ ",
+            "    ${2:find-field}: ${3:filter}",
+            "}, {",
+            "    ${4:update-field}: ${5:filter}",
+            "}",
+            "}, (err) {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for updateMany query in mongoose."
     }
 }
