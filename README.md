@@ -1,6 +1,6 @@
 # mongo-snippets-for-node-js
 
-This Visual Studio Code extension generates MongoDB code snippets for Node-js projects using mongoose library from npm. :leaves:
+This Visual Studio Code extension generates MongoDB code snippets for Node-js projects using mongoose library from npm.
 
 ## Table of Contents:
 
@@ -57,4 +57,4 @@ You can checkout the source code and contribute on:
 
 * [vscode-MongoSnippets-NodeJS](https://github.com/roerohan/vscode-MongoSnippets-NodeJS)
 
-**Enjoy!** :leaves:
+**Enjoy!**]
