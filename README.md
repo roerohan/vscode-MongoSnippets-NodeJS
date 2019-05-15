@@ -49,7 +49,7 @@ You can contribute to mongo-snippets-for-node-js on the GitHub page [vscode-Mong
 ## License
 
 Click the following hyperlink to view the license.
-* [License](#https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/LICENSE)
+* [License](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/LICENSE)
 
 ### For more information
 
