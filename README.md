@@ -76,4 +76,4 @@ You can checkout the source code and contribute on:
 
 * [vscode-MongoSnippets-NodeJS](https://github.com/roerohan/vscode-MongoSnippets-NodeJS)
 
-**Enjoy!**]
+**Enjoy!**
