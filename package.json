@@ -1,7 +1,7 @@
 {
     "name": "mongo-snippets-for-node-js",
     "displayName": "Mongo Snippets for Node-js",
-    "description": "Provides extensions for Mongo DB connection and queries for Node-js projects",
+    "description": "Provides snippets for Mongo DB connection and queries for Node-js projects",
     "repository": {
         "type": "git",
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS"
