@@ -61,6 +61,11 @@ This extension is still being tested, please report issues on [vscode-MongoSnipp
 
 These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md) for more.
 
+### 1.0.2
+
+* Bug Fix: Snippet syntax and semantic issues
+* GIF Added: See [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.1) for details.
+
 ### 1.0.1
 
 * Bug Fix: Typos and Indentation
