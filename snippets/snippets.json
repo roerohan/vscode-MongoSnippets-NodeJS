@@ -129,7 +129,7 @@
         "body": [
             "${1:Model}.find({ ",
             "    ${2:field}: ${3:filter}",
-            "}, (err, doc) {",
+            "}, (err, doc) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   } else{",
@@ -148,7 +148,7 @@
         "body": [
             "${1:Model}.findById({ ",
             "    ${2:id}",
-            "}, (err, doc) {",
+            "}, (err, doc) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   } else{",
@@ -196,7 +196,7 @@
         "body": [
             "${1:Model}.deleteOne({ ",
             "    ${2:field}: '${3:filter}' ",
-            "}, (err) {",
+            "}, (err) => {",
             "   console.log(`Error: ` + err)",
             "   $0",
             "});"
@@ -209,7 +209,7 @@
             "${1:Model}.deleteMany({ ",
             "    ${2:field}: '${3:filter}' ",
             "    ${4:field}: '{ ${5:$gte}: ${6:0}' }",
-            "}, (err) {",
+            "}, (err) => {",
             "   console.log(`Error: ` + err)",
             "   $0",
             "});"
@@ -221,7 +221,7 @@
         "body": [
             "${1:Model}.findOneAndDelete({ ",
             "    ${2:field}: ${3:filter}",
-            "}, (err, doc) {",
+            "}, (err, doc) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   } else{",
@@ -241,7 +241,7 @@
             "var o = {};",
             "o.map = function () { ${1:emit}(this.${2:name}, ${3:value}) };",
             "o.reduce = function (${4:k}, ${5:vals}) { return ${6:vals.length} };",
-            "${7:Model}.mapReduce(o, (err, doc) {",
+            "${7:Model}.mapReduce(o, (err, doc) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   } else{",
@@ -276,7 +276,7 @@
             "}, {",
             "    ${4:update-field}: ${5:filter}",
             "}",
-            "}, (err) {",
+            "}, (err) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   }",
@@ -292,7 +292,7 @@
             "}, {",
             "    ${4:update-field}: ${5:filter}",
             "}",
-            "}, (err) {",
+            "}, (err) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   }",
