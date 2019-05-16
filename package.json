@@ -6,7 +6,7 @@
         "type": "git",
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS"
     },
-    "version": "1.0.0",
+    "version": "1.0.1",
     "publisher": "roerohan",
     "icon": "icon.png",
     "engines": {
