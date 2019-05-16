@@ -127,7 +127,7 @@
     "MongoDB find": {
         "prefix": "!mdbf",
         "body": [
-            "{1:Model}.find({ ",
+            "${1:Model}.find({ ",
             "    ${2:field}: ${3:filter}",
             "}, (err, doc) {",
             "   if(err){",    
@@ -146,7 +146,7 @@
     "MongoDB findById": {
         "prefix": "!mdbfbi",
         "body": [
-            "{1:Model}.findById({ ",
+            "${1:Model}.findById({ ",
             "    ${2:id}",
             "}, (err, doc) {",
             "   if(err){",    
@@ -166,7 +166,7 @@
         "prefix": "!mdbcd",
         "body": [
             "${1:Model}.countDocuments({",
-            "    ${2:type}: {3:filter}",
+            "    ${2:type}: ${3:filter}",
             "}, (err, count) => {",
             "    if (err) {",
             "        console.log(`Error: ` + err)",
@@ -180,7 +180,7 @@
     "MongoDB aggregate": {
         "prefix": "!mdba",
         "body": [
-            "{1:Model}.aggregate([",
+            "${1:Model}.aggregate([",
             "    { ${2:$group}: { _id: null, ${3:value}: { $max: '${4:$value}'}}}",
             "    { ${5:$project}: { _id: 0, ${6:value}: 1}}",
             "]).",
@@ -219,7 +219,7 @@
     "MongoDB findOneAndDelete": {
         "prefix": "!mdbfoad",
         "body": [
-            "{1:Model}.findOneAndDelete({ ",
+            "${1:Model}.findOneAndDelete({ ",
             "    ${2:field}: ${3:filter}",
             "}, (err, doc) {",
             "   if(err){",    
@@ -257,7 +257,7 @@
             "${1:Model}.findOneAndUpdate({",
             "    ${2:find-field}: ${3:filter},",
             "}, {",
-            "    ${2:update-field}: ${3:filter},",
+            "    ${4:update-field}: ${5:filter},",
             "}, (err, doc) => {",
             "    if (err) {",
             "        console.log(`Error: ` + err)",
@@ -271,7 +271,7 @@
     "MongoDB updateOne": {
         "prefix": "!mdbuo",
         "body": [
-            "{1:Model}.updateOne({ ",
+            "${1:Model}.updateOne({ ",
             "    ${2:find-field}: ${3:filter}",
             "}, {",
             "    ${4:update-field}: ${5:filter}",
@@ -287,7 +287,7 @@
     "MongoDB updateMany": {
         "prefix": "!mdbum",
         "body": [
-            "{1:Model}.updateMany({ ",
+            "${1:Model}.updateMany({ ",
             "    ${2:find-field}: ${3:filter}",
             "}, {",
             "    ${4:update-field}: ${5:filter}",
