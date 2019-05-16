@@ -27,6 +27,7 @@ The following are some of the snippets that can be generated with this extension
 |         4.         |  **!mdbcd**  |    MongoDB CountDocuments   |  *Model.countDocuments* query  |
 |         5.         |  **!mdbmr**  |      MongoDB MapReduce      |     *Model.mapReduce* query    |
 |         6.         |   **!mdbp**  |       MongoDB Populate      |     *Model.populate* query     |
+|         7.         |  **!mdbbw**  |      MongoDB BulkWrite      |     *Model.bulkWrite* query    |
 | **Create/Insert:** |              |                             |                                |
 |         1.         |  **!mdbcr**  |        MongoDB Create       |      *Model.create* query      |
 |         2.         |  **!mdbcc**  |   MongoDB CreateCollection  | *Model.createCollection* query |
@@ -61,10 +62,15 @@ This extension is still being tested, please report issues on [vscode-MongoSnipp
 
 These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md) for more.
 
+### 1.0.3
+
+* Bug Fix: Syntax issues
+* Feature enhancement: [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.3)
+
 ### 1.0.2
 
 * Bug Fix: Snippet syntax and semantic issues
-* GIF Added: See [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.1) for details.
+* GIF Added: See [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.2) for details.
 
 ### 1.0.1
 

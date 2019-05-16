@@ -299,5 +299,37 @@
             "});"
         ],
         "description": "Generates code for updateMany query in mongoose."
+    },
+    "MongoDB bulkWrite": {
+        "prefix": "!mdbbw",
+        "body": [
+            "${1:Model}.bulkWrite([",
+            "{",
+            "    insertOne: {",
+            "       document: {",
+            "          ${2:field}: '${3:value}',",
+            "          ${4:field: '${5:value}'",
+            "       }",
+            "    }",
+            "},",
+            "{",
+            "    updateOne: {",
+            "    filter: { ${6:field}: '${7:value}' },",
+            "    update: { ${8:field}: '${9:value}' }",
+            "    }",
+            "},",
+            "{",
+            "    deleteOne: {",
+            "    {",
+            "        filter: { ${10:field}: '${11:value}'}",
+            "    }",
+            "    }",
+            "}",
+            "]).then(res => {",
+            "    console.log(res.insertedCount, res.modifiedCount, res.deletedCount);",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for bulkWrite query in mongoose."
     }
 }
