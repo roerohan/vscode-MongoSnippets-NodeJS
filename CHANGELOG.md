@@ -11,6 +11,8 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - First Update
 - Supports Generic, Find, Update, and Delete Queries
+
+
 #### Generic:
 - **!mdbc**: Stands for **MongoDB Connect**, generates code for *MongoDB connection*.
 - **!mdbgum**: Stands for **MongoDB Generate User Model**, generates a typical customizable *user model* and code for exporting it.
