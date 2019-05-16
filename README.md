@@ -18,7 +18,7 @@ The following are some of the snippets that can be generated with this extension
 
 | **Type/No.** 	|  **Snippet** 	|        **Stands For**       	|          **Function**          	|
 |:------------:	|:------------:	|:---------------------------:	|:------------------------------:	|
-|  **Generic** 	|              	|                             	|                                	|
+| **Generic:** 	|              	|                             	|                                	|
 |      1.      	|   **!mdbc**  	|       MongoDB Connect       	|  MongoDB connect on port 27017 	|
 |      2.      	|  **!mdbgum** 	| MongoDB Generate User Model 	|   Generate typical user model  	|
 |      3.      	|   **!mdba**  	|      MongoDB Aggregate      	|     *Model.aggregate* query    	|
