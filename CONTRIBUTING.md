@@ -38,8 +38,6 @@ The following are the guidelines for Javascript code.
   - Names of the variables and routes should be self-explanatory.
   - Well formatted and indented code.
   - Comment lines wherever required.
-  - Preferably use async await.
-  - Should follow the specified structure in structure.md
 
 #### Pull Requests
 Pull requests should have:
