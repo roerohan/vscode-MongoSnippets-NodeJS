@@ -17,25 +17,38 @@ This Visual Studio Code extension generates MongoDB code snippets for Node-js pr
 The following are some of the snippets that can be generated with this extension.
 
 #### Generic:
-- **!mdbc**: Stands for **MongoDB Connect**, generates code for *MongoDB connection*.
-- **!mdbgum**: Stands for **MongoDB Generate User Model**, generates a typical customizable *user model* and code for exporting it.
-- **!mdba**: Stands for **MongoDB Aggregate**, generates a code template for *'aggregate'* query in mongoose-js.
-- **!mdbcd**: Stands for **MongoDB CountDocuments**, generates a code template for *'countDocuments'* query in mongoose-js.
+
+|   Snippet   |          Stands For         |            Function           |
+|:-----------:|:---------------------------:|:-----------------------------:|
+|  **!mdbc**  |       MongoDB Connect       | MongoDB connect on port 27017 |
+| **!mdbgum** | MongoDB Generate User Model |  Generate typical user model  |
+|  **!mdba**  |      MongoDB Aggregate      |    *Model.aggregate* query    |
+|  **!mdbcd** |    MongoDB CountDocuments   | *Model.countDocuments* query  |
+
 
 #### Find:
-- **!mdbf**: Stands for **MongoDB Find**, generates a code template for *'find*' query in mongoose-js.
-- **!mdbfo**: Stands for **MongoDB FindOne**, generates a code template for *'findOne'* query in mongoose-js.
-- **!mdbfbi**: Stands for **MongoDB FindById**, generates a code template for *'findById'* query in mongoose-js.
+
+|   Snippet   |    Stands For    |        Function        |
+|:-----------:|:----------------:|:----------------------:|
+|  **!mdbf**  |   MongoDB Find   |   *Model.find* query   |
+|  **!mdbfo** |  MongoDB FindOne |  *Model.findOne* query |
+| **!mdbfbi** | MongoDB FindById | *Model.findById* query |
 
 #### Update: 
-- **!mdbfoau**: Stands for **MongoDB FindOneAndUpdate**, generates a code template for *'findOneAndUpdate'* query.
-- **!mdbuo**: Stands for **MongoDB UpdateOne**, generates a code template for *'updateOne'* query.
-- **!mdbum**: Stands for **MongoDB UpdateMany**, generates a code template for *'updateMany'* query.
+
+|    Snippet   |        Stands For        |            Function            |
+|:------------:|:------------------------:|:------------------------------:|
+| **!mdbfoau** | MongoDB FindOneAndUpdate | *Model.findOneAndUpdate* query |
+|  **!mdbuo**  |     MongoDB UpdateOne    |     *Model.updateOne* query    |
+|  **!mdbum**  |    MongoDB UpdateMany    |    *Model.updateMany* query    |
 
 #### Deletion:
-- **!mdbfoad**: Stands for **MongoDB FindOneAndDelete**, generates a code template for *'findOneAndDelete'* query.
-- **!mdbdo**: Stands for **MongoDB DeleteOne**, generates a code template for *'deleteOne'* query.
-- **!mdbdm**: Stands for **MongoDB DeleteMany**, generates a code template for *'deleteMany'* query.
+
+|    Snippet   |        Stands For        |            Function            |
+|:------------:|:------------------------:|:------------------------------:|
+| **!mdbfoad** | MongoDB FindOneAndDelete | *Model.findOneAndDelete* query |
+|  **!mdbdo**  |     MongoDB DeleteOne    |     *Model.deleteOne* query    |
+|  **!mdbdm**  |    MongoDB DeleteMany    |    *Model.deleteMany* query    |
 
 ## Requirements
 
