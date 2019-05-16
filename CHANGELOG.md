@@ -7,6 +7,20 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Snippets for more queries.
 - Issue resolution.
 
+## v1.0.1
+
+- Feature Enhancement: Supports more mongoose queries.
+- Fix: README.md error, description, CHANGELOG.md error.
+- New Features:
+
+#### Generic:
+
+#### Find:
+
+#### Update:
+
+#### Delete:
+
 ## v1.0.0
 
 - First Update
