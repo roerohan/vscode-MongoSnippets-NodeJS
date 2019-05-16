@@ -22,5 +22,11 @@
                 "path": "./snippets/snippets.json"
             }
         ]
+    },
+    "license": "SEE LICENSE IN LICENSE",
+    "homepage": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/README.md",
+    "bugs": {
+        "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/issues",
+        "email": "roerohan@gmail.com"
     }
 }
