@@ -16,39 +16,25 @@ This Visual Studio Code extension generates MongoDB code snippets for Node-js pr
 
 The following are some of the snippets that can be generated with this extension.
 
-#### Generic:
-
-|   Snippet   |          Stands For         |            Function           |
-|:-----------:|:---------------------------:|:-----------------------------:|
-|  **!mdbc**  |       MongoDB Connect       | MongoDB connect on port 27017 |
-| **!mdbgum** | MongoDB Generate User Model |  Generate typical user model  |
-|  **!mdba**  |      MongoDB Aggregate      |    *Model.aggregate* query    |
-|  **!mdbcd** |    MongoDB CountDocuments   | *Model.countDocuments* query  |
-
-
-#### Find:
-
-|   Snippet   |    Stands For    |        Function        |
-|:-----------:|:----------------:|:----------------------:|
-|  **!mdbf**  |   MongoDB Find   |   *Model.find* query   |
-|  **!mdbfo** |  MongoDB FindOne |  *Model.findOne* query |
-| **!mdbfbi** | MongoDB FindById | *Model.findById* query |
-
-#### Update: 
-
-|    Snippet   |        Stands For        |            Function            |
-|:------------:|:------------------------:|:------------------------------:|
-| **!mdbfoau** | MongoDB FindOneAndUpdate | *Model.findOneAndUpdate* query |
-|  **!mdbuo**  |     MongoDB UpdateOne    |     *Model.updateOne* query    |
-|  **!mdbum**  |    MongoDB UpdateMany    |    *Model.updateMany* query    |
-
-#### Deletion:
-
-|    Snippet   |        Stands For        |            Function            |
-|:------------:|:------------------------:|:------------------------------:|
-| **!mdbfoad** | MongoDB FindOneAndDelete | *Model.findOneAndDelete* query |
-|  **!mdbdo**  |     MongoDB DeleteOne    |     *Model.deleteOne* query    |
-|  **!mdbdm**  |    MongoDB DeleteMany    |    *Model.deleteMany* query    |
+| **Type/No.** 	|  **Snippet** 	|        **Stands For**       	|          **Function**          	|
+|:------------:	|:------------:	|:---------------------------:	|:------------------------------:	|
+|  **Generic** 	|              	|                             	|                                	|
+|      1.      	|   **!mdbc**  	|       MongoDB Connect       	|  MongoDB connect on port 27017 	|
+|      2.      	|  **!mdbgum** 	| MongoDB Generate User Model 	|   Generate typical user model  	|
+|      3.      	|   **!mdba**  	|      MongoDB Aggregate      	|     *Model.aggregate* query    	|
+|      4.      	|  **!mdbcd**  	|    MongoDB CountDocuments   	|  *Model.countDocuments* query  	|
+|   **Find:**  	|              	|                             	|                                	|
+|      1.      	|   **!mdbf**  	|         MongoDB Find        	|       *Model.find* query       	|
+|      2.      	|  **!mdbfo**  	|       MongoDB FindOne       	|      *Model.findOne* query     	|
+|      3.      	|  **!mdbfbi** 	|       MongoDB FindById      	|     *Model.findById* query     	|
+|  **Update:** 	|              	|                             	|                                	|
+|      1.      	| **!mdbfoau** 	|   MongoDB FindOneAndUpdate  	| *Model.findOneAndUpdate* query 	|
+|      2.      	|  **!mdbuo**  	|      MongoDB UpdateOne      	|     *Model.updateOne* query    	|
+|      3.      	|  **!mdbum**  	|      MongoDB UpdateMany     	|    *Model.updateMany* query    	|
+|  **Delete:** 	|              	|                             	|                                	|
+|      1.      	| **!mdbfoad** 	|   MongoDB FindOneAndDelete  	| *Model.findOneAndDelete* query 	|
+|      2.      	|  **!mdbdo**  	|      MongoDB DeleteOne      	|     *Model.deleteOne* query    	|
+|      3.      	|  **!mdbdm**  	|      MongoDB DeleteMany     	|    *Model.deleteMany* query    	|
 
 ## Requirements
 
