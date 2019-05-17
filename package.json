@@ -6,9 +6,16 @@
         "type": "git",
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS"
     },
-    "version": "1.0.3",
+    "keywords": [
+        "MongoDB",
+        "NoSQL",
+        "javascript",
+        "node",
+        "snippets"
+    ],
+    "version": "1.0.4",
     "publisher": "roerohan",
-    "icon": "icon.png",
+    "icon": "static/icon.png",
     "engines": {
         "vscode": "^1.0.0"
     },
@@ -23,7 +30,7 @@
             }
         ]
     },
-    "license": "SEE LICENSE IN LICENSE",
+    "license": "See License in LICENSE",
     "homepage": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/README.md",
     "bugs": {
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/issues",
