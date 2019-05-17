@@ -58,7 +58,7 @@
         "email": "roerohan@gmail.com"
     },
     "galleryBanner": {
-        "color": "#EFF0F3",
+        "color": "##35C253",
         "theme": "dark"
     },
 	"scripts": {
