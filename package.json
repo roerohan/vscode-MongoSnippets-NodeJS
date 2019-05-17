@@ -17,14 +17,15 @@
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
-        "vscode": "^1.0.0"
+        "vscode": "^1.1.28"
     },
     "categories": [
         "Snippets",
         "Other"
     ],
 	"activationEvents": [
-		"onCommand:extension.helloWorld"
+        "onCommand:extension.mongoosejsDocs",
+        "onCommand:extension.extensionDocs"
 	],
     "main": "./extension.js",
     "contributes": {
@@ -36,8 +37,12 @@
         ],
         "commands": [
             {
-                "command": "extension.helloWorld",
-                "title": "Hello World"
+                "command": "extension.mongoosejsDocs",
+                "title": "Mongo Snippets: Refer to Mongoose Documentation"
+            },
+            {
+                "command": "extension.extensionDocs",
+                "title": "Mongo Snippets: Refer to Extension Documentation"
             }
         ]
     },
