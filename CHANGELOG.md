@@ -7,6 +7,11 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Snippets for more queries.
 - Issue resolution.
 
+## v1.0.6
+
+- Bug Fix: More minor bug fixes
+- Features: Same as [v1.0.4](#v1.0.4)
+
 ## v1.0.5
 
 - Bug Fix: Command Palette features not working

@@ -74,9 +74,9 @@ This extension is still being tested, please report issues on [vscode-MongoSnipp
 
 These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md) for more.
 
-### 1.0.5
+### 1.0.6 and 1.0.5
 
-* Bug Fix: Command Palette Extensions
+* Bug Fix: Command Palette Extensions and other minor bugs
 
 ### 1.0.4
 
