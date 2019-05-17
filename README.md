@@ -2,7 +2,7 @@
 
 This Visual Studio Code extension generates MongoDB code snippets for Node-js projects using mongoose library from npm.
 
-![example](./example.gif)
+![example](./static/example.gif)
 
 ## Table of Contents:
 
@@ -62,6 +62,12 @@ This extension is still being tested, please report issues on [vscode-MongoSnipp
 
 These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md) for more.
 
+### 1.0.4
+
+* Bug Fix: 
+* Feat: Pull Request Template
+* Feature Enhancement:
+
 ### 1.0.3
 
 * Bug Fix: Syntax issues
@@ -71,15 +77,6 @@ These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG]
 
 * Bug Fix: Snippet syntax and semantic issues
 * GIF Added: See [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.2) for details.
-
-### 1.0.1
-
-* Bug Fix: Typos and Indentation
-* Feature Enhancement: To see new features (snippets), see the [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.1).
-
-### 1.0.0
-
-* Generic, Addition, Deletion and Update queries introduced.
 
 -----------------------------------------------------------------------------------------------------------
 
