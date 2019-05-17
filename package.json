@@ -20,13 +20,20 @@
         "vscode": "^1.0.0"
     },
     "categories": [
-        "Snippets"
+        "Snippets",
+        "Other"
     ],
     "contributes": {
         "snippets": [
             {
                 "language": "javascript",
                 "path": "./snippets/snippets.json"
+            }
+        ],
+        "commands": [
+            {
+                "command": "extension.helloWorld",
+                "title": "Hello World"
             }
         ]
     },
