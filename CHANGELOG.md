@@ -42,7 +42,7 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 |         3.         |  **!mdbum**  |      MongoDB UpdateMany     |    *Model.updateMany* query    |
 |     **Delete:**    |              |                             |                                |
 |         1.         | **!mdbfoad** |   MongoDB FindOneAndDelete  | *Model.findOneAndDelete* query |
-|         2.         |  **!mdbdo**  |      MongoDB DeleteOne      |     *Model.deleteOne* query    |
+|         2.         |  **!mdbdo**  |      MongoDB DeleteOne      |     *Model.deleteOne* query    |`
 |         3.         |  **!mdbdm**  |      MongoDB DeleteMany     |    *Model.deleteMany* query    |
 
 ## v1.0.2
