@@ -1,11 +1,10 @@
-import * as vscode from 'vscode';
-import * as fs from 'fs';
-import * as path from 'path';
+const fs = require('fs');
+const path = require('path');
 
-export class AppModel {
+class AppModel {
 
-    makefiles(filepaths) {
-        filepaths.forEach(filepath => this.makeFileSync(filepath));
+    makefiles(filepaths, text) {
+        filepaths.forEach((filepath) => this.makeFileSync(filepath, text[filepaths.indexOf(filepath)]));
     }
 
     makefolders(files) {
@@ -20,10 +19,19 @@ export class AppModel {
         fs.mkdirSync(dir);
     }
 
-    makeFileSync(filename) {
+    makeFileSync(filename, text) {
+        if(!text) text="";
         if (!fs.existsSync(filename)) {
             this.makeDirSync(path.dirname(filename));
             fs.createWriteStream(filename).close();
+            fs.writeFile(filename, text, err => {
+                if (err) throw err;
+            });
         }
     }
+
+}
+
+module.exports = {
+    AppModel
 }

@@ -1,8 +1,14 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
+'use strict';
+
 const vscode = require('vscode');
-const fs = require('fs');
 const path = require('path');
+
+const AppModel = require('./appModel').AppModel;
+// @ts-ignore
+const precode = require("./precode.json");
+
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -14,8 +20,8 @@ function activate(context) {
 
 	// Use the console to output diagnostic information (console.log) and errors (console.error)
 	// This line of code will only be executed once when your extension is activated
-	console.log('Documentation for mongoosejs will be opened in your web browser.');
-
+	console.log('Mongo Snippets has been activated.');
+	const appModel = new AppModel();
 	// The command has been defined in the package.json file
 	// Now provide the implementation of the command with  registerCommand
 	// The commandId parameter must match the command field in package.json
@@ -32,17 +38,26 @@ function activate(context) {
 
 	let setup = vscode.commands.registerCommand('extension.setup', () => {
 		let folderPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-		let dbContent = "hello world";
 		
-		fs.writeFile(path.join(folderPath, "db.js"), dbContent, err => {
-			if(err){
-				console.error(err);
-				return vscode.window.showErrorMessage("Mongo Snippets: Failed to create Mongo Boilerplate");
-			}
-			else {
-				return vscode.window.showInformationMessage("Mongo Snippets: Mongo Boilerplate Created");
-			}
-		})
+		let dbContent = precode["connect"].join("\n");
+		let userModelContent = precode["user model"].join("\n");
+
+		appModel.makefolders([
+			path.join(folderPath, "models"),
+			path.join(folderPath, "routes")
+		]);
+
+		appModel.makefiles([
+			path.join(folderPath, "routes/index.js"),
+			path.join(folderPath, "models/db.js"),
+			path.join(folderPath, "models/user.model.js")
+		],
+		[
+			"var User = require('../models/user.model');",
+			dbContent,
+			userModelContent
+		]);
+
 	});
 
 	context.subscriptions.push(mongooseDocs);

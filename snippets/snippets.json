@@ -1,0 +1,335 @@
+{
+    "MongoDB Connect": {
+        "prefix": "!mdbc",
+        "body": [
+            "const mongoose = require('mongoose');",
+            "",
+            "mongoose.Promise = global.Promise;",
+            "",
+            "// Connect MongoDB at default port 27017.",
+            "mongoose.connect('mongodb://localhost:27017/${1:DB Name}', {",
+            "    useNewUrlParser: true,",
+            "    useCreateIndex: true,",
+            "}, (err) => {",
+            "    if (!err) {",
+            "        console.log('MongoDB Connection Succeeded.')",
+            "    } else {",
+            "        console.log('Error in DB connection: ' + err)",
+            "    }",
+            "});",
+            "$0"
+        ],
+        "description": "Generates code for MongoConnect using mongoose library in npm."
+    },
+    "MongoDB Generate User Model": {
+        "prefix": "!mdbgum",
+        "body": [
+            "${1:const mongoose = require('mongoose'); // Erase if already required}",
+            "",
+            "// Declare the Schema of the Mongo model",
+            "var userSchema = new mongoose.Schema({",
+            "    name:{",
+            "        type:String,",
+            "        required:true,",
+            "        ${2:unique:true,}",
+            "        index:true,",
+            "    },",
+            "    email:{",
+            "        type:String,",
+            "        ${3:required:true,}",
+            "        unique:true,",
+            "        index:true,",
+            "    },",
+            "    mobile:{",
+            "        type:${4:String},",
+            "        ${5:required:true,}",
+            "        unique:true,",
+            "        index:true,",
+            "    },",
+            "    password:{",
+            "        type:String,",
+            "        required:true,",
+            "        index:true,",
+            "    },",
+            "});",
+            "$0",
+            "//Export the model",
+            "module.exports = mongoose.model('${6:User}', userSchema);"
+        ],
+        "description": "Generates typical User model with 4 fields"
+    },
+    "MongoDB create": {
+        "prefix": "!mdbcr",
+        "body": [
+            "var array = [{",
+            "    ${1:field}:${2:item}",
+            "}, {",
+            "    ${3:field}:${4:item}",
+            "}];",
+            "${5:Model}.create(",
+            "    array",
+            ").then((docs) => {",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for create query in mongoose."
+    },
+    "MongoDB createCollection": {
+        "prefix": "!mdbcc",
+        "body": [
+            "${1:Model}.createCollection().then((docs) => {",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for createCollection query in mongoose."
+    },
+    "MongoDB insertMany": {
+        "prefix": "!mdbim",
+        "body": [
+            "var array = [{",
+            "    ${1:field}:${2:item}",
+            "}, {",
+            "    ${3:field}:${4:item}",
+            "}];",
+            "${5:Model}.insertMany(",
+            "    array",
+            ").then((docs) => {",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for insertMany query in mongoose."
+    },
+    "MongoDB populate": {
+        "prefix": "!mdbp",
+        "body": [
+            "var o = { ${1:field}: '${2:value}'};",
+            "${3:Model}.populate(o, { ${4:field}: '${5:value}'}, function (err, user) {",
+            "   $0",
+            "});"
+        ],
+        "description": "Generates code for populate query in mongoose."
+    },
+    "MongoDB findOne": {
+        "prefix": "!mdbfo",
+        "body": [
+            "${1:Model}.findOne({",
+            "    ${2:field}: ${3:filter},",
+            "}).then((doc) => {",
+            "    if (!doc) {",
+            "        console.log(\"${4:message}\")",
+            "    } else{",
+            "        $0",
+            "    }",
+            "});"
+        ],
+        "description": "Generates code for findOne query in mongoose."
+    },
+    "MongoDB find": {
+        "prefix": "!mdbf",
+        "body": [
+            "${1:Model}.find({ ",
+            "    ${2:field}: ${3:filter}",
+            "}, (err, doc) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "     if(!doc){",
+            "         console.log(\"${4:message}\")",
+            "     } else{",
+            "       $0",
+            "     }",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for find query in mongoose."
+    },
+    "MongoDB findById": {
+        "prefix": "!mdbfbi",
+        "body": [
+            "${1:Model}.findById({ ",
+            "    ${2:id}",
+            "}, (err, doc) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "     if(!doc){",
+            "         console.log(\"${3:message}\")",
+            "     } else{",
+            "       $0",
+            "     }",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for findById query in mongoose."
+    },
+    "MongoDB countDocuments": {
+        "prefix": "!mdbcd",
+        "body": [
+            "${1:Model}.countDocuments({",
+            "    ${2:type}: ${3:filter}",
+            "}, (err, count) => {",
+            "    if (err) {",
+            "        console.log(`Error: ` + err)",
+            "    else",
+            "    console.log('There are %d ${4:documents}', count);",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for countDocuments query in mongoose."
+    },
+    "MongoDB aggregate": {
+        "prefix": "!mdba",
+        "body": [
+            "${1:Model}.aggregate([",
+            "    { ${2:$group}: { _id: null, ${3:value}: { $max: '${4:$value}'}}}",
+            "    { ${5:$project}: { _id: 0, ${6:value}: ${7:1}}",
+            "]).",
+            "  then(function (res) {",
+            "    console.log(res);",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for aggregate query in mongoose."
+    },
+    "MongoDB deleteOne": {
+        "prefix": "!mdbdo",
+        "body": [
+            "${1:Model}.deleteOne({ ",
+            "    ${2:field}: '${3:filter}' ",
+            "}, (err) => {",
+            "   console.log(`Error: ` + err)",
+            "   $0",
+            "});"
+        ],
+        "description": "Generates code for deleteOne query in mongoose."
+    },
+    "MongoDB deleteMany": {
+        "prefix": "!mdbdm",
+        "body": [
+            "${1:Model}.deleteMany({ ",
+            "    ${2:field}: '${3:filter}' ",
+            "    ${4:field}: '{ ${5:$gte}: ${6:0}' }",
+            "}, (err) => {",
+            "   console.log(`Error: ` + err)",
+            "   $0",
+            "});"
+        ],
+        "description": "Generates code for deleteMany query in mongoose."
+    },
+    "MongoDB findOneAndDelete": {
+        "prefix": "!mdbfoad",
+        "body": [
+            "${1:Model}.findOneAndDelete({ ",
+            "    ${2:field}: ${3:filter}",
+            "}, (err, doc) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "     if(!doc){",
+            "         console.log(\"${4:message}\")",
+            "     } else{",
+            "       $0",
+            "     }",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for findOneAndDelete query in mongoose."
+    },
+    "MongoDB mapReduce": {
+        "prefix": "!mdbmr",
+        "body": [
+            "var o = {};",
+            "o.map = function () { ${1:emit}(this.${2:name}, ${3:value}) };",
+            "o.reduce = function (${4:k}, ${5:vals}) { return ${6:vals.length} };",
+            "${7:Model}.mapReduce(o, (err, doc) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   } else{",
+            "       $0",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for mapReduce query in mongoose."
+    },
+    "MongoDB findOneAndUpdate": {
+        "prefix": "!mdbfoau",
+        "body": [
+            "${1:Model}.findOneAndUpdate({",
+            "    ${2:find-field}: ${3:filter},",
+            "}, {",
+            "    ${4:update-field}: ${5:filter},",
+            "}, (err, doc) => {",
+            "    if (err) {",
+            "        console.log(`Error: ` + err)",
+            "    } else {",
+            "        $0",
+            "    }",
+            "});"
+        ],
+        "description": "Generates code for findOneAndUpdate query in mongoose."
+    },
+    "MongoDB updateOne": {
+        "prefix": "!mdbuo",
+        "body": [
+            "${1:Model}.updateOne({ ",
+            "    ${2:find-field}: ${3:filter}",
+            "}, {",
+            "    ${4:update-field}: ${5:filter}",
+            "}",
+            "}, (err) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for updateOne query in mongoose."
+    },
+    "MongoDB updateMany": {
+        "prefix": "!mdbum",
+        "body": [
+            "${1:Model}.updateMany({ ",
+            "    ${2:find-field}: ${3:filter}",
+            "}, {",
+            "    ${4:update-field}: ${5:filter}",
+            "}",
+            "}, (err) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for updateMany query in mongoose."
+    },
+    "MongoDB bulkWrite": {
+        "prefix": "!mdbbw",
+        "body": [
+            "${1:Model}.bulkWrite([",
+            "{",
+            "    insertOne: {",
+            "       document: {",
+            "          ${2:field}: '${3:value}',",
+            "          ${4:field: '${5:value}'",
+            "       }",
+            "    }",
+            "},",
+            "{",
+            "    updateOne: {",
+            "    filter: { ${6:field}: '${7:value}' },",
+            "    update: { ${8:field}: '${9:value}' }",
+            "    }",
+            "},",
+            "{",
+            "    deleteOne: {",
+            "    {",
+            "        filter: { ${10:field}: '${11:value}'}",
+            "    }",
+            "    }",
+            "}",
+            "]).then(res => {",
+            "    console.log(res.insertedCount, res.modifiedCount, res.deletedCount);",
+            "    $0",
+            "});"
+        ],
+        "description": "Generates code for bulkWrite query in mongoose."
+    }
+}
