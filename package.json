@@ -13,7 +13,7 @@
         "node",
         "snippets"
     ],
-    "version": "1.0.5",
+    "version": "1.0.6",
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
@@ -58,7 +58,7 @@
         "email": "roerohan@gmail.com"
     },
     "galleryBanner": {
-        "color": "##35C253",
+        "color": "#35C253",
         "theme": "dark"
     },
 	"scripts": {
