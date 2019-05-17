@@ -16,7 +16,19 @@ This Visual Studio Code extension generates MongoDB code snippets for Node-js pr
 
 ## Features
 
+### **Command Palette:**
+
+> Note: Ctrl+Shift+P or Command+Shift+P opens Command Palette in VSCode.
+
+- Mongo Snippets: Refer to Mongoose Documentation
+- Mongo Snippets: Refer to Extension Documentation
+- Mongo Snippets: Set up Mongo Boilerplate Code
+
+### **Snippets:**
+
 The following are some of the snippets that can be generated with this extension.
+
+> Note: Type the following snippets and press 'Tab' OR 'Ctrl/Command + Space; Enter' for auto-completion.
 
 |    **Type/No.**    |  **Snippet** |        **Stands For**       |          **Function**          |
 |:------------------:|:------------:|:---------------------------:|:------------------------------:|
@@ -64,9 +76,14 @@ These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG]
 
 ### 1.0.4
 
-* Bug Fix: 
+* Bug Fix: Small bugs and indentations
 * Feat: Pull Request Template
-* Feature Enhancement:
+- Feature Enhancement: Command Palette:
+   * **Mongo Snippets: Refer to Mongoose Documentation**
+   * **Mongo Snippets: Refer to Extension Documentation**
+   * **Mongo Snippets: Set up Mongo Boilerplate Code**
+
+For more: [CHANGELOG](./CHANGELOG.md#v1.0.4)
 
 ### 1.0.3
 

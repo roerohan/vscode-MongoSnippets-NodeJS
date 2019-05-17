@@ -47,7 +47,7 @@
             },
             {
                 "command": "extension.setup",
-                "title": "Mongo Snippets: Set up Mongo Boilerplate"
+                "title": "Mongo Snippets: Set up Mongo Boilerplate Code"
             }
         ]
     },
