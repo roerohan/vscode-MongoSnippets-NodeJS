@@ -25,7 +25,8 @@
     ],
 	"activationEvents": [
         "onCommand:extension.mongoosejsDocs",
-        "onCommand:extension.extensionDocs"
+        "onCommand:extension.extensionDocs",
+        "onCommand:extension.setup"
 	],
     "main": "./extension.js",
     "contributes": {
@@ -43,6 +44,10 @@
             {
                 "command": "extension.extensionDocs",
                 "title": "Mongo Snippets: Refer to Extension Documentation"
+            },
+            {
+                "command": "extension.setup",
+                "title": "Mongo Snippets: Set up Mongo Boilerplate"
             }
         ]
     },

@@ -1,6 +1,8 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
 const vscode = require('vscode');
+const fs = require('fs');
+const path = require('path');
 
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
@@ -28,8 +30,23 @@ function activate(context) {
 	});
 
 
+	let setup = vscode.commands.registerCommand('extension.setup', () => {
+		let folderPath;
+		let dbContent;
+		fs.writeFile(path.join(folderPath, "db.js"), dbContent, err => {
+			if(err){
+				console.error(err);
+				return vscode.window.showErrorMessage("Mongo Snippets: Failed to create Mongo Boilerplate");
+			}
+			else {
+				return vscode.window.showInformationMessage("Mongo Snippets: Mongo Boilerplate Created.");
+			}
+		})
+	});
+
 	context.subscriptions.push(mongooseDocs);
 	context.subscriptions.push(extensionDocs);
+	context.subscriptions.push(setup);
 }
 exports.activate = activate;
 
