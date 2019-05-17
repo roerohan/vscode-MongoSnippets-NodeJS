@@ -28,12 +28,12 @@
         "onCommand:extension.extensionDocs",
         "onCommand:extension.setup"
 	],
-    "main": "./extension.js",
+    "main": "./src/extension.js",
     "contributes": {
         "snippets": [
             {
                 "language": "javascript",
-                "path": "./snippets/snippets.json"
+                "path": "./src/snippets/snippets.json"
             }
         ],
         "commands": [
