@@ -2,7 +2,7 @@
 
 This Visual Studio Code extension generates MongoDB code snippets for Node-js projects using mongoose library from npm.
 
-<img src="./static/example.gif" alt="example" width="480"/>
+![example](./static/example.gif)
 
 ## Table of Contents:
 
