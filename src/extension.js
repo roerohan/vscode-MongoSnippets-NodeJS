@@ -60,10 +60,32 @@ function activate(context) {
 		]);
 
 	});
+	
+	const provider = vscode.languages.registerCompletionItemProvider(
+		'javascript',
+		{
+			provideCompletionItems(document, position) {
+				let startPos = document.positionAt(0);
+				
+				let range = new vscode.Range(startPos, position);
+				let preText = document.getText(range);
+				let openbraces = preText.split('{').length - 1;
+				let closedbraces = preText.split('}').length - 1;
+				if(openbraces <= closedbraces)
+					return undefined
+
+				return [
+					new vscode.CompletionItem('text1', vscode.CompletionItemKind.Method),
+					new vscode.CompletionItem('text2', vscode.CompletionItemKind.Method),
+				];
+			}
+		}
+	);
 
 	context.subscriptions.push(mongooseDocs);
 	context.subscriptions.push(extensionDocs);
 	context.subscriptions.push(setup);
+	context.subscriptions.push(provider);
 }
 exports.activate = activate;
 

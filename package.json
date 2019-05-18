@@ -27,7 +27,8 @@
 	"activationEvents": [
         "onCommand:extension.mongoosejsDocs",
         "onCommand:extension.extensionDocs",
-        "onCommand:extension.setup"
+        "onCommand:extension.setup",
+        "onLanguage:javascript"
 	],
     "main": "./src/extension.js",
     "contributes": {
