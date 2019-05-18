@@ -74,6 +74,11 @@ This extension is still being tested, please report issues on [vscode-MongoSnipp
 
 These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md) for more.
 
+### 1.0.7
+
+* Feature: Improved boilerplate code, added better README gif.
+* Bugs fixed: .vscodeignore and .gitignore made better
+
 ### 1.0.6 and 1.0.5
 
 * Bug Fix: Command Palette Extensions and other minor bugs
@@ -88,11 +93,6 @@ These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG]
    * **Mongo Snippets: Set up Mongo Boilerplate Code**
 
 For more: [CHANGELOG](./CHANGELOG.md#v1.0.4)
-
-### 1.0.3
-
-* Bug Fix: Syntax issues
-* Feature enhancement: [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md#v1.0.3)
 
 -----------------------------------------------------------------------------------------------------------
 
