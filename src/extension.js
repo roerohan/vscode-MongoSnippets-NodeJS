@@ -39,6 +39,7 @@ function activate(context) {
 	let setup = vscode.commands.registerCommand('extension.setup', () => {
 		let folderPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 		
+		let indexContent = precode["index"].join("\n");
 		let dbContent = precode["connect"].join("\n");
 		let userModelContent = precode["user model"].join("\n");
 
@@ -53,7 +54,7 @@ function activate(context) {
 			path.join(folderPath, "models/user.model.js")
 		],
 		[
-			"var User = require('../models/user.model');",
+			indexContent,
 			dbContent,
 			userModelContent
 		]);

@@ -1,7 +1,7 @@
 {
     "name": "mongo-snippets-for-node-js",
     "displayName": "Mongo Snippets for Node-js",
-    "description": "Provides snippets for Mongo DB connection, queries and boilerplate code, for Node-js projects",
+    "description": "Provides snippets and boilerplate code for Mongo connection and basic queries - for Node-js projects",
     "repository": {
         "type": "git",
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS"
@@ -11,7 +11,8 @@
         "NoSQL",
         "javascript",
         "node",
-        "snippets"
+        "snippets",
+        "Mongo"
     ],
     "version": "1.0.7",
     "publisher": "roerohan",
