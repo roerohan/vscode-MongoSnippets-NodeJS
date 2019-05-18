@@ -68,11 +68,11 @@ npm install mongoose
 
 ## Issues
 
-This extension is still being tested, please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/issues)
+Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/issues).
 
 ## Release Notes
 
-These are the release notes for mongo-snippets-for-node-js. Checkout [CHANGELOG](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/CHANGELOG.md) for more.
+These are the release notes for mongo-snippets-for-node-js.
 
 ### 1.0.7
 
