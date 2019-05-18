@@ -59,7 +59,9 @@ The following are some of the snippets that can be generated with this extension
 
 ## Requirements
 
-- mongoose library from npm is required.
+> There are no dependencies for this extension to work, but it provides mongoose-js snippets, hence mongoose should be installed.
+
+- mongoose library from npm.
 This can be installed by executing the following command in the folder where 'package.json' is present.
 ```bash
 npm install mongoose
