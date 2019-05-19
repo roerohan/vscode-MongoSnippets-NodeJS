@@ -60,11 +60,50 @@ function activate(context) {
 		]);
 
 	});
-	
-	const provider = vscode.languages.registerCompletionItemProvider(
+
+	// to complete modelnames
+	const provider1 = vscode.languages.registerCompletionItemProvider(
+		'javascript',
+		{
+			provideCompletionItems() {
+				// get modelnames
+				
+				return [
+					new vscode.CompletionItem('text1', vscode.CompletionItemKind.Method),
+					new vscode.CompletionItem('text2', vscode.CompletionItemKind.Method),
+				]
+			}
+		}
+	)
+
+	// to complete after model names
+	const provider2 = vscode.languages.registerCompletionItemProvider(
 		'javascript',
 		{
 			provideCompletionItems(document, position) {
+				// get modelnames
+
+				let linePrefix = document.lineAt(position).text.substr(0, position.character);
+				if (!linePrefix.endsWith('modelname.')) {
+					return undefined;
+				}
+				return [
+					new vscode.CompletionItem('text1', vscode.CompletionItemKind.Method),
+					new vscode.CompletionItem('text2', vscode.CompletionItemKind.Method),
+				]
+			}
+		},
+		'.'
+	)
+	
+	// to complete within {}
+	const provider3 = vscode.languages.registerCompletionItemProvider(
+		'javascript',
+		{
+			provideCompletionItems(document, position) {
+
+				// getModelNames()
+				
 				let startPos = document.positionAt(0);
 				
 				let range = new vscode.Range(startPos, position);
@@ -85,7 +124,7 @@ function activate(context) {
 	context.subscriptions.push(mongooseDocs);
 	context.subscriptions.push(extensionDocs);
 	context.subscriptions.push(setup);
-	context.subscriptions.push(provider);
+	context.subscriptions.push(provider1, provider2, provider3);
 }
 exports.activate = activate;
 
