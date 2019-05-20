@@ -6,6 +6,7 @@ const vscode = require('vscode');
 const path = require('path');
 
 const AppModel = require('./appModel').AppModel;
+const getModelNames = require('./getModelNames').getModelsFromFiles;
 // @ts-ignore
 const precode = require("./precode.json");
 
@@ -61,36 +62,45 @@ function activate(context) {
 
 	});
 
+	var modelnames;
+	getModelNames().then(names=>{
+		modelnames=names;
+	})
+	
 	// to complete modelnames
 	const provider1 = vscode.languages.registerCompletionItemProvider(
 		'javascript',
 		{
 			provideCompletionItems() {
-				// get modelnames
-				
-				return [
-					new vscode.CompletionItem('text1', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('text2', vscode.CompletionItemKind.Method),
-				]
+				var items = [];
+				modelnames.forEach(modelname => {
+					let complete = new vscode.CompletionItem(modelname);
+					complete.commitCharacters = ['.'];
+					complete.kind = vscode.CompletionItemKind.Field;
+					complete.detail = `Press '.' to get ${modelname}`;
+					complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Model Name Suggestion \`${modelname}.\`**`);
+					items.push(complete);
+				});
+				return items;
 			}
 		}
 	)
 
-	// to complete after model names
+	// to complete after `modelnames.`
 	const provider2 = vscode.languages.registerCompletionItemProvider(
 		'javascript',
 		{
 			provideCompletionItems(document, position) {
-				// get modelnames
-
-				let linePrefix = document.lineAt(position).text.substr(0, position.character);
-				if (!linePrefix.endsWith('modelname.')) {
-					return undefined;
-				}
-				return [
-					new vscode.CompletionItem('text1', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('text2', vscode.CompletionItemKind.Method),
-				]
+				var items = [];
+				modelnames.forEach((modelname)=>{
+					let linePrefix = document.lineAt(position).text.substr(0, position.character);
+					if (!linePrefix.endsWith(`${modelname}.`)) {
+						return undefined;
+					}
+					let complete = new vscode.CompletionItem("name"); // TODO
+					items.push(complete);
+				})
+				return items
 			}
 		},
 		'.'
@@ -102,7 +112,7 @@ function activate(context) {
 		{
 			provideCompletionItems(document, position) {
 
-				// getModelNames()
+				// get field names
 				
 				let startPos = document.positionAt(0);
 				
@@ -114,8 +124,7 @@ function activate(context) {
 					return undefined
 
 				return [
-					new vscode.CompletionItem('text1', vscode.CompletionItemKind.Method),
-					new vscode.CompletionItem('text2', vscode.CompletionItemKind.Method),
+					new vscode.CompletionItem('name', vscode.CompletionItemKind.Field), // TODO
 				];
 			}
 		}

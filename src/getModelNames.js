@@ -1,40 +1,71 @@
 var fs = require('fs');
 var path = require('path');
 
-function getFilesInModels(){
-    if(!fs.existsSync(path.join('models')))
+function getFilesInModels() {
+    if (!fs.existsSync(path.join('models'))) {
         return undefined;
-
-    let files = fs.readdirSync(path.join('models'));
-    return files;
+    } else {
+        var files = fs.readdirSync(path.join('models'));
+        return files;
+    }
 }
 
-function getModelsFromFiles(){
-    var files = getFilesInModels();
-    if(!files)
-        return [];
-    
-    var modelnames = [];
-    files.forEach((file) => {
-        fs.readFile(file, 'utf-8', (err, data) => {
-            if (err) throw err;
 
-            var re = /mongoose.model\s*\(\s*(["'`]).+(?:(?=(\\?))\2.)*?\1.*\)/gi;
-            var firstmatches = data.match(re)
-
-            var re2 = /(["'`])(?:(?=(\\?))\2.)*?\1/;
-
-            firstmatches.forEach((firstmatch) => {
-
-                let match = firstmatch.match(re2)[0];
-                modelnames.push(match.substring(1, match.length-1));
-
+function getModelsFromFiles() {
+    return new Promise((resolve, reject) => {
+        var files = getFilesInModels();
+        if (!files) {
+            return undefined;
+        } else {
+            var promises = [];
+            var promises2 = [];
+            var promises3 = [];
+            files.forEach((file) => {
+                promises.push(new Promise((resolve, reject) => {
+                    fs.readFile(path.join('models/' + file), 'utf-8', (err, data) => {
+                        if (err) reject(err);
+                        if (!data) reject('No Data');
+                        else resolve(data);
+                    });
+                }));
             });
-        });
+            var re = /mongoose.model\s*\(\s*(["'`]).+(?:(?=(\\?))\2.)*?\1.*\)/gi;
+            var re2 = /(["'`])(?:(?=(\\?))\2.)*?\1/;
+            Promise.all(promises)
+                .then((data) => {
+                    data.forEach((data) => {
+                        promises2.push(new Promise((resolve, reject)=>{
+                            let first = data.match(re);
+                            if (first) {
+                                first.forEach((s) => {
+                                    promises3.push(new Promise((resolve, reject) => {
+                                        let second = s.match(re2)[0].split('\'')[1];
+                                        if (second) {
+                                            resolve(second);
+                                        } else
+                                            reject(second);
+                                    }));
+                                });
+                                Promise.all(promises3).then((names) => {
+                                    resolve(names);
+                                }).catch(err => {
+                                    reject(err);
+                                });
+                            }
+                        }));
+                    });
+                    Promise.all(promises3).then((names)=>{
+                        resolve(names);
+                    }).catch((err)=>{
+                        reject(err);
+                    });
+                })
+                .catch(err => {
+                    reject(err);
+                });
+        }
     });
-    return modelnames;
-};
-
+}
 
 module.exports = {
     getModelsFromFiles
