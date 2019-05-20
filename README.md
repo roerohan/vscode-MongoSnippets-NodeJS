@@ -1,6 +1,11 @@
-# mongo-snippets-for-node-js
+# Mongo Snippets for Node-js
 
-This Visual Studio Code extension generates MongoDB code snippets for Node-js projects using mongoose library from npm.
+> vscode-id: roerohan.mongo-snippets-for-node-js
+
+This Visual Studio Code extension is built for Node-js projects. It provides:
+- **Code Snippets** for MongoDB Connection and queries
+- Command Palette Feature to **Set up Boilerplate Code**.
+- **Completion Suggestions** for Mongoose Models.
 
 ![example](./static/example.gif)
 
@@ -23,6 +28,14 @@ This Visual Studio Code extension generates MongoDB code snippets for Node-js pr
 - Mongo Snippets: Refer to Mongoose Documentation
 - Mongo Snippets: Refer to Extension Documentation
 - Mongo Snippets: Set up Mongo Boilerplate Code
+
+### **Completion Suggestions:**
+
+> Note: This is a `beta` feature, updates will be coming soon
+
+- Model name suggestions:
+   * First it identifies the names of the models in a folder named models (if any)
+   * It stores the modelnames and provides completion suggestions when you start typing the name of a model.
 
 ### **Snippets:**
 
@@ -76,6 +89,10 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### 1.0.8
+
+* Feature: Completion Suggestions for model names (`beta`)
+
 ### 1.0.7
 
 * Feature: Improved boilerplate code, added better README gif.
@@ -84,17 +101,6 @@ These are the release notes for mongo-snippets-for-node-js.
 ### 1.0.6 and 1.0.5
 
 * Bug Fix: Command Palette Extensions and other minor bugs
-
-### 1.0.4
-
-* Bug Fix: Small bugs and indentations
-* Feat: Pull Request Template
-- Feature Enhancement: Command Palette:
-   * **Mongo Snippets: Refer to Mongoose Documentation**
-   * **Mongo Snippets: Refer to Extension Documentation**
-   * **Mongo Snippets: Set up Mongo Boilerplate Code**
-
-For more: [CHANGELOG](./CHANGELOG.md#v1.0.4)
 
 -----------------------------------------------------------------------------------------------------------
 
