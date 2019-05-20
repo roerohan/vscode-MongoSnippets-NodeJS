@@ -12,7 +12,9 @@
         "javascript",
         "node",
         "snippets",
-        "Mongo"
+        "Mongo",
+        "mongoose-js",
+        "mongoose"
     ],
     "version": "1.0.8",
     "publisher": "roerohan",
