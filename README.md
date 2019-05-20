@@ -89,6 +89,11 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### 1.0.9
+
+* Feature: New logo and gallery banner
+* Bug fixes: Description
+
 ### 1.0.8
 
 * Feature: Completion Suggestions for model names (`beta`)
@@ -97,10 +102,6 @@ These are the release notes for mongo-snippets-for-node-js.
 
 * Feature: Improved boilerplate code, added better README gif.
 * Bugs fixed: .vscodeignore and .gitignore made better
-
-### 1.0.6 and 1.0.5
-
-* Bug Fix: Command Palette Extensions and other minor bugs
 
 -----------------------------------------------------------------------------------------------------------
 

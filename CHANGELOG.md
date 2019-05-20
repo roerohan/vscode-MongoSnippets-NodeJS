@@ -7,6 +7,11 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Suggested features
 - Issues (if any)
 
+### v1.0.9
+- Bug Fix: Description mistake, improved description
+- New Icon Added
+Features: Same as [v1.0.8](#v1.0.8)
+
 ## v1.0.8
 - Feature Enhancement:
    * **Suggestions for model names in './models' directory (if any) in the only the directory containing the models folder**
