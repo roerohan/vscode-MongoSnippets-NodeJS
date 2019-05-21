@@ -1,11 +1,14 @@
 var fs = require('fs');
 var path = require('path');
+var vscode = require('vscode');
+
+const rootPath = vscode.workspace.rootPath;
 
 function getFilesInModels() {
-    if (!fs.existsSync(path.join('models'))) {
+    if (!fs.existsSync(path.join(rootPath, 'models'))) {
         return undefined;
     } else {
-        var files = fs.readdirSync(path.join('models'));
+        var files = fs.readdirSync(path.join(rootPath,'models'));
         return files;
     }
 }
@@ -22,7 +25,7 @@ function getModelsFromFiles() {
             var promises3 = [];
             files.forEach((file) => {
                 promises.push(new Promise((resolve, reject) => {
-                    fs.readFile(path.join('models/' + file), 'utf-8', (err, data) => {
+                    fs.readFile(path.join(rootPath, 'models', file), 'utf-8', (err, data) => {
                         if (err) reject(err);
                         if (!data) reject('No Data');
                         else resolve(data);
