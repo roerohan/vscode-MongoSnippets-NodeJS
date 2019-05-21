@@ -64,7 +64,10 @@ function activate(context) {
 
 	var modelnames = [];
 	getModelNames().then((names)=>{
-		modelnames = names;
+		names.forEach(name => {
+			modelnames = modelnames.concat(name.split(','));
+		});
+		console.log(modelnames);
 	}).catch(err=>{
 		console.log(err+ "\nError");
 	})
@@ -90,7 +93,7 @@ function activate(context) {
 					complete.commitCharacters = ['.'];
 					complete.kind = vscode.CompletionItemKind.Field;
 					complete.detail = `Press '.' to get ${modelname}`;
-					complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Model Name Suggestion \`${modelname}.\`**`);
+					complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`);
 					items.push(complete);
 				});
 				return items;

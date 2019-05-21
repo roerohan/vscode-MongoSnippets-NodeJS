@@ -30,37 +30,23 @@ function getModelsFromFiles() {
                     });
                 }));
             });
-            var re = /[Mm]ongoose.model\s*\(\s*(["'`]).+(?:(?=(\\?))\2.)*?\1.*\)/gi;
-            var re2 = /(["'`])(?:(?=(\\?))\2.)*?\1/gi;
+            var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
             Promise.all(promises)
                 .then((data) => {
                     data.forEach((data) => {
                         promises2.push(new Promise((resolve)=>{
                             let first = data.match(re);
                             if (first) {
-                                first.forEach((s) => {
-                                    promises3.push(new Promise((resolve) => {
-                                        let sec = s.match(re2)[0]
-                                        let second = sec.substring(1, sec.length - 1);
-                                        if (second) {
-                                            resolve(second);
-                                        }
-                                        else resolve('');
-                                    }));
-                                });
-                                Promise.all(promises3).then((names) => {
-                                    resolve(names);
-                                }).catch(err => {
-                                    console.log(err);
-                                });
+                                resolve(first.join(','));
                             }
                             else resolve('');
                         }));
                     });
-                    Promise.all(promises3).then((names)=>{
+                    Promise.all(promises2).then((names)=>{
                         var modelnames = names.filter((el)=>{
                             return el!=null && el!='';
                         })
+                        console.log(modelnames);
                         resolve(modelnames);
                     }).catch((err)=>{
                         console.log(err);
