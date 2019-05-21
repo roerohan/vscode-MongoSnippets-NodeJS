@@ -8,6 +8,10 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Issues (if any)
 - Click modelnames after displaying them takes you to their origin file
 
+### v1.0.12
+
+* Bug Fixes: See existing models command activates extension
+
 ### v1.0.11
 - Feature: 
    * Models reload within 5 seconds after they are changed or new models are added

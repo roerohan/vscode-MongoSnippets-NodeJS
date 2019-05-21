@@ -16,7 +16,7 @@
         "mongoose-js",
         "mongoose"
     ],
-    "version": "1.0.11",
+    "version": "1.0.12",
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
@@ -30,6 +30,7 @@
         "onCommand:extension.mongoosejsDocs",
         "onCommand:extension.extensionDocs",
         "onCommand:extension.setup",
+        "onCommand:extension.seeModels",
         "onLanguage:javascript"
 	],
     "main": "./src/extension.js",
