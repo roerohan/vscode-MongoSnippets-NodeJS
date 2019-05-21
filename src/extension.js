@@ -63,14 +63,18 @@ function activate(context) {
 	});
 
 	var modelnames = [];
-	getModelNames().then((names)=>{
-		names.forEach(name => {
-			modelnames = modelnames.concat(name.split(','));
-		});
-		console.log(modelnames);
-	}).catch(err=>{
-		console.log(err+ "\nError");
-	})
+	setInterval(()=>{
+		getModelNames().then((names)=>{
+			let n = [];
+			names.forEach(name => {
+				n = n.concat(name.split(','));
+			});
+			modelnames = n;
+			console.log(modelnames);
+		}).catch(err=>{
+			console.log(err+ "\nError");
+		})
+	}, 5000);
 
 	let seeModels = vscode.commands.registerCommand('extension.seeModels', ()=>{
 		if(modelnames)
