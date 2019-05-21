@@ -36,7 +36,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 > Note: This is a `beta` feature, updates will be coming soon
 
 - Model name suggestions:
-   * First it identifies the names of the models in a folder named models (if any)
+   * First it identifies the names of the models in a folder named models (if any) in the `workspace root directory`.
    * It stores the modelnames and provides completion suggestions when you start typing the name of a model.
 
 ### **Snippets:**
@@ -81,6 +81,9 @@ The following are some of the snippets that can be generated with this extension
 - In files where models are described, to be able to detect the models, mongoose must be imported as `mongoose` only. For example,
    * const mongoose = require('mongoose');
    * import mongoose from 'mongoose';
+
+- The model must be created as follows:
+   * var \<variablename\> = mongoose.model('\<modelName\>', \<modelSchema\>)
 
 - Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
 
