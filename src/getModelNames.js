@@ -31,7 +31,7 @@ function getModelsFromFiles() {
                 }));
             });
             var re = /[Mm]ongoose.model\s*\(\s*(["'`]).+(?:(?=(\\?))\2.)*?\1.*\)/gi;
-            var re2 = /(["'`])(?:(?=(\\?))\2.)*?\1/;
+            var re2 = /(["'`])(?:(?=(\\?))\2.)*?\1/gi;
             Promise.all(promises)
                 .then((data) => {
                     data.forEach((data) => {
