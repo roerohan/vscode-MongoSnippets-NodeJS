@@ -12,6 +12,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 ## Table of Contents:
 
 - [Features](#features)
+- [User's Notes](#user's-notes)
 - [Requirements](#requirements)
 - [Issues](#issues)
 - [Release Notes](#release-notes)
@@ -69,6 +70,18 @@ The following are some of the snippets that can be generated with this extension
 |         1.         | **!mdbfoad** |   MongoDB FindOneAndDelete  | *Model.findOneAndDelete* query |
 |         2.         |  **!mdbdo**  |      MongoDB DeleteOne      |     *Model.deleteOne* query    |
 |         3.         |  **!mdbdm**  |      MongoDB DeleteMany     |    *Model.deleteMany* query    |
+
+## User's Notes
+
+- The boilerplate is set up in the `root directory` of the workspace. In order to set up the boilerplate code in a certain directory, that directory must be open in a new workspace. (Open the folder you want the boilerplate code in with VSCode).
+
+- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names containing models defined in them will not show up as suggestions. 
+
+- In files where models are described, to be able to detect the models, mongoose must be imported as `mongoose` only. For example,
+   * const mongoose = require('mongoose');
+   * import mongoose from 'mongoose';
+
+- Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
 
 ## Requirements
 
