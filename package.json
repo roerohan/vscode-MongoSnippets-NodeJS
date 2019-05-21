@@ -52,6 +52,10 @@
             {
                 "command": "extension.setup",
                 "title": "Mongo Snippets: Set up Mongo Boilerplate Code"
+            },
+            {
+                "command": "extension.seeModels",
+                "title": "Mongo Snippets: See Existing Models"
             }
         ]
     },

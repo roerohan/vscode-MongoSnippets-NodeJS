@@ -29,6 +29,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 - Mongo Snippets: Refer to Mongoose Documentation
 - Mongo Snippets: Refer to Extension Documentation
 - Mongo Snippets: Set up Mongo Boilerplate Code
+- Mongo Snippets: Show Existing Models
 
 ### **Completion Suggestions:**
 

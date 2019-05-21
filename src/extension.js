@@ -6,7 +6,7 @@ const vscode = require('vscode');
 const path = require('path');
 
 const AppModel = require('./appModel').AppModel;
-const getModelNames = require('./getModelNames').getModelsFromFiles;
+var getModelNames = require('./getModelNames').getModelsFromFiles;
 // @ts-ignore
 const precode = require("./precode.json");
 
@@ -62,14 +62,26 @@ function activate(context) {
 
 	});
 
-	var modelnames;
-	getModelNames().then(names=>{
-		modelnames=names;
+	var modelnames = [];
+	getModelNames().then((names)=>{
+		modelnames = names;
+	}).catch(err=>{
+		console.log(err+ "\nError");
 	})
+
+	let seeModels = vscode.commands.registerCommand('extension.seeModels', ()=>{
+		if(modelnames)
+		{
+			vscode.window.showQuickPick(modelnames);
+		}
+		else{
+			vscode.window.showErrorMessage("Models not found or still loading...")
+		}
+	});
 	
 	// to complete modelnames
 	const provider1 = vscode.languages.registerCompletionItemProvider(
-		'javascript',
+		{scheme:'file', language:'javascript'},
 		{
 			provideCompletionItems() {
 				var items = [];
@@ -88,7 +100,7 @@ function activate(context) {
 
 	// to complete after `modelnames.`
 	const provider2 = vscode.languages.registerCompletionItemProvider(
-		'javascript',
+		{scheme:'file', language:'javascript'},
 		{
 			provideCompletionItems(document, position) {
 				var items = [];
@@ -108,7 +120,7 @@ function activate(context) {
 	
 	// to complete within {}
 	const provider3 = vscode.languages.registerCompletionItemProvider(
-		'javascript',
+		{scheme:'file', language:'javascript'},
 		{
 			provideCompletionItems(document, position) {
 
@@ -133,6 +145,7 @@ function activate(context) {
 	context.subscriptions.push(mongooseDocs);
 	context.subscriptions.push(extensionDocs);
 	context.subscriptions.push(setup);
+	context.subscriptions.push(seeModels);
 	context.subscriptions.push(provider1, provider2, provider3);
 }
 exports.activate = activate;
