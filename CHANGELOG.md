@@ -6,8 +6,13 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Suggested features
 - Issues (if any)
-- Reload modelnames upon adding or removing files
 - Click modelnames after displaying them takes you to their origin file
+
+### v1.0.11
+- Feature: 
+   * Models reload within 5 seconds after they are changed or new models are added
+   * Mongo Snippets: Show Existing Models
+- Bug fixes: Code optimization, changed regex.
 
 ### v1.0.10
 
