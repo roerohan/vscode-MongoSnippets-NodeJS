@@ -6,11 +6,40 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Suggested features
 - Issues (if any)
+- Reload modelnames upon adding or removing files
+- Click modelnames after displaying them takes you to their origin file
+
+### v1.0.10
+
+- Bug Fix: Fixes in model generation promises
+- Feature Enhancement: 
+   * Mongo Snippets: See Existing Models
+
+### **Command Palette:**
+
+> Note: Ctrl+Shift+P or Command+Shift+P opens Command Palette in VSCode.
+
+- Mongo Snippets: Refer to Mongoose Documentation
+- Mongo Snippets: Refer to Extension Documentation
+- Mongo Snippets: Set up Mongo Boilerplate Code
+- Mongo Snippets: Show Existing Models
+
+### **Completion Suggestions:**
+
+> Note: This is a `beta` feature, updates will be coming soon
+
+- Model name suggestions:
+   * First it identifies the names of the models in a folder named models (if any)
+   * It stores the modelnames and provides completion suggestions when you start typing the name of a model.
+
+### **Snippets:**
+
+Same as [v1.0.8](#v1.0.8)
 
 ### v1.0.9
 - Bug Fix: Description mistake, improved description
-- New Icon Added
-Features: Same as [v1.0.8](#v1.0.8)
+- Feature Enhancement: New Icon Added
+- Features: Same as [v1.0.8](#v1.0.8)
 
 ## v1.0.8
 - Feature Enhancement:

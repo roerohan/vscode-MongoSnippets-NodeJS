@@ -29,6 +29,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 - Mongo Snippets: Refer to Mongoose Documentation
 - Mongo Snippets: Refer to Extension Documentation
 - Mongo Snippets: Set up Mongo Boilerplate Code
+- Mongo Snippets: Show Existing Models
 
 ### **Completion Suggestions:**
 
@@ -75,7 +76,11 @@ The following are some of the snippets that can be generated with this extension
 
 - The boilerplate is set up in the `root directory` of the workspace. In order to set up the boilerplate code in a certain directory, that directory must be open in a new workspace. (Open the folder you want the boilerplate code in with VSCode).
 
-- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names containing models defined in them will not show up as suggestions.
+- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names containing models defined in them will not show up as suggestions. 
+
+- In files where models are described, to be able to detect the models, mongoose must be imported as `mongoose` only. For example,
+   * const mongoose = require('mongoose');
+   * import mongoose from 'mongoose';
 
 - Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
 
