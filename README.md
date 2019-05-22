@@ -27,9 +27,17 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 > Note: Ctrl+Shift+P or Command+Shift+P opens Command Palette in VSCode.
 
 - Mongo Snippets: Refer to Mongoose Documentation
+   * Opens the [Mongoose Documentation](https://mongoosejs.com/docs/api.html#Model) on a web browser.
+
 - Mongo Snippets: Refer to Extension Documentation
+   * Opens the [Repository](https://github.com/roerohan/vscode-MongoSnippets-NodeJS) on a web browser.
+
 - Mongo Snippets: Set up Mongo Boilerplate Code
+   * Sets up folders named `routes` and `models` if they do not exist, in the workspace root directory with files containing boilerplate.
+
 - Mongo Snippets: Show Existing Models
+   * Shows a list of names of models present in the `models` folder in the `workspace root directory`.
+   * Highlights the model definition in the file where it had been created.
 
 ### **Completion Suggestions:**
 
@@ -107,6 +115,15 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.0.13
+
+* Feature: 
+   - Changed icon and banner color
+   - Optimized code
+   - Files where the models were created are identified
+   - Modelname selection in quickPick takes to model source
+* Bug fixes: Asynchronous code which might not have worked always
+
 ### v1.0.12
 
 * Bug Fixes: See existing models command activates extension
@@ -117,15 +134,6 @@ These are the release notes for mongo-snippets-for-node-js.
 - Models reload within 5 seconds after they are changed or new models are added
 - Mongo Snippets: Show Existing Models
 * Bug fixes: Code optimization
-
-### 1.0.10
-
-* Feature: New logo and gallery banner
-* Bug fixes: Description
-
-### 1.0.9
-
-* Feature: Completion Suggestions for model names (`beta`)
 
 -----------------------------------------------------------------------------------------------------------
 

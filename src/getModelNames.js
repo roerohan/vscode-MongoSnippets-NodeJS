@@ -20,35 +20,49 @@ function getModelsFromFiles() {
         } else {
             var promises = [];
             var promises2 = [];
-            var promises3 = [];
             files.forEach((file) => {
                 promises.push(new Promise((resolve) => {
                     fs.readFile(path.join(rootPath, 'models', file), 'utf-8', (err, data) => {
-                        if (err) console.log(err);
-                        if (!data) console.log("No Data");
-                        else resolve(data);
+                        if (err) {
+                            console.log(err);
+                            resolve({
+                                "data": '',
+                                "file": file
+                            });
+                        }
+                        if (!data) {
+                            console.log(`No Data in file ${file}`);
+                            resolve({
+                                "data": '',
+                                "file": file
+                            });
+                        } else resolve({
+                            "data": data,
+                            "file": file
+                        });
                     });
                 }));
             });
             var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
             Promise.all(promises)
-                .then((data) => {
-                    data.forEach((data) => {
-                        promises2.push(new Promise((resolve)=>{
-                            let first = data.match(re);
+                .then((objects) => {
+                    objects.forEach((object) => {
+                        promises2.push(new Promise((resolve) => {
+                            let first = object["data"].match(re);
                             if (first) {
-                                resolve(first.join(','));
-                            }
-                            else resolve('');
+                                resolve({
+                                    "name": first.join(','),
+                                    "file": object.file
+                                });
+                            } else resolve('');
                         }));
                     });
-                    Promise.all(promises2).then((names)=>{
-                        var modelnames = names.filter((el)=>{
-                            return el!=null && el!='';
+                    Promise.all(promises2).then((objects) => {
+                        var modelobjects = objects.filter((el) => {
+                            return el != null && el.name != null && el.file != null;
                         })
-                        console.log(modelnames);
-                        resolve(modelnames);
-                    }).catch((err)=>{
+                        resolve(modelobjects);
+                    }).catch((err) => {
                         console.log(err);
                     });
                 })
@@ -58,7 +72,6 @@ function getModelsFromFiles() {
         }
     });
 }
-
 module.exports = {
     getModelsFromFiles
 }

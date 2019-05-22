@@ -9,8 +9,7 @@ const AppModel = require('./appModel').AppModel;
 var getModelNames = require('./getModelNames').getModelsFromFiles;
 // @ts-ignore
 const precode = require("./precode.json");
-
-
+var repeatTime = 0;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
@@ -39,7 +38,7 @@ function activate(context) {
 
 	let setup = vscode.commands.registerCommand('extension.setup', () => {
 		let folderPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-		
+
 		let indexContent = precode["index"].join("\n");
 		let dbContent = precode["connect"].join("\n");
 		let userModelContent = precode["user model"].join("\n");
@@ -50,68 +49,96 @@ function activate(context) {
 		]);
 
 		appModel.makefiles([
-			path.join(folderPath, "routes/index.js"),
-			path.join(folderPath, "models/db.js"),
-			path.join(folderPath, "models/user.model.js")
-		],
-		[
-			indexContent,
-			dbContent,
-			userModelContent
-		]);
+				path.join(folderPath, "routes/index.js"),
+				path.join(folderPath, "models/db.js"),
+				path.join(folderPath, "models/user.model.js")
+			],
+			[
+				indexContent,
+				dbContent,
+				userModelContent
+			]);
 
 	});
 
 	var modelnames = [];
-	setInterval(()=>{
-		getModelNames().then((names)=>{
+	var models = {};
+
+	setInterval(() => {
+		getModelNames().then((names) => {
 			let n = [];
+			let m = {};
 			names.forEach(name => {
-				n = n.concat(name.split(','));
+				let temp = name["name"].split(',');
+				temp.forEach((t, i) => {
+					m[t] = name.file;
+					temp[i] = {
+						label: `$(star-delete) ${t}`,
+						detail: `$(file-code) Defined in ${name.file}, select to open.`,
+					};
+				});
+				n = n.concat(temp);
 			});
 			modelnames = n;
-			console.log(modelnames);
-		}).catch(err=>{
-			console.log(err+ "\nError");
-		})
-	}, 5000);
+			models = m;
+		}).catch(err => {
+			console.log(err + "\nError");
+		});
+	}, repeatTime); // Executes without waiting for the first time
 
-	let seeModels = vscode.commands.registerCommand('extension.seeModels', ()=>{
-		if(modelnames)
-		{
-			vscode.window.showQuickPick(modelnames);
-		}
-		else{
-			vscode.window.showErrorMessage("Models not found or still loading...")
+	repeatTime = 5000; // Set interval to 5 seconds
+
+	let seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
+		console.log(modelnames);
+		if (modelnames != null && modelnames.length > 0) {
+			var val = await vscode.window.showQuickPick(modelnames, {
+				placeHolder: 'Select a model to open it\'s source file...'
+			});
+			if (!val)
+				return;
+			var filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val]);
+			vscode.workspace.openTextDocument(filePath).then(async (doc) => {
+				vscode.window.showTextDocument(doc).then((editor) => {
+					var text = doc.getText();
+					let match = RegExp(val).exec(text);
+					let startPos = doc.positionAt(match.index);
+					let endPos = doc.positionAt(match.index + match[0].length);
+					editor.selection = new vscode.Selection(startPos, endPos);
+					editor.revealRange(editor.selection, vscode.TextEditorRevealType.Default);
+				});
+			});
+		} else {
+			vscode.window.showWarningMessage("Looking for models...");
 		}
 	});
-	
+
 	// to complete modelnames
-	const provider1 = vscode.languages.registerCompletionItemProvider(
-		{scheme:'file', language:'javascript'},
-		{
-			provideCompletionItems() {
-				var items = [];
-				modelnames.forEach(modelname => {
-					let complete = new vscode.CompletionItem(modelname);
-					complete.commitCharacters = ['.'];
-					complete.kind = vscode.CompletionItemKind.Field;
-					complete.detail = `Press '.' to get ${modelname}`;
-					complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`);
-					items.push(complete);
-				});
-				return items;
-			}
+	const provider1 = vscode.languages.registerCompletionItemProvider({
+		scheme: 'file',
+		language: 'javascript'
+	}, {
+		provideCompletionItems() {
+			var items = [];
+			modelnames.forEach(modelname => {
+				let complete = new vscode.CompletionItem(modelname);
+				complete.commitCharacters = ['.'];
+				complete.kind = vscode.CompletionItemKind.Field;
+				complete.detail = `Press '.' to get ${modelname}`;
+				complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`);
+				items.push(complete);
+			});
+			return items;
 		}
-	)
+	})
 
 	// to complete after `modelnames.`
-	const provider2 = vscode.languages.registerCompletionItemProvider(
-		{scheme:'file', language:'javascript'},
-		{
+	const provider2 = vscode.languages.registerCompletionItemProvider({
+			scheme: 'file',
+			language: 'javascript'
+		}, {
 			provideCompletionItems(document, position) {
 				var items = [];
-				modelnames.forEach((modelname)=>{
+				modelnames.forEach((modelname) => {
 					let linePrefix = document.lineAt(position).text.substr(0, position.character);
 					if (!linePrefix.endsWith(`${modelname}.`)) {
 						return undefined;
@@ -119,35 +146,36 @@ function activate(context) {
 					let complete = new vscode.CompletionItem("name"); // TODO
 					items.push(complete);
 				})
-				return items
+				return items;
 			}
 		},
 		'.'
 	)
-	
+
 	// to complete within {}
-	const provider3 = vscode.languages.registerCompletionItemProvider(
-		{scheme:'file', language:'javascript'},
-		{
-			provideCompletionItems(document, position) {
+	const provider3 = vscode.languages.registerCompletionItemProvider({
+		scheme: 'file',
+		language: 'javascript'
+	}, {
+		provideCompletionItems(document, position) {
 
-				// get field names
-				
-				let startPos = document.positionAt(0);
-				
-				let range = new vscode.Range(startPos, position);
-				let preText = document.getText(range);
-				let openbraces = preText.split('{').length - 1;
-				let closedbraces = preText.split('}').length - 1;
-				if(openbraces <= closedbraces)
-					return undefined
+			// get field names
 
-				return [
-					new vscode.CompletionItem('name', vscode.CompletionItemKind.Field), // TODO
-				];
-			}
+			let startPos = document.positionAt(0);
+
+			let range = new vscode.Range(startPos, position);
+			let preText = document.getText(range);
+			let openbraces = preText.split('{').length - 1;
+			let closedbraces = preText.split('}').length - 1;
+			if (openbraces <= closedbraces)
+				return undefined
+
+			return [
+				new vscode.CompletionItem('name', vscode.CompletionItemKind.Field), // TODO
+				new vscode.CompletionItem('password', vscode.CompletionItemKind.Field),
+			];
 		}
-	);
+	});
 
 	context.subscriptions.push(mongooseDocs);
 	context.subscriptions.push(extensionDocs);

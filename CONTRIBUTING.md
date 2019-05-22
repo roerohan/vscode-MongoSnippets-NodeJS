@@ -25,7 +25,7 @@ fix: Description # if a bug is fixed
 ```
 ### Issues
 
-> **Note:** Please check already solved issues for your answer before filing a new one.
+> **Note:** Please do not file an issue to ask a question. You can ask questions [here](https://marketplace.visualstudio.com/items?itemName=roerohan.mongo-snippets-for-node-js&ssr=false#qna).
 ```bash
 update: Description # if an update is required for a feature
 bug: Description # if there is a bug in a particular feature

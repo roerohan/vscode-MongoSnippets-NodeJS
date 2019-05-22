@@ -6,7 +6,36 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Suggested features
 - Issues (if any)
-- Click modelnames after displaying them takes you to their origin file
+- Recognition for field names in every model
+
+### v1.0.13
+
+- Feature: 
+   * Changed icon and banner color
+   * Optimized code
+   * Files where the models were created are identified
+   * Modelname selection in quickPick takes to model source
+- Bug fixes: Asynchronous code which might not have worked always
+- Features:
+
+### **Command Palette:**
+
+> Note: Ctrl+Shift+P or Command+Shift+P opens Command Palette in VSCode.
+
+- Mongo Snippets: Refer to Mongoose Documentation
+   * Opens the [Mongoose Documentation](https://mongoosejs.com/docs/api.html#Model) on a web browser.
+
+- Mongo Snippets: Refer to Extension Documentation
+   * Opens the [Repository](https://github.com/roerohan/vscode-MongoSnippets-NodeJS) on a web browser.
+
+- Mongo Snippets: Set up Mongo Boilerplate Code
+   * Sets up folders named `routes` and `models` if they do not exist, in the workspace root directory with files containing boilerplate.
+
+- Mongo Snippets: Show Existing Models
+   * Shows a list of names of models present in the `models` folder in the `workspace root directory`.
+   * Highlights the model definition in the file where it had been created.
+
+[Remaining features](#v1.0.8) are unchanged.
 
 ### v1.0.12
 
