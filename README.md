@@ -100,14 +100,14 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 - The boilerplate is set up in the `root directory` of the workspace. In order to set up the boilerplate code in a certain directory, that directory must be open in a new workspace. (Open the folder you want the boilerplate code in with VSCode).
 
-- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names containing models defined in them will not show up as suggestions. 
+- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names containing models defined in them will not show up as suggestions.
 
 - In files where models are described, to be able to detect the models, mongoose must be imported as `mongoose` only. For example,
    * const mongoose = require('mongoose');
    * import mongoose from 'mongoose';
 
 - The model must be created as follows:
-   * var \<variablename\> = mongoose.model('\<modelName\>', \<modelSchema\>)
+   * var variablename = mongoose.model('modelName', modelSchema)
 
 - Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
 
@@ -117,7 +117,7 @@ These are the release notes for mongo-snippets-for-node-js.
 
 ### v1.0.13
 
-* Feature: 
+* Feature:
    - Changed icon and banner color
    - Optimized code
    - Files where the models were created are identified
@@ -130,7 +130,7 @@ These are the release notes for mongo-snippets-for-node-js.
 
 ### v1.0.11
 
-* Feature: 
+* Feature:
 - Models reload within 5 seconds after they are changed or new models are added
 - Mongo Snippets: Show Existing Models
 * Bug fixes: Code optimization
