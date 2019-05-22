@@ -16,7 +16,7 @@
         "mongoose-js",
         "mongoose"
     ],
-    "version": "1.0.12",
+    "version": "1.0.13",
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
@@ -67,7 +67,7 @@
         "email": "roerohan@gmail.com"
     },
     "galleryBanner": {
-        "color": "#34008D",
+        "color": "#095256",
         "theme": "dark"
     },
 	"scripts": {

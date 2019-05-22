@@ -25,11 +25,17 @@ function getModelsFromFiles() {
                     fs.readFile(path.join(rootPath, 'models', file), 'utf-8', (err, data) => {
                         if (err) {
                             console.log(err);
-                            resolve('');
+                            resolve({
+                                "data": '',
+                                "file": file
+                            });
                         }
                         if (!data) {
-                            console.log("No Data");
-                            resolve('');
+                            console.log(`No Data in file ${file}`);
+                            resolve({
+                                "data": '',
+                                "file": file
+                            });
                         } else resolve({
                             "data": data,
                             "file": file

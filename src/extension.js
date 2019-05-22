@@ -9,8 +9,7 @@ const AppModel = require('./appModel').AppModel;
 var getModelNames = require('./getModelNames').getModelsFromFiles;
 // @ts-ignore
 const precode = require("./precode.json");
-
-
+var repeatTime = 0;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
 
@@ -63,33 +62,53 @@ function activate(context) {
 	});
 
 	var modelnames = [];
-	var models = {}
+	var models = {};
+
 	setInterval(() => {
 		getModelNames().then((names) => {
 			let n = [];
+			let m = {};
 			names.forEach(name => {
 				let temp = name["name"].split(',');
-				temp.forEach(t => {
-					models[t] = name.file;
+				temp.forEach((t, i) => {
+					m[t] = name.file;
+					temp[i] = {
+						label: `$(star-delete) ${t}`,
+						detail: `$(file-code) Defined in ${name.file}, select to open.`,
+					};
 				});
 				n = n.concat(temp);
 			});
 			modelnames = n;
+			models = m;
 		}).catch(err => {
 			console.log(err + "\nError");
-		})
-	}, 5000);
-	
+		});
+	}, repeatTime); // Executes without waiting for the first time
+
+	repeatTime = 5000; // Set interval to 5 seconds
 
 	let seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
-		if (modelnames) {
-			var val = await vscode.window.showQuickPick(modelnames, {placeHolder: 'Select a modelname to open it\'s source file'});
+		console.log(modelnames);
+		if (modelnames != null && modelnames.length > 0) {
+			var val = await vscode.window.showQuickPick(modelnames, {
+				placeHolder: 'Select a model to open it\'s source file...'
+			});
+			if (!val)
+				return;
 			var filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val]);
-			vscode.workspace.openTextDocument(filePath).then(doc => {
-				vscode.window.showTextDocument(doc);
+			vscode.workspace.openTextDocument(filePath).then(async (doc) => {
+				vscode.window.showTextDocument(doc).then((editor) => {
+					var text = doc.getText();
+					let match = RegExp(val).exec(text);
+					let startPos = doc.positionAt(match.index);
+					let endPos = doc.positionAt(match.index + match[0].length);
+					editor.selection = new vscode.Selection(startPos, endPos);
+					editor.revealRange(editor.selection, vscode.TextEditorRevealType.Default);
+				});
 			});
 		} else {
-			vscode.window.showErrorMessage("Models not found or still loading...")
+			vscode.window.showWarningMessage("Looking for models...");
 		}
 	});
 
