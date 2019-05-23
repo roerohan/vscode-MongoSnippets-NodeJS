@@ -115,6 +115,10 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.0.14
+
+
+
 ### v1.0.13
 
 * Feature:
@@ -127,13 +131,6 @@ These are the release notes for mongo-snippets-for-node-js.
 ### v1.0.12
 
 * Bug Fixes: See existing models command activates extension
-
-### v1.0.11
-
-* Feature:
-- Models reload within 5 seconds after they are changed or new models are added
-- Mongo Snippets: Show Existing Models
-* Bug fixes: Code optimization
 
 -----------------------------------------------------------------------------------------------------------
 

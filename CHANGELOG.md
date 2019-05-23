@@ -8,6 +8,8 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Issues (if any)
 - Recognition for field names in every model
 
+### v1.0.14
+
 ### v1.0.13
 
 - Feature: 
