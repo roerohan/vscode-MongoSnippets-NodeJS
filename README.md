@@ -3,7 +3,7 @@
 > vscode-id: roerohan.mongo-snippets-for-node-js
 
 This Visual Studio Code extension is built for Node-js projects. It provides:
-- **Code Snippets** for MongoDB Connection and queries
+- **Code Snippets** for MongoDB Connection and queries.
 - Command Palette Feature to **Set up Boilerplate Code**.
 - **Completion Suggestions** for Mongoose Models.
 

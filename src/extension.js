@@ -71,7 +71,9 @@ function activate(context) {
 			names.forEach(name => {
 				let temp = name["name"].split(',');
 				temp.forEach((t, i) => {
-					m[t] = name.file;
+					m[t] = {
+						'file': name.file
+					};
 					temp[i] = {
 						label: `$(star-delete) ${t}`,
 						detail: `$(file-code) Defined in ${name.file}, select to open.`,
@@ -89,14 +91,13 @@ function activate(context) {
 	repeatTime = 5000; // Set interval to 5 seconds
 
 	let seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
-		console.log(modelnames);
 		if (modelnames != null && modelnames.length > 0) {
 			var val = await vscode.window.showQuickPick(modelnames, {
 				placeHolder: 'Select a model to open it\'s source file...'
 			});
 			if (!val)
 				return;
-			var filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val]);
+			var filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val['label'].split(' ')[1]]['file']);
 			vscode.workspace.openTextDocument(filePath).then(async (doc) => {
 				vscode.window.showTextDocument(doc).then((editor) => {
 					var text = doc.getText();
