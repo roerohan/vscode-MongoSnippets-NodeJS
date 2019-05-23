@@ -10,6 +10,9 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 ### v1.0.14
 
+- Bug fixes: Direct to source file on select
+
+
 ### v1.0.13
 
 - Feature: 

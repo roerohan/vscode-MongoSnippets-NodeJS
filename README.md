@@ -117,7 +117,7 @@ These are the release notes for mongo-snippets-for-node-js.
 
 ### v1.0.14
 
-
+* Bug fixes: Direct to source file on select
 
 ### v1.0.13
 
