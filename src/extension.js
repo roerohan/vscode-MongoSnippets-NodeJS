@@ -105,7 +105,7 @@ function activate(context) {
 			vscode.workspace.openTextDocument(filePath).then(async (doc) => {
 				vscode.window.showTextDocument(doc).then((editor) => {
 					var text = doc.getText();
-					let match = RegExp(val).exec(text);
+					let match = RegExp(val['label'].split(' ')[1]).exec(text);
 					let startPos = doc.positionAt(match.index);
 					let endPos = doc.positionAt(match.index + match[0].length);
 					editor.selection = new vscode.Selection(startPos, endPos);

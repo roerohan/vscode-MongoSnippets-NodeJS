@@ -119,6 +119,10 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.0.16
+
+* Bug Fixes: Reveal mongoose model declaration upon selection in Command Palette.
+
 ### v1.0.15
 
 * Features: 

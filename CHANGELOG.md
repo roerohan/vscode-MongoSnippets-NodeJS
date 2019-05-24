@@ -7,6 +7,10 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Suggested features
 - Issues (if any)
 
+### v1.0.16
+
+- Bug Fixes: Reveal mongoose model declaration upon selection in Command Palette.
+
 ### v1.0.15
 
 - Features: 
