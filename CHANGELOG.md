@@ -6,7 +6,35 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Suggested features
 - Issues (if any)
-- Recognition for field names in every model
+
+### v1.0.15
+
+- Features: 
+   * Identification of field names of existing models.
+   * Field name suggestions for models, after occurence of `modelname.` and within `{...}`.
+- Bug fixes: Modelname suggestions work again.
+- Features:
+
+### **Command Palette:**
+
+> Note: Ctrl+Shift+P or Command+Shift+P opens Command Palette in VSCode.
+
+- Mongo Snippets: Refer to Mongoose Documentation
+   * Opens the [Mongoose Documentation](https://mongoosejs.com/docs/api.html#Model) on a web browser.
+
+- Mongo Snippets: Refer to Extension Documentation
+   * Opens the [Repository](https://github.com/roerohan/vscode-MongoSnippets-NodeJS) on a web browser.
+
+- Mongo Snippets: Set up Mongo Boilerplate Code
+   * Sets up folders named `routes` and `models` if they do not exist, in the workspace root directory with files containing boilerplate.
+
+- Mongo Snippets: Show Existing Models
+   * Shows a list of names of models present in the `models` folder in the `workspace root directory`.
+   * Highlights the model definition in the file where it had been created.
+   * Suggests field names for models. E.G. if the model `User` has a field `name`, on typing `User.`, `name` is suggested.
+   * Field names are also suggested inside `{...}`.
+
+See remaining features [here](#v1.0.8)
 
 ### v1.0.14
 

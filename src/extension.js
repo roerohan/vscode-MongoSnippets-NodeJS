@@ -6,7 +6,9 @@ const vscode = require('vscode');
 const path = require('path');
 
 const AppModel = require('./appModel').AppModel;
-var getModelNames = require('./getModelNames').getModelsFromFiles;
+const getModelNames = require('./getModelNames');
+var getModelsFromFiles = getModelNames.getModelsFromFiles;
+var getFieldNames = getModelNames.getFieldNames;
 // @ts-ignore
 const precode = require("./precode.json");
 var repeatTime = 0;
@@ -63,9 +65,9 @@ function activate(context) {
 
 	var modelnames = [];
 	var models = {};
-
+	var fieldnames = [];
 	setInterval(() => {
-		getModelNames().then((names) => {
+		getModelsFromFiles().then(async (names) => {
 			let n = [];
 			let m = {};
 			names.forEach(name => {
@@ -83,12 +85,14 @@ function activate(context) {
 			});
 			modelnames = n;
 			models = m;
+			fieldnames = await getFieldNames(models);
 		}).catch(err => {
-			console.log(err + "\nError");
+			console.error(err + "\nError");
 		});
 	}, repeatTime); // Executes without waiting for the first time
 
 	repeatTime = 5000; // Set interval to 5 seconds
+
 
 	let seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
 		if (modelnames != null && modelnames.length > 0) {
@@ -120,7 +124,8 @@ function activate(context) {
 	}, {
 		provideCompletionItems() {
 			var items = [];
-			modelnames.forEach(modelname => {
+			modelnames.forEach(model => {
+				let modelname = model.label.split(' ')[1];
 				let complete = new vscode.CompletionItem(modelname);
 				complete.commitCharacters = ['.'];
 				complete.kind = vscode.CompletionItemKind.Field;
@@ -139,13 +144,17 @@ function activate(context) {
 		}, {
 			provideCompletionItems(document, position) {
 				var items = [];
-				modelnames.forEach((modelname) => {
+				modelnames.forEach((model) => {
+					let modelname = model.label.split(' ')[1];
 					let linePrefix = document.lineAt(position).text.substr(0, position.character);
 					if (!linePrefix.endsWith(`${modelname}.`)) {
 						return undefined;
 					}
-					let complete = new vscode.CompletionItem("name"); // TODO
-					items.push(complete);
+					fieldnames.forEach((field)=>{
+						let complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
+						complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
+						items.push(complete);
+					})
 				})
 				return items;
 			}
@@ -155,28 +164,32 @@ function activate(context) {
 
 	// to complete within {}
 	const provider3 = vscode.languages.registerCompletionItemProvider({
-		scheme: 'file',
-		language: 'javascript'
-	}, {
-		provideCompletionItems(document, position) {
+			scheme: 'file',
+			language: 'javascript'
+		}, {
+			provideCompletionItems(document, position) {
 
-			// get field names
+				// get field names
 
-			let startPos = document.positionAt(0);
+				let startPos = document.positionAt(0);
 
-			let range = new vscode.Range(startPos, position);
-			let preText = document.getText(range);
-			let openbraces = preText.split('{').length - 1;
-			let closedbraces = preText.split('}').length - 1;
-			if (openbraces <= closedbraces)
-				return undefined
-
-			return [
-				new vscode.CompletionItem('name', vscode.CompletionItemKind.Field), // TODO
-				new vscode.CompletionItem('password', vscode.CompletionItemKind.Field),
-			];
-		}
-	});
+				let range = new vscode.Range(startPos, position);
+				let preText = document.getText(range);
+				let openbraces = preText.split('{').length - 1;
+				let closedbraces = preText.split('}').length - 1;
+				if (openbraces <= closedbraces)
+					return undefined
+				var items = [];
+				fieldnames.forEach((field)=>{
+					let complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
+					complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
+					items.push(complete);
+				})
+				return items;
+			},
+		},
+		'{'
+	);
 
 	context.subscriptions.push(mongooseDocs);
 	context.subscriptions.push(extensionDocs);

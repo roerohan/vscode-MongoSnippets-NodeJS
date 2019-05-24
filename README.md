@@ -38,6 +38,8 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 - Mongo Snippets: Show Existing Models
    * Shows a list of names of models present in the `models` folder in the `workspace root directory`.
    * Highlights the model definition in the file where it had been created.
+   * Suggests field names for models. E.G. if the model `User` has a field `name`, on typing `User.`, `name` is suggested.
+   * Field names are also suggested inside `{...}`.
 
 ### **Completion Suggestions:**
 
@@ -106,14 +108,24 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
    * const mongoose = require('mongoose');
    * import mongoose from 'mongoose';
 
-- The model must be created as follows:
-   * var variablename = mongoose.model('modelName', modelSchema)
+- The model must be created in the models folder as follows:
+   * var modelName = mongoose.model('modelName', modelSchema)
 
 - Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
+
+- For field name suggestions, each model should be exported in a seperate file, and the file should not have errors.
 
 ## Release Notes
 
 These are the release notes for mongo-snippets-for-node-js.
+
+### v1.0.15
+
+* Features: 
+   - Identification of field names of existing models.
+   - Field name suggestions for models, after occurence of `modelname.` and within `{...}`.
+   - Code optimization.
+* Bug fixes: Modelname suggestions work again.
 
 ### v1.0.14
 

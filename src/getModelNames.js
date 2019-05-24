@@ -24,14 +24,14 @@ function getModelsFromFiles() {
                 promises.push(new Promise((resolve) => {
                     fs.readFile(path.join(rootPath, 'models', file), 'utf-8', (err, data) => {
                         if (err) {
-                            console.log(err);
+                            console.error(err);
                             resolve({
                                 "data": '',
                                 "file": file
                             });
                         }
                         if (!data) {
-                            console.log(`No Data in file ${file}`);
+                            console.error(`No Data in file ${file}`);
                             resolve({
                                 "data": '',
                                 "file": file
@@ -63,15 +63,63 @@ function getModelsFromFiles() {
                         })
                         resolve(modelobjects);
                     }).catch((err) => {
-                        console.log(err);
+                        console.error(err);
                     });
                 })
                 .catch(err => {
-                    console.log(err);
+                    console.error(err);
                 });
         }
     });
 }
+
+function getFieldNames(model) {
+    var filename = [];
+    for (var key in model) {
+        if (!model.hasOwnProperty(key)) continue;
+        let fname = [];
+        fname.push(model[key]['file']);
+        filename = fname.filter((el, index) => {
+            return el!=null && fname.indexOf(el)===index;
+        });
+    }
+    var promises = [];
+    filename.forEach((file) => {
+        promises.push(new Promise((resolve) =>{
+            fs.readFile(path.join('models', file), 'utf-8', (err, data) => {
+                if (err) {
+                    console.error(err);
+                    resolve(undefined);
+                }
+                if (!data) resolve(undefined);
+                else {
+                    if(data.match('export')){
+                        resolve(file);
+                    }
+                    else resolve(undefined);
+                }
+            });
+        }));
+    });
+    var fields = [];
+    return new Promise(resolve => {
+        Promise.all(promises)
+            .then(files => {
+                files.forEach(file=>{
+                    if(file){
+                        let temp = require(`${rootPath}/models/${file}`);
+                        if(temp.schema){
+                            for (key in temp.schema.obj)
+                                fields.push(key);
+                            resolve(fields);
+                        }
+                    }
+                })
+            });
+    })
+}
+
 module.exports = {
-    getModelsFromFiles
+    getModelsFromFiles,
+    getFieldNames,
 }
