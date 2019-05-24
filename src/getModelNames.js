@@ -19,56 +19,46 @@ function getModelsFromFiles() {
             return undefined;
         } else {
             var promises = [];
-            var promises2 = [];
             files.forEach((file) => {
                 promises.push(new Promise((resolve) => {
                     fs.readFile(path.join(rootPath, 'models', file), 'utf-8', (err, data) => {
                         if (err) {
                             console.error(err);
                             resolve({
-                                "data": '',
+                                "name": '',
                                 "file": file
                             });
                         }
                         if (!data) {
                             console.error(`No Data in file ${file}`);
                             resolve({
-                                "data": '',
+                                "name": '',
                                 "file": file
                             });
-                        } else resolve({
-                            "data": data,
-                            "file": file
-                        });
-                    });
-                }));
-            });
-            var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
-            Promise.all(promises)
-                .then((objects) => {
-                    objects.forEach((object) => {
-                        promises2.push(new Promise((resolve) => {
-                            let first = object["data"].match(re);
+                        } else {
+                            var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
+                            let first = data.match(re);
                             if (first) {
                                 resolve({
                                     "name": first.join(','),
-                                    "file": object.file
+                                    "file": file
                                 });
-                            } else resolve('');
-                        }));
+                            } else resolve({
+                                "name": '',
+                                "file": file
+                            });
+                        }
                     });
-                    Promise.all(promises2).then((objects) => {
-                        var modelobjects = objects.filter((el) => {
-                            return el != null && el.name != null && el.file != null;
-                        })
-                        resolve(modelobjects);
-                    }).catch((err) => {
-                        console.error(err);
-                    });
+                }));
+            });
+            Promise.all(promises).then((objects) => {
+                var modelobjects = objects.filter((el) => {
+                    return el != null && el.name != null && el.name!='' && el.file != null;
                 })
-                .catch(err => {
-                    console.error(err);
-                });
+                resolve(modelobjects);
+            }).catch((err) => {
+                console.error(err);
+            });
         }
     });
 }
