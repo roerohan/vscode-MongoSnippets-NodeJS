@@ -43,11 +43,11 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 
 ### **Completion Suggestions:**
 
-> Note: This is a `beta` feature, updates will be coming soon
+> Note: See User's Notes for details.
 
 - Model name suggestions:
    * First it identifies the names of the models in a folder named models (if any) in the `workspace root directory`.
-   * It stores the modelnames and provides completion suggestions when you start typing the name of a model.
+   * It stores the model and field names and provides completion suggestions when you type.
 
 ### **Snippets:**
 
