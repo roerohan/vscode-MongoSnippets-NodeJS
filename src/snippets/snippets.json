@@ -129,11 +129,11 @@
         "body": [
             "${1:Model}.find({ ",
             "    ${2:field}: ${3:filter}",
-            "}, (err, doc) => {",
+            "}, (err, docs) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   } else{",
-            "     if(!doc){",
+            "     if(docs.length === 0){",
             "         console.log(\"${4:message}\")",
             "     } else{",
             "       $0",
@@ -331,5 +331,25 @@
             "});"
         ],
         "description": "Generates code for bulkWrite query in mongoose."
+    },
+    "MongoDB methods": {
+        "prefix": "!mdbmethod",
+        "body": [
+            "${1:schema}.methods.${2:func} = function ${2}(callback){",
+            "   return this.model(${3:model}).${4:find}({ ${5:type}: this.${5} }, callback);",
+            "}",
+            "$0"
+        ],
+        "description": "Generates code for schema.methods.function in mongoose."
+    },
+    "MongoDB statics": {
+        "prefix": "!mdbstatic",
+        "body": [
+            "${1:schema}.statics.${2:func} = function ${2}(${3:param}, callback){",
+            "   return this.${4:where}(${3}, new RegExp(${3}, 'i')).${5:exec}(callback);",
+            "}",
+            "$0"
+        ],
+        "description": "Generates code for schema.statics.function in mongoose."
     }
 }
