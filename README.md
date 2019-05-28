@@ -55,32 +55,35 @@ The following are some of the snippets that can be generated with this extension
 
 > Note: Type the following snippets and press 'Tab' OR 'Ctrl/Command + Space; Enter' for auto-completion.
 
-|    **Type/No.**    |  **Snippet** |        **Stands For**       |          **Function**          |
-|:------------------:|:------------:|:---------------------------:|:------------------------------:|
-|    **Generic:**    |              |                             |                                |
-|         1.         |   **!mdbc**  |       MongoDB Connect       |  MongoDB connect on port 27017 |
-|         2.         |  **!mdbgum** | MongoDB Generate User Model |   Generate typical user model  |
-|         3.         |   **!mdba**  |      MongoDB Aggregate      |     *Model.aggregate* query    |
-|         4.         |  **!mdbcd**  |    MongoDB CountDocuments   |  *Model.countDocuments* query  |
-|         5.         |  **!mdbmr**  |      MongoDB MapReduce      |     *Model.mapReduce* query    |
-|         6.         |   **!mdbp**  |       MongoDB Populate      |     *Model.populate* query     |
-|         7.         |  **!mdbbw**  |      MongoDB BulkWrite      |     *Model.bulkWrite* query    |
-| **Create/Insert:** |              |                             |                                |
-|         1.         |  **!mdbcr**  |        MongoDB Create       |      *Model.create* query      |
-|         2.         |  **!mdbcc**  |   MongoDB CreateCollection  | *Model.createCollection* query |
-|         3.         |  **!mdbim**  |      MongoDB InsertMany     |    *Model.insertMany* query    |
-|      **Find:**     |              |                             |                                |
-|         1.         |   **!mdbf**  |         MongoDB Find        |       *Model.find* query       |
-|         2.         |  **!mdbfo**  |       MongoDB FindOne       |      *Model.findOne* query     |
-|         3.         |  **!mdbfbi** |       MongoDB FindById      |     *Model.findById* query     |
-|     **Update:**    |              |                             |                                |
-|         1.         | **!mdbfoau** |   MongoDB FindOneAndUpdate  | *Model.findOneAndUpdate* query |
-|         2.         |  **!mdbuo**  |      MongoDB UpdateOne      |     *Model.updateOne* query    |
-|         3.         |  **!mdbum**  |      MongoDB UpdateMany     |    *Model.updateMany* query    |
-|     **Delete:**    |              |                             |                                |
-|         1.         | **!mdbfoad** |   MongoDB FindOneAndDelete  | *Model.findOneAndDelete* query |
-|         2.         |  **!mdbdo**  |      MongoDB DeleteOne      |     *Model.deleteOne* query    |
-|         3.         |  **!mdbdm**  |      MongoDB DeleteMany     |    *Model.deleteMany* query    |
+|       **Type/No.**       |   **Snippet**  |        **Stands For**       |          **Function**          |
+|:------------------------:|:--------------:|:---------------------------:|:------------------------------:|
+|       **Generic:**       |                |                             |                                |
+|            1.            |    **!mdbc**   |       MongoDB Connect       |  MongoDB connect on port 27017 |
+|            2.            |   **!mdbgum**  | MongoDB Generate User Model |   Generate typical user model  |
+|            3.            |    **!mdba**   |      MongoDB Aggregate      |     *Model.aggregate* query    |
+|            4.            |   **!mdbcd**   |    MongoDB CountDocuments   |  *Model.countDocuments* query  |
+|            5.            |   **!mdbmr**   |      MongoDB MapReduce      |     *Model.mapReduce* query    |
+|            6.            |    **!mdbp**   |       MongoDB Populate      |     *Model.populate* query     |
+|            7.            |   **!mdbbw**   |      MongoDB BulkWrite      |     *Model.bulkWrite* query    |
+|    **Create/Insert:**    |                |                             |                                |
+|            1.            |   **!mdbcr**   |        MongoDB Create       |      *Model.create* query      |
+|            2.            |   **!mdbcc**   |   MongoDB CreateCollection  | *Model.createCollection* query |
+|            3.            |   **!mdbim**   |      MongoDB InsertMany     |    *Model.insertMany* query    |
+|         **Find:**        |                |                             |                                |
+|            1.            |    **!mdbf**   |         MongoDB Find        |       *Model.find* query       |
+|            2.            |   **!mdbfo**   |       MongoDB FindOne       |      *Model.findOne* query     |
+|            3.            |   **!mdbfbi**  |       MongoDB FindById      |     *Model.findById* query     |
+|        **Update:**       |                |                             |                                |
+|            1.            |  **!mdbfoau**  |   MongoDB FindOneAndUpdate  | *Model.findOneAndUpdate* query |
+|            2.            |   **!mdbuo**   |      MongoDB UpdateOne      |     *Model.updateOne* query    |
+|            3.            |   **!mdbum**   |      MongoDB UpdateMany     |    *Model.updateMany* query    |
+|        **Delete:**       |                |                             |                                |
+|            1.            |  **!mdbfoad**  |   MongoDB FindOneAndDelete  | *Model.findOneAndDelete* query |
+|            2.            |   **!mdbdo**   |      MongoDB DeleteOne      |     *Model.deleteOne* query    |
+|            3.            |   **!mdbdm**   |      MongoDB DeleteMany     |    *Model.deleteMany* query    |
+| **Methods and Statics:** |                |                             |                                |
+|            1.            | **!mdbmethod** |       MongoDB Methods       |    *schema.methods.function*   |
+|            2.            | **!mdbstatic** |       MongoDB Statics       |    *schema.statics.function*   |
 
 
 ## Requirements
@@ -119,6 +122,14 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.0.17
+
+* Feature Enhancement:
+   * Mongoose methods - !mdbmethod
+   * Mongoose statics - !mdbstatic
+* Bug fix:
+   * Changed one instance of !doc to docs.length===0.
+
 ### v1.0.16
 
 * Bug Fixes: Reveal mongoose model declaration upon selection in Command Palette.
@@ -130,23 +141,6 @@ These are the release notes for mongo-snippets-for-node-js.
    - Field name suggestions for models, after occurence of `modelname.` and within `{...}`.
    - Code optimization.
 * Bug fixes: Modelname suggestions work again.
-
-### v1.0.14
-
-* Bug fixes: Direct to source file on select
-
-### v1.0.13
-
-* Feature:
-   - Changed icon and banner color
-   - Optimized code
-   - Files where the models were created are identified
-   - Modelname selection in quickPick takes to model source
-* Bug fixes: Asynchronous code which might not have worked always
-
-### v1.0.12
-
-* Bug Fixes: See existing models command activates extension
 
 -----------------------------------------------------------------------------------------------------------
 
