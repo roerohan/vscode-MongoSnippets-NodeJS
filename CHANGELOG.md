@@ -11,11 +11,15 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 ### v1.0.17
 
-* Feature Enhancement:
+- Feature Enhancement:
    * Mongoose methods - !mdbmethod
    * Mongoose statics - !mdbstatic
-* Bug fix:
+- Bug fix:
    * Changed one instance of !doc to docs.length===0.
+- Issues resolved
+- Features:
+
+### **Snippets:**
 
 |       **Type/No.**       |   **Snippet**  |        **Stands For**       |          **Function**          |
 |:------------------------:|:--------------:|:---------------------------:|:------------------------------:|

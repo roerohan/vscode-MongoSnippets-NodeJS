@@ -129,6 +129,7 @@ These are the release notes for mongo-snippets-for-node-js.
    * Mongoose statics - !mdbstatic
 * Bug fix:
    * Changed one instance of !doc to docs.length===0.
+* Issues resolved.
 
 ### v1.0.16
 
