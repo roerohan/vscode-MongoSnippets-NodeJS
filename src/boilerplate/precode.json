@@ -28,7 +28,7 @@
         "    if (!err) {",
         "        console.log('MongoDB Connection Succeeded.')",
         "    } else {",
-        "        console.log('Error in DB connection: ' + err)",
+        "        console.error('Error in DB connection: ' + err)",
         "    }",
         "});"
     ],
