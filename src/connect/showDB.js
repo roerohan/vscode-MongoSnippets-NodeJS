@@ -32,6 +32,33 @@ function listAllCollections(dbname) {
     });
 }
 
+function listDocs (dbname, collectionName) {
+    return new Promise( (resolve, reject) => {
+        mongoose.Promise = global.Promise;
+        mongoose.connect(dbname, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+        });
+
+        //Get the default connection
+        var db = mongoose.connection;
+        db.once('open', function () {
+
+            db.db.collection(collectionName, function(err, collection){
+                collection.find({}).toArray(function(err, data){
+                    resolve(data); // it will print your collection data
+                    mongoose.disconnect();
+                })
+            });
+        
+        });
+        db.on('error', (err)=>{
+            reject('MongoDB connection error:' + err);
+        });
+    })
+}
+
 module.exports = {
-    listAllCollections
+    listAllCollections,
+    listDocs
 }

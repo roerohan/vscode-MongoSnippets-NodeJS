@@ -9,7 +9,10 @@ const AppModel = require('./boilerplate/appModel').AppModel;
 const getModelNames = require('./suggestions/getModelNames');
 var getModelsFromFiles = getModelNames.getModelsFromFiles;
 var getFieldNames = getModelNames.getFieldNames;
-const listAllConnections = require('./connect/showDB').listAllCollections;
+const showDB = require('./connect/showDB');
+const listAllConnections = showDB.listAllCollections;
+const listDocs = showDB.listDocs;
+
 // @ts-ignore
 const precode = require('./boilerplate/precode.json');
 var repeatTime = 0;
@@ -133,19 +136,20 @@ function activate(context) {
 
 			if(!choice) return;
 
-			console.log("Checkpoint");
-			// const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `database.json`));
-			// vscode.workspace.openTextDocument(newFile).then(document => {
-			// 	const edit = new vscode.WorkspaceEdit();
-			// 	edit.insert(newFile, new vscode.Position(0, 0), items);
-			// 	return vscode.workspace.applyEdit(edit).then(success => {
-			// 		if (success) {
-			// 			vscode.window.showTextDocument(document);
-			// 		} else {
-			// 			vscode.window.showErrorMessage('Unexpected Failure! Could not write to file.');
-			// 		}
-			// 	});
-			// });
+			var docs = await listDocs(dbname, choice);
+			console.log(docs);
+			const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `database.json`));
+			vscode.workspace.openTextDocument(newFile).then(document => {
+				const edit = new vscode.WorkspaceEdit();
+				edit.insert(newFile, new vscode.Position(0, 0), JSON.stringify(docs));
+				return vscode.workspace.applyEdit(edit).then(success => {
+					if (success) {
+						vscode.window.showTextDocument(document);
+					} else {
+						vscode.window.showErrorMessage('Unexpected Failure! Could not write to file.');
+					}
+				});
+			});
 		}
 		catch(err){
 			vscode.window.showErrorMessage(err);
