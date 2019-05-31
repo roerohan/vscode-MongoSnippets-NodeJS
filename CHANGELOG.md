@@ -10,8 +10,8 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 
 ### v1.0.18
-- 
 
+- Bug Fix: Improved unambiguous project structure in src folder.
 
 ### v1.0.17
 

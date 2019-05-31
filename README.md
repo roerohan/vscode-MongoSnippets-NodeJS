@@ -124,7 +124,7 @@ These are the release notes for mongo-snippets-for-node-js.
 
 ### v1.0.18
 
-*
+* Bug Fix: Improved unambiguous project structure in src folder.
 
 ### v1.0.17
 
