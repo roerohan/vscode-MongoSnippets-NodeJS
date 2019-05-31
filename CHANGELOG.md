@@ -9,6 +9,10 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Issue: Field names are updated only on reload.
 
 
+### v1.0.18
+- 
+
+
 ### v1.0.17
 
 - Feature Enhancement:
