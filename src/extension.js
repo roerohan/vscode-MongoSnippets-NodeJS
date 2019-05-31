@@ -5,12 +5,12 @@
 const vscode = require('vscode');
 const path = require('path');
 
-const AppModel = require('./appModel').AppModel;
-const getModelNames = require('./getModelNames');
+const AppModel = require('./boilerplate/appModel').AppModel;
+const getModelNames = require('./suggestions/getModelNames');
 var getModelsFromFiles = getModelNames.getModelsFromFiles;
 var getFieldNames = getModelNames.getFieldNames;
 // @ts-ignore
-const precode = require("./precode.json");
+const precode = require("./boilerplate/precode.json");
 var repeatTime = 0;
 // this method is called when your extension is activated
 // your extension is activated the very first time the command is executed
