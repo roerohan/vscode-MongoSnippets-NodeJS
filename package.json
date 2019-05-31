@@ -61,7 +61,7 @@
             },
             {
                 "command": "extension.viewCollections",
-                "title": "Mongo Snippets: View Collections in a Mongo Database"
+                "title": "Mongo Snippets: View MongoDB Collection as JSON"
             }
         ]
     },

@@ -124,7 +124,10 @@ function activate(context) {
 	let viewCollections = vscode.commands.registerCommand('extension.viewCollections', async () => {
 
 		var dbname = await vscode.window.showInputBox({
-			placeHolder: "Enter a connection string to the database."
+			placeHolder: "Enter a connection string to the database.",
+			value: "mongodb://",
+			ignoreFocusOut: true,
+			prompt: "Valid connection strings usually begin with 'mongodb://'."
 		});
 		if(!dbname) return;
 
@@ -138,7 +141,7 @@ function activate(context) {
 
 			var docs = await listDocs(dbname, choice);
 			console.log(docs);
-			const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `database.json`));
+			const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `${choice}.json`));
 			vscode.workspace.openTextDocument(newFile).then(document => {
 				const edit = new vscode.WorkspaceEdit();
 				edit.insert(newFile, new vscode.Position(0, 0), JSON.stringify(docs));
