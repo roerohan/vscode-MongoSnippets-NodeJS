@@ -9,6 +9,7 @@ const AppModel = require('./boilerplate/appModel').AppModel;
 const getModelNames = require('./suggestions/getModelNames');
 var getModelsFromFiles = getModelNames.getModelsFromFiles;
 var getFieldNames = getModelNames.getFieldNames;
+const listAllConnections = require('./connect/showDB').listAllCollections;
 // @ts-ignore
 const precode = require('./boilerplate/precode.json');
 var repeatTime = 0;
@@ -117,6 +118,40 @@ function activate(context) {
 		}
 	});
 
+	let viewCollections = vscode.commands.registerCommand('extension.viewCollections', async () => {
+
+		var dbname = await vscode.window.showInputBox({
+			placeHolder: "Enter a connection string to the database."
+		});
+		if(!dbname) return;
+
+		try{
+			var items = await listAllConnections(dbname);
+			var choice = await vscode.window.showQuickPick(items, {
+				placeHolder: 'Choose a Collection:'
+			})
+
+			if(!choice) return;
+
+			console.log("Checkpoint");
+			// const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `database.json`));
+			// vscode.workspace.openTextDocument(newFile).then(document => {
+			// 	const edit = new vscode.WorkspaceEdit();
+			// 	edit.insert(newFile, new vscode.Position(0, 0), items);
+			// 	return vscode.workspace.applyEdit(edit).then(success => {
+			// 		if (success) {
+			// 			vscode.window.showTextDocument(document);
+			// 		} else {
+			// 			vscode.window.showErrorMessage('Unexpected Failure! Could not write to file.');
+			// 		}
+			// 	});
+			// });
+		}
+		catch(err){
+			vscode.window.showErrorMessage(err);
+		}
+	});
+
 	// to complete modelnames
 	const provider1 = vscode.languages.registerCompletionItemProvider({
 		scheme: 'file',
@@ -150,7 +185,7 @@ function activate(context) {
 					if (!linePrefix.endsWith(`${modelname}.`)) {
 						return undefined;
 					}
-					fieldnames.forEach((field)=>{
+					fieldnames.forEach((field) => {
 						let complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
 						complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
 						items.push(complete);
@@ -180,7 +215,7 @@ function activate(context) {
 				if (openbraces <= closedbraces)
 					return undefined
 				var items = [];
-				fieldnames.forEach((field)=>{
+				fieldnames.forEach((field) => {
 					let complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
 					complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
 					items.push(complete);
@@ -195,6 +230,7 @@ function activate(context) {
 	context.subscriptions.push(extensionDocs);
 	context.subscriptions.push(setup);
 	context.subscriptions.push(seeModels);
+	context.subscriptions.push(viewCollections);
 	context.subscriptions.push(provider1, provider2, provider3);
 }
 exports.activate = activate;
