@@ -8,9 +8,14 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Issues (if any)
 - Issue: Field names are updated only on reload.
 
+- Make field name suggestions inside {...} more intelligent, should not commit on pressing enter.
+- Beautify the obtained JSON upon `Mongo Snippets: View MongoDB Collection as JSON`
+- Allow mongo queries on display of Database as JSON
 
 ### v1.0.18
 
+- Feature Enhancement:
+   * Mongo Connect (beta): Displays collection as a JSON.
 - Bug Fix: Improved unambiguous project structure in src folder.
 
 ### v1.0.17

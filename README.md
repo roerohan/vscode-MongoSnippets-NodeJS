@@ -26,20 +26,24 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 
 > Note: Ctrl+Shift+P or Command+Shift+P opens Command Palette in VSCode.
 
-- Mongo Snippets: Refer to Mongoose Documentation
+- **Mongo Snippets: Refer to Mongoose Documentation**
    * Opens the [Mongoose Documentation](https://mongoosejs.com/docs/api.html#Model) on a web browser.
 
-- Mongo Snippets: Refer to Extension Documentation
+- **Mongo Snippets: Refer to Extension Documentation**
    * Opens the [Repository](https://github.com/roerohan/vscode-MongoSnippets-NodeJS) on a web browser.
 
-- Mongo Snippets: Set up Mongo Boilerplate Code
+- **Mongo Snippets: Set up Mongo Boilerplate Code**
    * Sets up folders named `routes` and `models` if they do not exist, in the workspace root directory with files containing boilerplate.
 
-- Mongo Snippets: Show Existing Models
+- **Mongo Snippets: Show Existing Models**
    * Shows a list of names of models present in the `models` folder in the `workspace root directory`.
    * Highlights the model definition in the file where it had been created.
    * Suggests field names for models. E.G. if the model `User` has a field `name`, on typing `User.`, `name` is suggested.
    * Field names are also suggested inside `{...}`.
+
+- **Mongo Snippets: View MongoDB Collection as JSON**
+> Note: This is a beta feature and will be receive updates soon.
+   * Connect to a MongoDB instance using a connection string and view a DB as a JSON.
 
 ### **Completion Suggestions:**
 
@@ -124,6 +128,8 @@ These are the release notes for mongo-snippets-for-node-js.
 
 ### v1.0.18
 
+* Feature Enhancement:
+   * Mongo Connect (beta): Displays collection as a JSON.
 * Bug Fix: Improved unambiguous project structure in src folder.
 
 ### v1.0.17
