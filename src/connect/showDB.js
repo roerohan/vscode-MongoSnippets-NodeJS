@@ -1,14 +1,19 @@
 const mongoose = require('mongoose');
 
+function mongoConnect(dbname){
+    mongoose.Promise = global.Promise;
+    mongoose.connect(dbname, {
+        useNewUrlParser: true,
+        useCreateIndex: true,
+    })
+    .catch(err => {
+        console.log('MongoDB connection error:' + err);
+    });
+}
+
 function listAllCollections(dbname) {
     return new Promise((resolve, reject) => {
-        mongoose.Promise = global.Promise;
-        mongoose.connect(dbname, {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-        });
-
-        //Get the default connection
+        mongoConnect(dbname);
         var db = mongoose.connection;
         db.on('open', function () {
             mongoose.connection.db.listCollections().toArray(function (err, names) {
@@ -34,11 +39,7 @@ function listAllCollections(dbname) {
 
 function listDocs (dbname, collectionName) {
     return new Promise( (resolve, reject) => {
-        mongoose.Promise = global.Promise;
-        mongoose.connect(dbname, {
-            useNewUrlParser: true,
-            useCreateIndex: true,
-        });
+        mongoConnect(dbname);
 
         //Get the default connection
         var db = mongoose.connection;
@@ -46,7 +47,7 @@ function listDocs (dbname, collectionName) {
 
             db.db.collection(collectionName, function(err, collection){
                 collection.find({}).toArray(function(err, data){
-                    resolve(data); // it will print your collection data
+                    resolve(data);
                     mongoose.disconnect();
                 })
             });

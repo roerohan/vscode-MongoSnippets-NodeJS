@@ -140,11 +140,11 @@ function activate(context) {
 			if(!choice) return;
 
 			var docs = await listDocs(dbname, choice);
-			console.log(docs);
 			const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `${choice}.json`));
 			vscode.workspace.openTextDocument(newFile).then(document => {
 				const edit = new vscode.WorkspaceEdit();
-				edit.insert(newFile, new vscode.Position(0, 0), JSON.stringify(docs));
+				const editor = vscode;
+				edit.insert(newFile, new vscode.Position(0, 0), JSON.stringify(docs, null, "\t"));
 				return vscode.workspace.applyEdit(edit).then(success => {
 					if (success) {
 						vscode.window.showTextDocument(document);
