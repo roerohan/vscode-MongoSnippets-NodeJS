@@ -24,3 +24,7 @@ function find(dbname, collectionName, filter) {
         });
     });
 }
+
+module.exports = {
+    find
+}
