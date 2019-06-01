@@ -6,6 +6,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 - **Code Snippets** for MongoDB Connection and queries.
 - Command Palette Feature to **Set up Boilerplate Code**.
 - **Completion Suggestions** for Mongoose Models.
+- **Mongo Connect** directly from the editor.
 
 ![example](./static/example.gif)
 
