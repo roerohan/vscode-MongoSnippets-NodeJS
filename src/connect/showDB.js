@@ -45,8 +45,10 @@ function listDocs (dbname, collectionName) {
         var db = mongoose.connection;
         db.once('open', function () {
 
-            db.db.collection(collectionName, function(err, collection){
-                collection.find({}).toArray(function(err, data){
+            db.db.collection(collectionName, (err, collection) => {
+                if (err) reject(err);
+                collection.find({}).toArray((err, data) => {
+                    if (err) reject(err);
                     resolve(data);
                     mongoose.disconnect();
                 })
@@ -56,7 +58,7 @@ function listDocs (dbname, collectionName) {
         db.on('error', (err)=>{
             reject('MongoDB connection error:' + err);
         });
-    })
+    });
 }
 
 module.exports = {
