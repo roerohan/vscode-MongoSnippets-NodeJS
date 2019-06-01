@@ -4,6 +4,8 @@
 
 The following is a set of guidelines for contributing to mongo-snippets-for-node-js. These are mostly guidelines, not rules. Use your best judgment, and feel free to propose changes to this document in a pull request.
 
+> Note: Contributions should be made to the dev branch of the repository.
+
 ## Table of Contents
 
 1. [Styleguides](#styleguides)
