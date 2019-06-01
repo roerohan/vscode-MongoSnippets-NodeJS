@@ -61,5 +61,6 @@ function listDocs (dbname, collectionName) {
 
 module.exports = {
     listAllCollections,
-    listDocs
+    listDocs,
+    mongoConnect
 }
