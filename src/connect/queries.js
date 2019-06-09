@@ -8,7 +8,6 @@ function find(dbname, collectionName, filter) {
         //Get the default connection
         var db = mongoose.connection;
         db.once('open', function () {
-
             db.db.collection(collectionName, (err, collection) => {
                 if (err) reject(err);
                 collection.find(filter).toArray((err, data) => {
