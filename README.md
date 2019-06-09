@@ -131,7 +131,7 @@ These are the release notes for mongo-snippets-for-node-js.
 
 * Feature Enhancement:
    * Formatted JSON on mongo connect
-   * Mongo Find Query
+* Bug Fix: Fieldname suggestions in {...} improved.
 
 ### v1.0.18
 

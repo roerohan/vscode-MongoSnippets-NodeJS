@@ -15,7 +15,7 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Feature Enhancement:
    * Formatted JSON on mongo connect
-   * Mongo Find Query
+- Bug Fix: More intelligent fieldname suggestions within {...}.
 
 ### v1.0.18
 
