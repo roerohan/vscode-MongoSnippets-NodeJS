@@ -16,7 +16,7 @@
         "mongoose-js",
         "mongoose"
     ],
-    "version": "1.0.18",
+    "version": "1.0.19",
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {

@@ -127,6 +127,12 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.0.19
+
+* Feature Enhancement:
+   * Formatted JSON on mongo connect
+* Bug Fix: Fieldname suggestions in {...} improved.
+
 ### v1.0.18
 
 * Feature Enhancement:
@@ -141,18 +147,6 @@ These are the release notes for mongo-snippets-for-node-js.
 * Bug fix:
    * Changed one instance of !doc to docs.length===0.
 * Issues resolved.
-
-### v1.0.16
-
-* Bug Fixes: Reveal mongoose model declaration upon selection in Command Palette.
-
-### v1.0.15
-
-* Features: 
-   - Identification of field names of existing models.
-   - Field name suggestions for models, after occurence of `modelname.` and within `{...}`.
-   - Code optimization.
-* Bug fixes: Modelname suggestions work again.
 
 -----------------------------------------------------------------------------------------------------------
 

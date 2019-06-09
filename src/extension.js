@@ -140,11 +140,12 @@ function activate(context) {
 			if(!choice) return;
 
 			var docs = await listDocs(dbname, choice);
-			console.log(docs);
 			const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.rootPath, `${choice}.json`));
 			vscode.workspace.openTextDocument(newFile).then(document => {
 				const edit = new vscode.WorkspaceEdit();
-				edit.insert(newFile, new vscode.Position(0, 0), JSON.stringify(docs));
+				var display = JSON.stringify(docs, null, "\t");
+				// const MarkdownString = new vscode.CodeLens()
+				edit.insert(newFile, new vscode.Position(1, 0), display);
 				return vscode.workspace.applyEdit(edit).then(success => {
 					if (success) {
 						vscode.window.showTextDocument(document);
@@ -219,8 +220,13 @@ function activate(context) {
 				let preText = document.getText(range);
 				let openbraces = preText.split('{').length - 1;
 				let closedbraces = preText.split('}').length - 1;
-				if (openbraces <= closedbraces)
+				if (openbraces <= closedbraces) {
 					return undefined
+				}
+				let linePrefix = document.lineAt(position).text.substr(0, position.character);
+				if (linePrefix.endsWith(`{`)) {
+					return undefined
+				}
 				var items = [];
 				fieldnames.forEach((field) => {
 					let complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
