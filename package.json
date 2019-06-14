@@ -26,14 +26,14 @@
         "Snippets",
         "Other"
     ],
-	"activationEvents": [
+    "activationEvents": [
         "onCommand:extension.mongoosejsDocs",
         "onCommand:extension.extensionDocs",
         "onCommand:extension.setup",
         "onCommand:extension.seeModels",
         "onCommand:extension.viewCollections",
         "onLanguage:javascript"
-	],
+    ],
     "main": "./src/extension.js",
     "contributes": {
         "snippets": [
@@ -75,15 +75,15 @@
         "color": "#095256",
         "theme": "dark"
     },
-	"scripts": {
-		"postinstall": "node ./node_modules/vscode/bin/install",
-		"test": "node ./node_modules/vscode/bin/test"
-	},
-	"devDependencies": {
-		"typescript": "^3.3.1",
-		"vscode": "^1.1.28",
-		"eslint": "^5.13.0",
-		"@types/node": "^10.12.21",
-		"@types/mocha": "^2.2.42"
-	}
+    "scripts": {
+        "postinstall": "node ./node_modules/vscode/bin/install",
+        "test": "node ./node_modules/vscode/bin/test"
+    },
+    "devDependencies": {
+        "typescript": "^3.3.1",
+        "vscode": "^1.1.28",
+        "eslint": "^5.13.0",
+        "@types/node": "^10.12.21",
+        "@types/mocha": "^2.2.42"
+    }
 }
