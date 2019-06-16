@@ -8,8 +8,18 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Issues (if any)
 - Issue: Field names are updated only on reload.
 
-- Make field name suggestions inside {...} more intelligent, should not commit on pressing enter.
 - Allow mongo queries on display of Database as JSON
+
+### v1.0.21
+
+- Feature: More intelligent fieldname suggestions within {...}.
+- Fix: 
+   * Undocumented changes
+   * Diff version update
+
+### v1.0.20
+
+- Bug Fix: Security Vulnerability
 
 ### v1.0.19
 
