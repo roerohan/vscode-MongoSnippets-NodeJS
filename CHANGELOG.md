@@ -12,6 +12,9 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 ### v1.0.22
 
+- Fix:
+   * Node modules with vulnerabilities updated
+
 ### v1.0.21
 
 - Feature: More intelligent fieldname suggestions within {...}.

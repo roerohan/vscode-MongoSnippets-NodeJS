@@ -129,7 +129,8 @@ These are the release notes for mongo-snippets-for-node-js.
 
 ### v1.0.22
 
-
+- Fix:
+   * Node modules with vulnerabilities updated
 
 ### v1.0.21
 
@@ -147,21 +148,6 @@ These are the release notes for mongo-snippets-for-node-js.
 * Feature Enhancement:
    * Formatted JSON on mongo connect
 * Bug Fix: Fieldname suggestions in {...} improved.
-
-### v1.0.18
-
-* Feature Enhancement:
-   * Mongo Connect (beta): Displays collection as a JSON.
-* Bug Fix: Improved unambiguous project structure in src folder.
-
-### v1.0.17
-
-* Feature Enhancement:
-   * Mongoose methods - !mdbmethod
-   * Mongoose statics - !mdbstatic
-* Bug fix:
-   * Changed one instance of !doc to docs.length===0.
-* Issues resolved.
 
 -----------------------------------------------------------------------------------------------------------
 
