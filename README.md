@@ -127,6 +127,12 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.0.23
+
+- Fix: 
+   * Dependencies updated
+   * Security risks resolved
+
 ### v1.0.22
 
 - Fix:
