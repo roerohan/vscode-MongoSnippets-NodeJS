@@ -60,4 +60,6 @@ You can contribute by:
   - Code contribution
   - Pull Requests
 
+Make sure to document the contributions well in the pull request, or make changes in the CHANGELOG in case of feature enhancement or addition.
+
 Please follow the guidelines mentioned above for contributing.
