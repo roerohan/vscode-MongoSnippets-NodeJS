@@ -50,7 +50,7 @@ Pull requests should have:
 You can contribute to any of the features you want by knowing atleast one of the following:
 
   - Javascript
-  - Basic knowledge of how to debug vscode extensions
+  - Basic knowledge about VSCode API
   
 ## How Can I Contribute
 
