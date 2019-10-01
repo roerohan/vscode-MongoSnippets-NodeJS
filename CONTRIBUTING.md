@@ -51,6 +51,11 @@ You can contribute to any of the features you want by knowing atleast one of the
 
   - Javascript
   - Basic knowledge about VSCode API
+  - How to launch extension host in VSCode
+
+**Tip**: *Extension host may be used to debug and test your code, before pushing it to the repository. To launch extension host, go to the debugger option on the sidebar (or press Ctrl+Shift+D) and then press the green play/run icon to start a new VSCode instance with the extension installed.*
+
+> Refer to [VSCode - Your First Extension](https://code.visualstudio.com/api/get-started/your-first-extension) for information about VSCode API Development
   
 ## How Can I Contribute
 
