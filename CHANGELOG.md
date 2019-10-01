@@ -14,6 +14,10 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
    * Dependencies updated
    * Security risks resolved
 
+### v1.0.23
+
+- Fix: Dependencies updated
+
 ### v1.0.22
 
 - Fix:
