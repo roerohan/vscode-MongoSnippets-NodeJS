@@ -1,5 +1,7 @@
 var fs = require('fs');
 var path = require('path');
+const util = require('util');
+const readFile = util.promisify(fs.readFile);
 
 var rootPath = require('vscode').workspace.rootPath;
 
@@ -12,58 +14,75 @@ function getFilesInModels() {
     }
 }
 
-function getModelsFromFiles() {
-    return new Promise((resolve) => {
-        var files = getFilesInModels();
-        if (!files) {
-            return undefined;
+async function getFile(file) {
+    try {
+        const data = await readFile(path.join(rootPath, 'models', file), 'utf-8')
+
+        if (!data) {
+            console.error(`No Data in file ${file}`);
+            return {
+                "name": '',
+                "file": file
+            }
         } else {
-            var promises = [];
-            files.forEach((file) => {
-                promises.push(new Promise((resolve) => {
-                    fs.readFile(path.join(rootPath, 'models', file), 'utf-8', (err, data) => {
-                        if (err) {
-                            console.error(err);
-                            resolve({
-                                "name": '',
-                                "file": file
-                            });
-                        }
-                        if (!data) {
-                            console.error(`No Data in file ${file}`);
-                            resolve({
-                                "name": '',
-                                "file": file
-                            });
-                        } else {
-                            var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
-                            let first = data.match(re);
-                            if (first) {
-                                resolve({
-                                    "name": first.join(','),
-                                    "file": file
-                                });
-                            } else resolve({
-                                "name": '',
-                                "file": file
-                            });
-                        }
-                    });
-                }));
-            });
-            Promise.all(promises).then((objects) => {
-                var modelobjects = objects.filter((el) => {
-                    return el != null && el.name != null && el.name!='' && el.file != null;
-                })
-                resolve(modelobjects);
-            }).catch((err) => {
-                console.error(err);
-            });
+            var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
+            let first = data.match(re);
+            if (first) {
+                return {
+                    "name": first.join(','),
+                    "file": file
+                };
+            } else {
+                return {
+                    "name": '',
+                    "file": file
+                }
+            }
         }
-    });
+    } catch (err) {
+        console.error(err);
+        return {
+            "name": '',
+            "file": file
+        }
+    }
 }
 
-function getFieldNames(model) {
+async function getModelsFromFiles() {
+    var files = getFilesInModels();
+    if (!files) {
+        return undefined;
+    } else {
+        try {
+            var promises = [];
+            files.forEach((file) => {
+                promises.push(getFile(file));
+            });
+            const objects = await Promise.all(promises)
+            var modelobjects = objects.filter((el) => {
+                return el != null && el.name != null && el.name!='' && el.file != null;
+            })
+            return modelobjects;
+        } catch (err) {
+            console.error(err);
+        }
+    }
+}
+
+async function getExportFile (file) {
+    try {
+        const data = await readFile(path.join('models', file), 'utf-8')
+
+        if (!data || !data.match('export')) return undefined;
+
+        return file;
+    } catch (err) {
+        console.error(err);
+        return undefined;
+    }
+}
+
+async function getFieldNames(model) {
     var filename = [];
     for (var key in model) {
         if (!model.hasOwnProperty(key)) continue;
@@ -75,38 +94,21 @@ function getFieldNames(model) {
     }
     var promises = [];
     filename.forEach((file) => {
-        promises.push(new Promise((resolve) =>{
-            fs.readFile(path.join('models', file), 'utf-8', (err, data) => {
-                if (err) {
-                    console.error(err);
-                    resolve(undefined);
-                }
-                if (!data) resolve(undefined);
-                else {
-                    if(data.match('export')){
-                        resolve(file);
-                    }
-                    else resolve(undefined);
-                }
-            });
-        }));
+        promises.push(getExportFile(file));
     });
     var fields = [];
-    return new Promise(resolve => {
-        Promise.all(promises)
-            .then(files => {
-                files.forEach(file=>{
-                    if(file){
-                        let temp = require(`${rootPath}/models/${file}`);
-                        if(temp.schema){
-                            for (key in temp.schema.obj)
-                                fields.push(key);
-                            resolve(fields);
-                        }
-                    }
-                })
-            });
-    })
+
+    const files = await Promise.all(promises);
+    for (const file of files) {
+        if(file){
+            let temp = require(`${rootPath}/models/${file}`);
+            if(temp.schema){
+                for (key in temp.schema.obj)
+                    fields.push(key);
+            }
+        } 
+    }
+    return fields;
 }
 
 module.exports = {
