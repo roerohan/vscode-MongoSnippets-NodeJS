@@ -3,7 +3,8 @@ var path = require('path');
 const util = require('util');
 const readFile = util.promisify(fs.readFile);
 
-var rootPath = require('vscode').workspace.rootPath;
+// @ts-ignore
+var rootPath = require('vscode').workspace.workspaceFolders[0].uri.fsPath;
 
 function getFilesInModels() {
     if (!fs.existsSync(path.join(rootPath, 'models'))) {
