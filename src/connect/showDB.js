@@ -1,45 +1,30 @@
 const mongoose = require('mongoose');
 
-function mongoConnect(dbname){
+async function mongoConnect(dbName) {
     mongoose.Promise = global.Promise;
-    mongoose.connect(dbname, {
-        useNewUrlParser: true,
-        useCreateIndex: true,
-    })
-    .catch(err => {
-        console.log('MongoDB connection error:' + err);
-    });
+    try {
+        await mongoose.connect(dbName, {
+            useNewUrlParser: true,
+            useCreateIndex: true,
+            useUnifiedTopology: true,
+        });
+        console.log('DB Connection Success');
+    } catch (err) {
+        console.log('Error in Mongo Connection');
+    }
 }
 
-function listAllCollections(dbname) {
+async function listAllCollections(dbName) {
+    await mongoConnect(dbName);
+    const collectionNames = (await mongoose.connection.db.listCollections().toArray()).map((collection) => collection.name);
+    await mongoose.disconnect();
+    return collectionNames;
+}
+
+
+function listDocsOld(dbName, collectionName) {
     return new Promise((resolve, reject) => {
-        mongoConnect(dbname);
-        var db = mongoose.connection;
-        db.on('open', function () {
-            mongoose.connection.db.listCollections().toArray(function (err, names) {
-                if (err) reject("Unexpected Error Occured");
-                var promises = [];
-                names.forEach(name => {
-                    promises.push(new Promise (resolve => {
-                        resolve(name['name']);
-                    }));
-                });
-                Promise.all(promises).then(names => {
-                    resolve(names);
-                    mongoose.disconnect();
-                });
-            });
-        });
-        //Bind connection to error event (to get notification of connection errors)
-        db.on('error', (err)=>{
-            reject('MongoDB connection error:' + err);
-        });
-    });
-}
-
-function listDocs (dbname, collectionName) {
-    return new Promise( (resolve, reject) => {
-        mongoConnect(dbname);
+        mongoConnect(dbName);
 
         //Get the default connection
         var db = mongoose.connection;
@@ -53,16 +38,24 @@ function listDocs (dbname, collectionName) {
                     mongoose.disconnect();
                 })
             });
-        
+
         });
-        db.on('error', (err)=>{
+        db.on('error', (err) => {
             reject('MongoDB connection error:' + err);
         });
     });
 }
 
+async function listDocs(dbName, collectionName) {
+    await mongoConnect(dbName);
+    const collection = mongoose.connection.db.collection(collectionName);
+    const docs = await collection.find({}).toArray();
+    await mongoose.disconnect();
+    return docs;
+}
+
 module.exports = {
     listAllCollections,
     listDocs,
-    mongoConnect
+    mongoConnect,
 }
