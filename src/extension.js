@@ -42,6 +42,10 @@ function activate(context) {
 		setupBoilerplate();
 	});
 
+	const viewCollections = vscode.commands.registerCommand('extension.viewCollections', async () => {
+		viewCollectionJson();
+	});
+
 	var modelnames = [];
 	var models = {};
 	var fieldnames = [];
@@ -95,10 +99,6 @@ function activate(context) {
 		} else {
 			vscode.window.showWarningMessage("Looking for models...");
 		}
-	});
-
-	let viewCollections = vscode.commands.registerCommand('extension.viewCollections', async () => {
-		viewCollectionJson();
 	});
 
 	// to complete modelnames
