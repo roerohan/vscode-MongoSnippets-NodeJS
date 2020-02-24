@@ -1,37 +1,42 @@
+'use strict';
 const fs = require('fs');
-const path = require('path');
 
-class AppModel {
-
-    makefiles(filepaths, text) {
-        filepaths.forEach((filepath) => this.makeFileSync(filepath, text[filepaths.indexOf(filepath)]));
-    }
-
-    makefolders(files) {
-        files.forEach(file => this.makeDirSync(file));
-    }
-
-    makeDirSync(dir) {
-        if (fs.existsSync(dir)) return;
-        if (!fs.existsSync(path.dirname(dir))) {
-            this.makeDirSync(path.dirname(dir));
+function exists(path) {
+    fs.access(path, (err) => {
+        if (err) {
+            return false;
         }
-        fs.mkdirSync(dir);
-    }
+        return true;
+    });
+}
 
-    makeFileSync(filename, text) {
-        if(!text) text="";
-        if (!fs.existsSync(filename)) {
-            this.makeDirSync(path.dirname(filename));
-            fs.createWriteStream(filename).close();
-            fs.writeFile(filename, text, err => {
-                if (err) throw err;
-            });
-        }
+function makeDir(path) {
+    // @ts-ignore
+    if (!exists(path)) {
+        fs.mkdir(path, { recursive: true }, (err) => {
+            if (err) throw err;
+        });
     }
+}
 
+function makeFile(path, content) {
+    // @ts-ignore
+    if (!exists(path)) {
+        fs.writeFile(path, content, (err) => {
+            if (err) throw err;
+        });
+    }
+}
+
+function makeFiles(files, text) {
+    files.forEach((file, index) => makeFile(file, text[index]));
+}
+
+function makeFolders(names) {
+    names.forEach(name => makeDir(name));
 }
 
 module.exports = {
-    AppModel
+    makeFiles,
+    makeFolders,
 }

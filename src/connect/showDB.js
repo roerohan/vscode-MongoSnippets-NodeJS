@@ -21,31 +21,6 @@ async function listAllCollections(dbName) {
     return collectionNames;
 }
 
-
-function listDocsOld(dbName, collectionName) {
-    return new Promise((resolve, reject) => {
-        mongoConnect(dbName);
-
-        //Get the default connection
-        var db = mongoose.connection;
-        db.once('open', function () {
-
-            db.db.collection(collectionName, (err, collection) => {
-                if (err) reject(err);
-                collection.find({}).toArray((err, data) => {
-                    if (err) reject(err);
-                    resolve(data);
-                    mongoose.disconnect();
-                })
-            });
-
-        });
-        db.on('error', (err) => {
-            reject('MongoDB connection error:' + err);
-        });
-    });
-}
-
 async function listDocs(dbName, collectionName) {
     await mongoConnect(dbName);
     const collection = mongoose.connection.db.collection(collectionName);
