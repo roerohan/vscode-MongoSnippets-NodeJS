@@ -127,6 +127,12 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.2.0
+- Fix:
+   * Code Cleanup
+   * Most of the code converted to Async await from promises
+   * Better modularity
+
 ### v1.0.23
 
 - Fix: 
@@ -144,16 +150,6 @@ These are the release notes for mongo-snippets-for-node-js.
 - Fix:
    * Undocumented changes
    * Diff version update
-
-### v1.0.20
-
-* Bug Fix: Security Vulnerability
-
-### v1.0.19
-
-* Feature Enhancement:
-   * Formatted JSON on mongo connect
-* Bug Fix: Fieldname suggestions in {...} improved.
 
 -----------------------------------------------------------------------------------------------------------
 

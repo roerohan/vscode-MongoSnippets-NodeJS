@@ -14,6 +14,13 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
    * Dependencies updated
    * Security risks resolved
 
+### v1.2.0
+
+- Fix:
+   * Code Cleanup
+   * Most of the code converted to Async await from promises
+   * Better modularity
+
 ### v1.0.23
 
 - Fix: Dependencies updated
