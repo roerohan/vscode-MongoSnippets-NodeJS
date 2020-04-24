@@ -89,7 +89,7 @@ async function getExportFile(file: string) {
 export async function getFieldNames(model: any) {
     if (!model) return;
     let filename: string[] = [];
-    for (var key in model) {
+    for (const key in model) {
         if (!model.hasOwnProperty(key)) continue;
         const fname: string[] = [];
         fname.push(model[key]['file']);
@@ -106,9 +106,9 @@ export async function getFieldNames(model: any) {
     const files = await Promise.all(promises);
     for (const file of files) {
         if (file) {
-            const temp = require(`${rootPath}/models/${file}`);
+            const temp = await import(`${rootPath}/models/${file}`);
             if (temp.schema) {
-                for (key in temp.schema.obj)
+                for (const key in temp.schema.obj)
                     fields.push(key);
             }
         }
