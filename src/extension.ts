@@ -47,7 +47,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     let modelnames: any = [];
-    let models = {};
+    let models: any = {};
     let fieldnames: any = [];
     setInterval(() => {
         getModelsFromFiles().then(async (names: any) => {
@@ -80,17 +80,16 @@ export function activate(context: vscode.ExtensionContext) {
 
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
         if (modelnames != null && modelnames.length > 0) {
-            const val = await vscode.window.showQuickPick(modelnames, {
+            const val: any = await vscode.window.showQuickPick(modelnames, {
                 placeHolder: 'Select a model to open it\'s source file...'
             });
             if (!val)
                 return;
-            // @ts-ignore
             const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val['label'].split(' ')[1]]['file']);
             vscode.workspace.openTextDocument(filePath).then(async (doc: any) => {
                 vscode.window.showTextDocument(doc).then((editor: any) => {
                     const text = doc.getText();
-                    const match = RegExp(val.split(' ')[1]).exec(text);
+                    const match = RegExp(val['label'].split(' ')[1]).exec(text);
                     const startPos = doc.positionAt(match.index);
                     const endPos = doc.positionAt(match.index + match[0].length);
                     editor.selection = new vscode.Selection(startPos, endPos);
@@ -191,4 +190,6 @@ export function activate(context: vscode.ExtensionContext) {
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-export function deactivate() { }
+export function deactivate() { 
+    console.log('Deactivated');
+}
