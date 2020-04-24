@@ -1,14 +1,14 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 const mongoConnect = require('./showDB').mongoConnect;
 
-function find(dbname, collectionName, filter) {
+export default function find(dbname: string, collectionName: string, filter: object) {
     return new Promise( (resolve, reject) => {
         mongoConnect(dbname);
 
         //Get the default connection
-        var db = mongoose.connection;
+        const db = mongoose.connection;
         db.once('open', function () {
-            db.db.collection(collectionName, (err, collection) => {
+            db.db.collection(collectionName, (err: Error, collection: mongoose.Collection) => {
                 if (err) reject(err);
                 collection.find(filter).toArray((err, data) => {
                     if (err) reject(err);
@@ -22,8 +22,4 @@ function find(dbname, collectionName, filter) {
             reject('MongoDB connection error:' + err);
         });
     });
-}
-
-module.exports = {
-    find
 }

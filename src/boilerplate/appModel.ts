@@ -1,7 +1,8 @@
 'use strict';
-const fs = require('fs');
 
-function exists(path) {
+import fs, { PathLike } from "fs";
+
+function exists(path: PathLike) {
     fs.access(path, (err) => {
         if (err) {
             return false;
@@ -10,7 +11,7 @@ function exists(path) {
     });
 }
 
-function makeDir(path) {
+function makeDir(path: PathLike) {
     // @ts-ignore
     if (!exists(path)) {
         fs.mkdir(path, { recursive: true }, (err) => {
@@ -19,7 +20,7 @@ function makeDir(path) {
     }
 }
 
-function makeFile(path, content) {
+function makeFile(path: PathLike, content: string) {
     // @ts-ignore
     if (!exists(path)) {
         fs.writeFile(path, content, (err) => {
@@ -28,15 +29,10 @@ function makeFile(path, content) {
     }
 }
 
-function makeFiles(files, text) {
+export function makeFiles(files: string[], text: string[]) {
     files.forEach((file, index) => makeFile(file, text[index]));
 }
 
-function makeFolders(names) {
+export default function makeFolders(names: string[]) {
     names.forEach(name => makeDir(name));
-}
-
-module.exports = {
-    makeFiles,
-    makeFolders,
 }

@@ -16,7 +16,7 @@
         "mongoose-js",
         "mongoose"
     ],
-    "version": "1.2.0",
+    "version": "1.2.1",
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
@@ -34,7 +34,7 @@
         "onCommand:extension.viewCollections",
         "onLanguage:javascript"
     ],
-    "main": "./src/extension.js",
+    "main": "./dist/extension.js",
     "contributes": {
         "snippets": [
             {
@@ -65,8 +65,8 @@
             }
         ]
     },
-    "license": "SEE LICENSE IN LICENSE",
-    "homepage": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/README.md",
+    "license": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/LICENSE",
+    "homepage": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS",
     "bugs": {
         "url": "https://github.com/roerohan/vscode-MongoSnippets-NodeJS/issues",
         "email": "roerohan@gmail.com"
@@ -77,15 +77,27 @@
     },
     "scripts": {
         "postinstall": "node ./node_modules/vscode/bin/install",
-        "test": "node ./node_modules/vscode/bin/test"
+        "test": "node ./node_modules/vscode/bin/test",
+        "lint": "eslint src/**/*.ts",
+        "clean": "rm -rf dist/",
+        "build": "npm run clean && tsc",
+        "watch": "tsc -watch -p ./",
+        "vscode:prepublish": "npm run build"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
         "@types/node": "^10.12.21",
-        "eslint": "^5.13.0",
-        "mongoose": "^5.9.2",
-        "typescript": "^3.3.1",
-        "vscode": "^1.1.28"
+        "@types/vscode": "^1.44.0",
+        "@typescript-eslint/eslint-plugin": "^2.29.0",
+        "@typescript-eslint/parser": "^2.29.0",
+        "eslint": "^6.8.0",
+        "eslint-config-airbnb-base": "^14.1.0",
+        "eslint-config-airbnb-typescript": "^7.2.1",
+        "eslint-plugin-import": "^2.20.2",
+        "typescript": "^3.3.1"
     },
-    "dependencies": {}
+    "dependencies": {
+        "mongoose": "^5.9.10",
+        "@types/mongoose": "^5.7.12"
+    }
 }

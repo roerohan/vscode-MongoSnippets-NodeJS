@@ -1,21 +1,21 @@
-var fs = require('fs');
-var path = require('path');
-const util = require('util');
-const readFile = util.promisify(fs.readFile);
+import fs from 'fs';
+import path from 'path';
+import util from 'util';
+import * as vscode from 'vscode';
 
-// @ts-ignore
-var rootPath = require('vscode').workspace.workspaceFolders[0].uri.fsPath;
+const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
+const readFile = util.promisify(fs.readFile);
 
 function getFilesInModels() {
     if (!fs.existsSync(path.join(rootPath, 'models'))) {
         return undefined;
     } else {
-        var files = fs.readdirSync(path.join(rootPath, 'models'));
+        const files = fs.readdirSync(path.join(rootPath, 'models'));
         return files;
     }
 }
 
-async function getFile(file) {
+async function getFile(file: string) {
     try {
         const data = await readFile(path.join(rootPath, 'models', file), 'utf-8')
 
@@ -26,8 +26,8 @@ async function getFile(file) {
                 "file": file
             }
         } else {
-            var re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
-            let first = data.match(re);
+            const re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
+            const first = data.match(re);
             if (first) {
                 return {
                     "name": first.join(','),
@@ -49,19 +49,22 @@ async function getFile(file) {
     }
 }
 
-async function getModelsFromFiles() {
-    var files = getFilesInModels();
+export default async function getModelsFromFiles() {
+    const files = getFilesInModels();
     if (!files) {
         return undefined;
     } else {
         try {
-            var promises = [];
+            const promises: Array<Promise<{
+                "name": string;
+                "file": string;
+            }>> = [];
             files.forEach((file) => {
                 promises.push(getFile(file));
             });
             const objects = await Promise.all(promises)
-            var modelobjects = objects.filter((el) => {
-                return el != null && el.name != null && el.name!='' && el.file != null;
+            const modelobjects = objects.filter((el) => {
+                return el != null && el.name != null && el.name != '' && el.file != null;
             })
             return modelobjects;
         } catch (err) {
@@ -70,7 +73,7 @@ async function getModelsFromFiles() {
     }
 }
 
-async function getExportFile (file) {
+async function getExportFile(file: string) {
     try {
         const data = await readFile(path.join('models', file), 'utf-8')
 
@@ -78,41 +81,37 @@ async function getExportFile (file) {
 
         return file;
     } catch (err) {
-        console.error(err);
+        if (err.code !== 'ENOENT') console.error(err);
         return undefined;
     }
 }
 
-async function getFieldNames(model) {
-    var filename = [];
+export async function getFieldNames(model: any) {
+    if (!model) return;
+    let filename: string[] = [];
     for (var key in model) {
         if (!model.hasOwnProperty(key)) continue;
-        let fname = [];
+        const fname: string[] = [];
         fname.push(model[key]['file']);
-        filename = fname.filter((el, index) => {
-            return el!=null && fname.indexOf(el)===index;
+        filename = fname.filter((el: string, index: number) => {
+            return el != null && fname.indexOf(el) === index;
         });
     }
-    var promises = [];
-    filename.forEach((file) => {
+    const promises: Array<Promise<string>> = [];
+    filename.forEach((file: string) => {
         promises.push(getExportFile(file));
     });
-    var fields = [];
+    const fields = [];
 
     const files = await Promise.all(promises);
     for (const file of files) {
-        if(file){
-            let temp = require(`${rootPath}/models/${file}`);
-            if(temp.schema){
+        if (file) {
+            const temp = require(`${rootPath}/models/${file}`);
+            if (temp.schema) {
                 for (key in temp.schema.obj)
                     fields.push(key);
             }
-        } 
+        }
     }
     return fields;
-}
-
-module.exports = {
-    getModelsFromFiles,
-    getFieldNames,
 }

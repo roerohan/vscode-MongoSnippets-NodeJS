@@ -1,6 +1,6 @@
-const mongoose = require('mongoose');
+import mongoose from 'mongoose';
 
-async function mongoConnect(dbName) {
+export default async function mongoConnect(dbName: string) {
     mongoose.Promise = global.Promise;
     try {
         await mongoose.connect(dbName, {
@@ -14,23 +14,17 @@ async function mongoConnect(dbName) {
     }
 }
 
-async function listAllCollections(dbName) {
+export async function listAllCollections(dbName: string) {
     await mongoConnect(dbName);
     const collectionNames = (await mongoose.connection.db.listCollections().toArray()).map((collection) => collection.name);
     await mongoose.disconnect();
     return collectionNames;
 }
 
-async function listDocs(dbName, collectionName) {
+export async function listDocs(dbName: string, collectionName: string) {
     await mongoConnect(dbName);
     const collection = mongoose.connection.db.collection(collectionName);
     const docs = await collection.find({}).toArray();
     await mongoose.disconnect();
     return docs;
-}
-
-module.exports = {
-    listAllCollections,
-    listDocs,
-    mongoConnect,
 }

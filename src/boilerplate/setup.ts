@@ -1,10 +1,10 @@
-const vscode = require('vscode');
-const path = require('path');
+import * as vscode from 'vscode';
+import path from 'path';
 
-const { makeFolders, makeFiles } = require('./appModel');
-const precode = require('./precode.json');
+import makeFolders, { makeFiles } from './appModel';
+import precode from './precode.json';
 
-function setup() {
+export default function setup() {
     // @ts-ignore
     const folderPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
     makeFolders([
@@ -25,5 +25,3 @@ function setup() {
         ]
     );
 }
-
-module.exports = setup;

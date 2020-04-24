@@ -1,9 +1,9 @@
-const vscode = require('vscode');
-const path = require('path');
-const { listAllCollections, listDocs } = require('./showDB');
+import * as vscode from 'vscode';
+import path from 'path';
+import { listAllCollections, listDocs } from './showDB';
 
-async function viewJson() {
-    var dbName = await vscode.window.showInputBox({
+export default async function viewJson() {
+    const dbName = await vscode.window.showInputBox({
         placeHolder: "Enter a connection string to the database.",
         value: "mongodb://",
         // @ts-ignore
@@ -14,14 +14,14 @@ async function viewJson() {
     if (!dbName) return;
 
     try {
-        var items = await listAllCollections(dbName);
-        var choice = await vscode.window.showQuickPick(items, {
+        const items = await listAllCollections(dbName);
+        const choice = await vscode.window.showQuickPick(items, {
             placeHolder: 'Choose a Collection:'
         })
 
         if (!choice) return;
 
-        var docs = await listDocs(dbName, choice);
+        const docs = await listDocs(dbName, choice);
 
         // @ts-ignore
         const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, `${choice}.json`));
@@ -29,7 +29,7 @@ async function viewJson() {
 
         const edit = new vscode.WorkspaceEdit();
 
-        var display = JSON.stringify(docs, null, "\t");
+        const display = JSON.stringify(docs, null, "\t");
 
         // const MarkdownString = new vscode.CodeLens()
 
@@ -46,5 +46,3 @@ async function viewJson() {
         vscode.window.showErrorMessage(err);
     }
 }
-
-module.exports = viewJson;
