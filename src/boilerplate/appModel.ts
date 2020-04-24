@@ -2,18 +2,9 @@
 
 import fs, { PathLike } from "fs";
 
-function exists(path: PathLike) {
-    fs.access(path, (err) => {
-        if (err) {
-            return false;
-        }
-        return true;
-    });
-}
 
 function makeDir(path: PathLike) {
-    // @ts-ignore
-    if (!exists(path)) {
+    if (!fs.existsSync(path)) {
         fs.mkdir(path, { recursive: true }, (err) => {
             if (err) throw err;
         });
@@ -21,8 +12,7 @@ function makeDir(path: PathLike) {
 }
 
 function makeFile(path: PathLike, content: string) {
-    // @ts-ignore
-    if (!exists(path)) {
+    if (!fs.existsSync(path)) {
         fs.writeFile(path, content, (err) => {
             if (err) throw err;
         });

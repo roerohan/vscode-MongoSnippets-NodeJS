@@ -5,7 +5,6 @@ import makeFolders, { makeFiles } from './appModel';
 import precode from './precode.json';
 
 export default function setup() {
-    // @ts-ignore
     const folderPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
     makeFolders([
         path.join(folderPath, "models"),
