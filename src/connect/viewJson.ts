@@ -6,7 +6,6 @@ export default async function viewJson() {
     const dbName = await vscode.window.showInputBox({
         placeHolder: "Enter a connection string to the database.",
         value: "mongodb://",
-        // @ts-ignore
         ignoreFocusOut: true,
         prompt: "Valid connection strings usually begin with 'mongodb://'."
     });
@@ -23,7 +22,6 @@ export default async function viewJson() {
 
         const docs = await listDocs(dbName, choice);
 
-        // @ts-ignore
         const newFile = vscode.Uri.parse('untitled:' + path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, `${choice}.json`));
         const document = await vscode.workspace.openTextDocument(newFile);
 
