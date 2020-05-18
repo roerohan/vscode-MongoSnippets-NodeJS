@@ -87,7 +87,7 @@
         "build": "npm run clean && tsc",
         "watch": "tsc -watch -p ./",
         "vscode:prepublish": "npm run build",
-        "package": "vsce package"
+        "package": "vsce package -o vsix"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
