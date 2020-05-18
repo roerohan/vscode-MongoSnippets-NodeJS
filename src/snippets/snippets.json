@@ -178,7 +178,7 @@
         "prefix": "!mdba",
         "body": [
             "${1:Model}.aggregate([",
-            "    { ${2:$group}: { _id: null, ${3:value}: { $max: '${4:$value}'}}}",
+            "    { ${2:$group}: { _id: null, ${3:value}: { $max: '${4:$value}'}}},",
             "    { ${5:$project}: { _id: 0, ${6:value}: ${7:1}}",
             "]).",
             "  then(function (res) {",

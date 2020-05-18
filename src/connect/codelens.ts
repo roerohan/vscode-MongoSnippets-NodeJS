@@ -5,5 +5,5 @@ import {
     SymbolKind,
     TextDocument,
     Range
-  } from "vscode";
+} from "vscode";
 

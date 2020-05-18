@@ -14,6 +14,18 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
    * Dependencies updated
    * Security risks resolved
 
+
+### v1.2.2
+
+- Fix:
+   * VSCode version requirements.
+   * Typescript mongoose error.
+
+### v1.2.1
+
+- Feat:
+   * Port to typescript.
+
 ### v1.2.0
 
 - Fix:

@@ -1,21 +1,35 @@
 {
-	"env": {
-		"browser": false,
-		"commonjs": true,
-		"es6": true,
-		"node": true
-	},
-	"parserOptions": {
-		"ecmaFeatures": {
-			"jsx": true
-		},
-		"ecmaVersion": 8,
-		"sourceType": "module"
-	},
-	"rules": {
-		"no-this-before-super": "warn",
-		"no-undef": "warn",
-		"constructor-super": "warn",
-		"valid-typeof": "warn"
-	}
+    "env": {
+        "commonjs": true,
+        "es6": true,
+        "node": true
+    },
+    "extends": [
+        "plugin:@typescript-eslint/recommended"
+    ],
+    "globals": {
+        "Atomics": "readonly",
+        "SharedArrayBuffer": "readonly"
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": 2018,
+        "sourceType": "module",
+        "project": [
+            "./tsconfig.json"
+        ]
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "no-this-before-super": "warn",
+        "no-undef": "warn",
+        "constructor-super": "warn",
+        "valid-typeof": "warn",
+        "@typescript-eslint/indent": [
+            "error",
+            4
+        ]
+    }
 }

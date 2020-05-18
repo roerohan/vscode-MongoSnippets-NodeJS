@@ -7,3 +7,7 @@ vsc-extension-quickstart.md
 **/*.map
 **/.eslintrc.json
 vsix
+src
+node_modules
+.github
+tsconfig.json
