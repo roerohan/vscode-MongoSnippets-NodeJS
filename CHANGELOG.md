@@ -14,6 +14,16 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
    * Dependencies updated
    * Security risks resolved
 
+### v1.2.4
+
+- Fix:
+   * Export snippets.json to dist folder.
+
+### v1.2.3
+
+- Fix:
+   * Required node_modules/ folder added back to vsce package.
+
 
 ### v1.2.2
 

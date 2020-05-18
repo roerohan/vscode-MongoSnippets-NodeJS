@@ -5,6 +5,7 @@
 import * as vscode from 'vscode';
 import path from 'path';
 
+import snippets from './snippets/snippets.json';
 import setupBoilerplate from './boilerplate/setup';
 import viewCollectionJson from './connect/viewJson';
 import getModelsFromFiles, { getFieldNames } from './suggestions/getModelNames';

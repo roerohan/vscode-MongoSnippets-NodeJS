@@ -127,6 +127,16 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.2.4
+
+- Fix:
+   * Export snippets.json to dist folder.
+
+### v1.2.3
+
+- Fix:
+   * Required node_modules/ folder added back to vsce package.
+
 ### v1.2.2
 
 - Fix:

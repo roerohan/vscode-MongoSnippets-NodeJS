@@ -16,7 +16,7 @@
         "mongoose-js",
         "mongoose"
     ],
-    "version": "1.2.3",
+    "version": "1.2.4",
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
@@ -40,11 +40,11 @@
         "snippets": [
             {
                 "language": "javascript",
-                "path": "./src/snippets/snippets.json"
+                "path": "./dist/snippets/snippets.json"
             },
             {
                 "language": "typescript",
-                "path": "./src/snippets/snippets.json"
+                "path": "./dist/snippets/snippets.json"
             }
         ],
         "commands": [
@@ -86,8 +86,11 @@
         "clean": "rimraf dist/",
         "build": "npm run clean && tsc",
         "watch": "tsc -watch -p ./",
-        "vscode:prepublish": "npm run build",
-        "package": "vsce package -o vsix"
+        "snippets": "mkdir dist/snippets && cp src/snippets/snippets.json dist/snippets/snippets.json",
+        "vscode:prepublish": "npm run pack",
+        "package": "vsce package -o vsix",
+        "pack-src": "ncc build src/extension.ts -o dist && mv dist/index.js dist/extension.js",
+        "pack": "npm run clean && npm run pack-src && npm run snippets"
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
@@ -96,6 +99,7 @@
         "@types/vscode": "^1.32.0",
         "@typescript-eslint/eslint-plugin": "^2.29.0",
         "@typescript-eslint/parser": "^2.29.0",
+        "@zeit/ncc": "^0.22.2",
         "eslint": "^6.8.0",
         "eslint-config-airbnb-base": "^14.1.0",
         "eslint-config-airbnb-typescript": "^7.2.1",
