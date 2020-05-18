@@ -8,5 +8,6 @@ vsc-extension-quickstart.md
 **/.eslintrc.json
 vsix
 src
+node_modules/
 .github
 tsconfig.json
