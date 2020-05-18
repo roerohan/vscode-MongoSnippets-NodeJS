@@ -83,7 +83,7 @@
     "scripts": {
         "test": "node ./node_modules/vscode/bin/test",
         "lint": "eslint src/**/*.ts",
-        "clean": "rm -rf dist/",
+        "clean": "rimraf dist/",
         "build": "npm run clean && tsc",
         "watch": "tsc -watch -p ./",
         "vscode:prepublish": "npm run build",
