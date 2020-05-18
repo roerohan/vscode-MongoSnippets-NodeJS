@@ -20,7 +20,7 @@
     "publisher": "roerohan",
     "icon": "static/icon.png",
     "engines": {
-        "vscode": "^1.44.0"
+        "vscode": "^1.22.0"
     },
     "categories": [
         "Snippets",
@@ -90,6 +90,7 @@
     },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
+        "@types/mongoose": "^5.7.12",
         "@types/node": "^10.12.21",
         "@types/vscode": "^1.44.0",
         "@typescript-eslint/eslint-plugin": "^2.29.0",
@@ -101,7 +102,6 @@
         "typescript": "^3.3.1"
     },
     "dependencies": {
-        "mongoose": "^5.9.10",
-        "@types/mongoose": "^5.7.12"
+        "mongoose": "^5.9.14"
     }
 }
