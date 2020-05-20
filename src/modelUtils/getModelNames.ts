@@ -1,7 +1,7 @@
+import vscode from 'vscode';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import vscode from 'vscode';
 
 const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 const readFile = util.promisify(fs.readFile);
@@ -59,28 +59,35 @@ export default async function getModelsFromFiles(): Promise<{ [key: string]: { f
 
 async function getExportFile(file: string): Promise<string> {
     try {
-        const data = await readFile(path.join('models', file), 'utf-8');
+        const data = await readFile(
+            path.join(
+                rootPath,
+                'models',
+                file,
+            ),
+            'utf-8',
+        );
 
         if (!data || !data.includes('export')) return undefined;
-
         return file;
     } catch (err) {
+        console.error(err);
         if (err.code !== 'ENOENT') console.error(err);
         return undefined;
     }
 }
 
 export async function getFieldNames(
-    model: { [key: string]: { file: string } },
+    models: { [key: string]: { file: string } },
 ): Promise<string[]> {
-    if (!model) return [];
+    if (!models) return [];
 
     const promises: Array<Promise<string>> = [];
     const filenames: string[] = [];
     const fields: string[] = [];
 
-    Object.keys(model).forEach((key) => {
-        const { file } = model[key];
+    Object.keys(models).forEach((model) => {
+        const { file } = models[model];
         if (!file || filenames.indexOf(file) !== -1) {
             return;
         }
@@ -89,15 +96,18 @@ export async function getFieldNames(
     });
 
     const files = (await Promise.all(promises)).filter((file) => !!file);
-
     files.forEach(async (file) => {
-        const temp = await import(`${rootPath}/models/${file}`);
-        if (temp.schema) {
-            temp.schema.obj.forEach((key: string) => {
-                fields.push(key);
-            });
+        try {
+            const temp = await import(`${rootPath}/models/${file}`);
+            if (temp.schema) {
+                Object.keys(temp.schema.obj).forEach((key: string) => {
+                    fields.push(key);
+                });
+            }
+        } catch {
+            return '';
         }
+        return '';
     });
-
     return fields;
 }

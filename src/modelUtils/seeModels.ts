@@ -2,9 +2,16 @@ import vscode from 'vscode';
 import path from 'path';
 
 export default async function (
-    modelNames: { label: string; detail: string }[],
     models: { [key: string]: { file: string } },
 ): Promise<void> {
+    const modelNames: { label: string; detail: string }[] = [];
+    Object.keys(models).forEach((name) => {
+        modelNames.push({
+            label: `$(star-delete) ${name}`,
+            detail: `$(file-code) Defined in ${models[name].file}, select to open.`,
+        });
+    });
+
     if (!modelNames || !modelNames.length) {
         vscode.window.showWarningMessage('Still looking for models... Try again!');
         return;
@@ -19,11 +26,16 @@ export default async function (
 
     if (!val) return;
 
-    const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val.label.split(' ')[1]].file);
+    const filePath = path.join(
+        vscode.workspace.workspaceFolders[0].uri.fsPath,
+        'models',
+        models[val.label.split(' ')[1]].file,
+    );
 
     const doc = await vscode.workspace.openTextDocument(filePath);
     const editor = await vscode.window.showTextDocument(doc);
     const match = RegExp(val.label.split(' ')[1]).exec(doc.getText());
+
     editor.selection = new vscode.Selection(
         doc.positionAt(match.index),
         doc.positionAt(match.index + match[0].length),

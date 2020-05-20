@@ -1,44 +1,47 @@
 import vscode from 'vscode';
+import { getFieldNames } from './getModelNames';
 
-export default function (
-    modelNames: {
-        label: string;
-        detail: string;
-    }[],
-    fieldnames: string[],
-) {
-    const provider1 = vscode.languages.registerCompletionItemProvider({
+export default async function (
+    models: { [key: string]: { file: string } },
+): Promise<vscode.Disposable[]> {
+    const fieldnames = await getFieldNames(models);
+
+    const modelNameCompletionProvider = (
+        language: string,
+    ): vscode.Disposable => vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
-        language: 'javascript',
+        language,
     }, {
         provideCompletionItems() {
             const items: vscode.CompletionItem[] = [];
-            modelNames.forEach((model) => {
-                const modelname = model.label.split(' ')[1];
-                const complete = new vscode.CompletionItem(modelname);
+
+            Object.keys(models).forEach((model) => {
+                const complete = new vscode.CompletionItem(model, vscode.CompletionItemKind.Field);
+
                 complete.commitCharacters = ['.'];
-                complete.kind = vscode.CompletionItemKind.Field;
-                complete.detail = `Press '.' to get ${modelname}`;
+                complete.detail = `Press '.' to complete ${model}`;
                 complete.documentation = new vscode.MarkdownString(
-                    `**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`,
+                    `**Mongo Snippets: Model Name Suggestion - \`${model}.\`**`,
                 );
+
                 items.push(complete);
             });
             return items;
         },
     });
 
-    // to complete after `modelNames.`
-    const provider2 = vscode.languages.registerCompletionItemProvider({
+    const dotFieldNameCompletionProvider = (
+        language: string,
+    ): vscode.Disposable => vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
-        language: 'javascript',
+        language,
     }, {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
             const items: vscode.CompletionItem[] = [];
-            modelNames.forEach((model) => {
-                const modelname = model.label.split(' ')[1];
+
+            Object.keys(models).forEach((model) => {
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
-                if (!linePrefix.endsWith(`${modelname}.`)) {
+                if (!linePrefix.endsWith(`${model}.`)) {
                     return;
                 }
                 fieldnames.forEach((field) => {
@@ -56,12 +59,13 @@ export default function (
             return items;
         },
     },
-        '.');
+    '.');
 
-    // to complete within {}
-    const provider3 = vscode.languages.registerCompletionItemProvider({
+    const objectFieldNameCompletionProvider = (
+        language: string,
+    ): vscode.Disposable => vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
-        language: 'javascript',
+        language,
     }, {
         provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
             // get field names
@@ -95,7 +99,16 @@ export default function (
             return items;
         },
     },
-        '{');
+    '{');
 
-    return [provider1, provider2, provider3];
+    return [
+        modelNameCompletionProvider('javascript'),
+        modelNameCompletionProvider('typescript'),
+
+        dotFieldNameCompletionProvider('javascript'),
+        dotFieldNameCompletionProvider('typescript'),
+
+        objectFieldNameCompletionProvider('javascript'),
+        objectFieldNameCompletionProvider('typescript'),
+    ];
 }

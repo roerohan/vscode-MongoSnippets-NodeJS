@@ -10,7 +10,6 @@ export default function find(
     return new Promise((resolve, reject) => {
         mongoConnect(dbname);
 
-        // Get the default connection
         const db = mongoose.connection;
         db.once('open', () => {
             db.db.collection(collectionName, (err: Error, collection: mongoose.Collection) => {
@@ -24,7 +23,7 @@ export default function find(
         });
 
         db.on('error', (err) => {
-            if (err) reject(`MongoDB connection error: ${err}`);
+            if (err) reject(err);
         });
     });
 }

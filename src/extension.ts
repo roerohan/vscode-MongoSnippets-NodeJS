@@ -1,19 +1,22 @@
 import vscode from 'vscode';
 
-import snippets from './snippets/snippets.json';
 import setupBoilerplate from './boilerplate/setup';
 import viewCollectionJson from './connect/viewJson';
-import getModelsFromFiles, { getFieldNames } from './modelUtils/getModelNames';
+import getModelsFromFiles from './modelUtils/getModelNames';
 import seeModelsUtil from './modelUtils/seeModels';
 import completionItemProviders from './modelUtils/completionItemProviders.js';
 
 /**
  * @param {vscode.ExtensionContext} context
  */
-export function activate(context: vscode.ExtensionContext): void {
+export async function activate(context: vscode.ExtensionContext): Promise<void> {
     console.log('Mongo Snippets has been activated.');
+
     const mongooseLink = 'https://mongoosejs.com/docs/api.html#Model';
     const extensionLink = 'https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/README.md';
+
+    let models: { [key: string]: { file: string } } = await getModelsFromFiles();
+    let providers: vscode.Disposable[] = await completionItemProviders(models);
 
     const mongooseDocs = vscode.commands.registerCommand('extension.mongoosejsDocs', () => {
         vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(mongooseLink));
@@ -31,34 +34,9 @@ export function activate(context: vscode.ExtensionContext): void {
         viewCollectionJson();
     });
 
-    let modelNames: { label: string; detail: string }[] = [];
-    let models: { [key: string]: { file: string } } = {};
-    let fieldnames: string[] = [];
-
-    setInterval(async () => {
-        try {
-            models = await getModelsFromFiles();
-            modelNames = [];
-
-            if (!models) return;
-            Object.keys(models).forEach((name) => {
-                modelNames.push({
-                    label: `$(star-delete) ${name}`,
-                    detail: `$(file-code) Defined in ${models[name].file}, select to open.`,
-                });
-            });
-
-            fieldnames = await getFieldNames(models);
-        } catch (err) {
-            console.error(err);
-        }
-    }, 2000);
-
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
-        await seeModelsUtil(modelNames, models);
+        await seeModelsUtil(models);
     });
-
-    const providers = completionItemProviders(modelNames, fieldnames);
 
     context.subscriptions.push(
         mongooseDocs,
@@ -68,10 +46,19 @@ export function activate(context: vscode.ExtensionContext): void {
         viewCollections,
         ...providers,
     );
+
+    setInterval(async () => {
+        try {
+            models = await getModelsFromFiles();
+            providers.forEach((provider) => provider.dispose());
+            providers = await completionItemProviders(models);
+        } catch (err) {
+            console.error(err);
+        }
+    }, 5000);
 }
 exports.activate = activate;
 
-// this method is called when your extension is deactivated
 export function deactivate(): void {
-    console.log('Deactivated');
+    console.log('Deactivated Mongo Snippets.');
 }
