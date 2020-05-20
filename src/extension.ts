@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext): void {
         viewCollectionJson();
     });
 
-    let modelNames: { label: string; detail: string }[] = [];
+    let modelNames: { label: string, detail: string }[] = [];
     let models: { [key: string]: { file: string } } = {};
     let fieldnames: string[] = [];
 
@@ -59,7 +59,10 @@ export function activate(context: vscode.ExtensionContext): void {
             return;
         }
 
-        const val: { label: string; detail: string } = await vscode.window.showQuickPick(modelNames, {
+        const val: {
+            label: string,
+            detail: string
+        } = await vscode.window.showQuickPick(modelNames, {
             placeHolder: 'Select a model to open it\'s source file...',
         });
 

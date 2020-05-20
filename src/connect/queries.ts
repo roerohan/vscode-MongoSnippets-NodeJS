@@ -18,8 +18,9 @@ export default function find(dbname: string, collectionName: string, filter: obj
                 });
             });
         });
+
         db.on('error', (err) => {
-            if (err) reject(`MongoDB connection error:${err}`);
+            if (err) reject(`MongoDB connection error: ${err}`);
         });
     });
 }
