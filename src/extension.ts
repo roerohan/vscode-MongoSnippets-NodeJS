@@ -1,6 +1,6 @@
 // The module 'vscode' contains the VS Code extensibility API
 // Import the module and reference it with the alias vscode in your code below
-'use strict';
+
 
 import * as vscode from 'vscode';
 import path from 'path';
@@ -18,8 +18,7 @@ let repeatTime = 0;
 /**
  * @param {vscode.ExtensionContext} context
  */
-export function activate(context: vscode.ExtensionContext) {
-
+export function activate(context: vscode.ExtensionContext): void {
     // Use the console to output diagnostic information (console.log) and errors (console.error)
     // This line of code will only be executed once when your extension is activated
 
@@ -36,7 +35,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     const extensionDocs = vscode.commands.registerCommand('extension.extensionDocs', () => {
-        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(extensionLink))
+        vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(extensionLink));
     });
 
     const setup = vscode.commands.registerCommand('extension.setup', () => {
@@ -47,50 +46,53 @@ export function activate(context: vscode.ExtensionContext) {
         viewCollectionJson();
     });
 
-    let modelnames: any = [];
-    let models: any = {};
-    let fieldnames: any = [];
-    setInterval(() => {
-        getModelsFromFiles().then(async (names: any) => {
-            let n: any = [];
-            const m: any = {};
-            if (!names || !names.length) return;
-            names.forEach((name: any) => {
-                const temp = name["name"].split(',');
-                temp.forEach((t: any, i: any) => {
-                    m[t] = {
-                        'file': name.file
-                    };
-                    temp[i] = {
-                        label: `$(star-delete) ${t}`,
-                        detail: `$(file-code) Defined in ${name.file}, select to open.`,
-                    };
-                });
-                n = n.concat(temp);
+    let modelnames: { label: string; detail: string }[] = [];
+    let modelsx: { [key: string]: { file: string } } = {};
+    let fieldnames: string[] = [];
+
+    setInterval(async () => {
+        try {
+            const models = await getModelsFromFiles();
+            modelsx = {};
+            modelnames = [];
+
+            if (!models || !models.length) return;
+
+            models.forEach((model: { name: string; file: string }) => {
+                const { name } = model;
+
+                if (!modelsx[name]) {
+                    modelnames.push({
+                        label: `$(star-delete) ${name}`,
+                        detail: `$(file-code) Defined in ${model.file}, select to open.`,
+                    });
+                } else if (modelsx[name].file !== model.file) {
+                    const index = modelnames.findIndex((modelname) => modelname.label.includes(name));
+                    modelnames[index].detail = `$(file-code) Defined in ${model.file}, select to open.`;
+                }
+
+                modelsx[name] = {
+                    file: model.file,
+                };
             });
-            modelnames = n;
-            models = m;
-            fieldnames = await getFieldNames(models);
-        }).catch((err: Error) => {
-            console.error(err + "\nError");
-        });
-    }, repeatTime); // Executes without waiting for the first time
 
-    repeatTime = 5000; // Set interval to 5 seconds
-
+            fieldnames = await getFieldNames(modelsx);
+        } catch (err) {
+            console.error(err);
+        }
+    }, repeatTime);
 
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
         if (modelnames != null && modelnames.length > 0) {
             const val: any = await vscode.window.showQuickPick(modelnames, {
-                placeHolder: 'Select a model to open it\'s source file...'
+                placeHolder: 'Select a model to open it\'s source file...',
             });
-            if (!val)
-                return;
-            const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val['label'].split(' ')[1]]['file']);
+            if (!val) return;
+            const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', modelsx[val.label.split(' ')[1]].file);
             vscode.workspace.openTextDocument(filePath).then(async (doc: any) => {
                 vscode.window.showTextDocument(doc).then((editor: any) => {
                     const text = doc.getText();
-                    const match = RegExp(val['label'].split(' ')[1]).exec(text);
+                    const match = RegExp(val.label.split(' ')[1]).exec(text);
                     const startPos = doc.positionAt(match.index);
                     const endPos = doc.positionAt(match.index + match[0].length);
                     editor.selection = new vscode.Selection(startPos, endPos);
@@ -98,14 +100,14 @@ export function activate(context: vscode.ExtensionContext) {
                 });
             });
         } else {
-            vscode.window.showWarningMessage("Looking for models...");
+            vscode.window.showWarningMessage('Looking for models...');
         }
     });
 
     // to complete modelnames
     const provider1 = vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
-        language: 'javascript'
+        language: 'javascript',
     }, {
         provideCompletionItems() {
             const items: any = [];
@@ -119,13 +121,13 @@ export function activate(context: vscode.ExtensionContext) {
                 items.push(complete);
             });
             return items;
-        }
-    })
+        },
+    });
 
     // to complete after `modelnames.`
     const provider2 = vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
-        language: 'javascript'
+        language: 'javascript',
     }, {
         provideCompletionItems(document: any, position: any) {
             const items: any = [];
@@ -139,21 +141,19 @@ export function activate(context: vscode.ExtensionContext) {
                     const complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
                     complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
                     items.push(complete);
-                })
-            })
+                });
+            });
             return items;
-        }
+        },
     },
-    '.'
-    )
+        '.');
 
     // to complete within {}
     const provider3 = vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
-        language: 'javascript'
+        language: 'javascript',
     }, {
         provideCompletionItems(document: any, position: any) {
-
             // get field names
 
             const startPos = document.positionAt(0);
@@ -163,23 +163,22 @@ export function activate(context: vscode.ExtensionContext) {
             const openbraces = preText.split('{').length - 1;
             const closedbraces = preText.split('}').length - 1;
             if (openbraces <= closedbraces) {
-                return undefined
+                return undefined;
             }
             const linePrefix = document.lineAt(position).text.substr(0, position.character);
-            if (linePrefix.endsWith(`{`)) {
-                return undefined
+            if (linePrefix.endsWith('{')) {
+                return undefined;
             }
             const items: any = [];
             fieldnames.forEach((field: any) => {
                 const complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
                 complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
                 items.push(complete);
-            })
+            });
             return items;
         },
     },
-    '{'
-    );
+        '{');
 
     context.subscriptions.push(mongooseDocs);
     context.subscriptions.push(extensionDocs);
@@ -191,6 +190,6 @@ export function activate(context: vscode.ExtensionContext) {
 exports.activate = activate;
 
 // this method is called when your extension is deactivated
-export function deactivate() { 
+export function deactivate(): void {
     console.log('Deactivated');
 }

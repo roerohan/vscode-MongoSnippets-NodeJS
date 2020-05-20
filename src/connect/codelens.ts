@@ -4,6 +4,5 @@ import {
     CodeLensProvider,
     SymbolKind,
     TextDocument,
-    Range
-} from "vscode";
-
+    Range,
+} from 'vscode';
