@@ -3,7 +3,7 @@ import * as vscode from 'vscode';
 import snippets from './snippets/snippets.json';
 import setupBoilerplate from './boilerplate/setup';
 import viewCollectionJson from './connect/viewJson';
-import getModelsFromFiles, { getFieldNames } from './suggestions/getModelNames';
+import getModelsFromFiles, { getFieldNames } from './modelUtils/getModelNames';
 import seeModelsUtil from './modelUtils/seeModels';
 
 /**
