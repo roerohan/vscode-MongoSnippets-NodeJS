@@ -136,6 +136,7 @@ These are the release notes for mongo-snippets-for-node-js.
 - Feat:
    * Code should run faster now.
    * Should take lesser processing power.
+   * Typescript support for existing features.
 
 ### v1.2.4
 

@@ -23,6 +23,7 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 - Feat:
    * Code should run faster now.
    * Should take lesser processing power.
+   * Typescript support for existing features.
 
 ### v1.2.4
 
