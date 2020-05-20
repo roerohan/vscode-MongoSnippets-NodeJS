@@ -22,7 +22,7 @@ export async function listAllCollections(dbName: string): Promise<string[]> {
     return collectionNames;
 }
 
-export async function listDocs(dbName: string, collectionName: string): Promise<any[]> {
+export async function listDocs(dbName: string, collectionName: string): Promise<object[]> {
     await mongoConnect(dbName);
     const collection = mongoose.connection.db.collection(collectionName);
     const docs = await collection.find({}).toArray();

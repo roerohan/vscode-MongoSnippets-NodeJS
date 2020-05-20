@@ -24,13 +24,10 @@
         "@typescript-eslint"
     ],
     "rules": {
-        "no-this-before-super": "warn",
-        "no-undef": "warn",
-        "constructor-super": "warn",
-        "valid-typeof": "warn",
         "@typescript-eslint/indent": [
             "error",
             4
-        ]
+        ],
+        "no-console": 0
     }
 }

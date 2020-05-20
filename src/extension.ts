@@ -1,10 +1,10 @@
 import * as vscode from 'vscode';
-import path from 'path';
 
 import snippets from './snippets/snippets.json';
 import setupBoilerplate from './boilerplate/setup';
 import viewCollectionJson from './connect/viewJson';
 import getModelsFromFiles, { getFieldNames } from './suggestions/getModelNames';
+import seeModelsUtil from './modelUtils/seeModels';
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -30,7 +30,7 @@ export function activate(context: vscode.ExtensionContext): void {
         viewCollectionJson();
     });
 
-    let modelNames: { label: string, detail: string }[] = [];
+    let modelNames: { label: string; detail: string }[] = [];
     let models: { [key: string]: { file: string } } = {};
     let fieldnames: string[] = [];
 
@@ -54,30 +54,7 @@ export function activate(context: vscode.ExtensionContext): void {
     }, 2000);
 
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
-        if (!modelNames || !modelNames.length) {
-            vscode.window.showWarningMessage('Still looking for models... Try again!');
-            return;
-        }
-
-        const val: {
-            label: string,
-            detail: string
-        } = await vscode.window.showQuickPick(modelNames, {
-            placeHolder: 'Select a model to open it\'s source file...',
-        });
-
-        if (!val) return;
-
-        const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val.label.split(' ')[1]].file);
-
-        const doc = await vscode.workspace.openTextDocument(filePath);
-        const editor = await vscode.window.showTextDocument(doc);
-        const match = RegExp(val.label.split(' ')[1]).exec(doc.getText());
-        editor.selection = new vscode.Selection(
-            doc.positionAt(match.index),
-            doc.positionAt(match.index + match[0].length),
-        );
-        editor.revealRange(editor.selection, vscode.TextEditorRevealType.Default);
+        await seeModelsUtil(modelNames, models);
     });
 
     // to complete modelNames
@@ -86,14 +63,16 @@ export function activate(context: vscode.ExtensionContext): void {
         language: 'javascript',
     }, {
         provideCompletionItems() {
-            const items: any = [];
-            modelNames.forEach((model: any) => {
+            const items: vscode.CompletionItem[] = [];
+            modelNames.forEach((model) => {
                 const modelname = model.label.split(' ')[1];
                 const complete = new vscode.CompletionItem(modelname);
                 complete.commitCharacters = ['.'];
                 complete.kind = vscode.CompletionItemKind.Field;
                 complete.detail = `Press '.' to get ${modelname}`;
-                complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`);
+                complete.documentation = new vscode.MarkdownString(
+                    `**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`,
+                );
                 items.push(complete);
             });
             return items;
@@ -105,17 +84,23 @@ export function activate(context: vscode.ExtensionContext): void {
         scheme: 'file',
         language: 'javascript',
     }, {
-        provideCompletionItems(document: any, position: any) {
-            const items: any = [];
-            modelNames.forEach((model: any): any => {
+        provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
+            const items: vscode.CompletionItem[] = [];
+            modelNames.forEach((model) => {
                 const modelname = model.label.split(' ')[1];
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
                 if (!linePrefix.endsWith(`${modelname}.`)) {
-                    return undefined;
+                    return;
                 }
-                fieldnames.forEach((field: any) => {
-                    const complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
-                    complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
+                fieldnames.forEach((field) => {
+                    const complete = new vscode.CompletionItem(
+                        field,
+                        vscode.CompletionItemKind.Field,
+                    );
+
+                    complete.documentation = new vscode.MarkdownString(
+                        `**Mongo Snippets: Field Name Suggestion - \`${field}\`**`,
+                    );
                     items.push(complete);
                 });
             });
@@ -129,26 +114,33 @@ export function activate(context: vscode.ExtensionContext): void {
         scheme: 'file',
         language: 'javascript',
     }, {
-        provideCompletionItems(document: any, position: any) {
+        provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
             // get field names
-
+            const items: vscode.CompletionItem[] = [];
             const startPos = document.positionAt(0);
 
-            const range = new vscode.Range(startPos, position);
-            const preText = document.getText(range);
+            const preText = document.getText(new vscode.Range(startPos, position));
             const openbraces = preText.split('{').length - 1;
             const closedbraces = preText.split('}').length - 1;
+
             if (openbraces <= closedbraces) {
-                return undefined;
+                return items;
             }
+
             const linePrefix = document.lineAt(position).text.substr(0, position.character);
             if (linePrefix.endsWith('{')) {
-                return undefined;
+                return items;
             }
-            const items: any = [];
-            fieldnames.forEach((field: any) => {
-                const complete = new vscode.CompletionItem(field, vscode.CompletionItemKind.Field);
-                complete.documentation = new vscode.MarkdownString(`**Mongo Snippets: Field Name Suggestion - \`${field}\`**`);
+
+            fieldnames.forEach((field) => {
+                const complete = new vscode.CompletionItem(
+                    field,
+                    vscode.CompletionItemKind.Field,
+                );
+
+                complete.documentation = new vscode.MarkdownString(
+                    `**Mongo Snippets: Field Name Suggestion - \`${field}\`**`,
+                );
                 items.push(complete);
             });
             return items;

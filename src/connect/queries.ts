@@ -2,7 +2,11 @@ import mongoose from 'mongoose';
 
 import mongoConnect from './showDB';
 
-export default function find(dbname: string, collectionName: string, filter: object): Promise<any> {
+export default function find(
+    dbname: string,
+    collectionName: string,
+    filter: object,
+): Promise<object> {
     return new Promise((resolve, reject) => {
         mongoConnect(dbname);
 
