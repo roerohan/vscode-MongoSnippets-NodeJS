@@ -4,7 +4,7 @@ import { getFieldNames } from './getModelNames';
 export default async function (
     models: { [key: string]: { file: string } },
 ): Promise<vscode.Disposable[]> {
-    const fieldnames = await getFieldNames(models);
+    const fieldNames = await getFieldNames(models);
 
     const modelNameCompletionProvider = (
         language: string,
@@ -44,7 +44,7 @@ export default async function (
                 if (!linePrefix.endsWith(`${model}.`)) {
                     return;
                 }
-                fieldnames.forEach((field) => {
+                fieldNames.forEach((field) => {
                     const complete = new vscode.CompletionItem(
                         field,
                         vscode.CompletionItemKind.Field,
@@ -85,7 +85,7 @@ export default async function (
                 return items;
             }
 
-            fieldnames.forEach((field) => {
+            fieldNames.forEach((field) => {
                 const complete = new vscode.CompletionItem(
                     field,
                     vscode.CompletionItemKind.Field,
