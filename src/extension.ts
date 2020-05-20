@@ -47,36 +47,23 @@ export function activate(context: vscode.ExtensionContext): void {
     });
 
     let modelNames: { label: string; detail: string }[] = [];
-    let modelsx: { [key: string]: { file: string } } = {};
+    let models: { [key: string]: { file: string } } = {};
     let fieldnames: string[] = [];
 
     setInterval(async () => {
         try {
-            const models = await getModelsFromFiles();
-            modelsx = {};
+            models = await getModelsFromFiles();
             modelNames = [];
 
-            if (!models || !models.length) return;
-
-            models.forEach((model: { name: string; file: string }) => {
-                const { name } = model;
-
-                if (!modelsx[name]) {
-                    modelNames.push({
-                        label: `$(star-delete) ${name}`,
-                        detail: `$(file-code) Defined in ${model.file}, select to open.`,
-                    });
-                } else if (modelsx[name].file !== model.file) {
-                    const index = modelNames.findIndex((modelname) => modelname.label.includes(name));
-                    modelNames[index].detail = `$(file-code) Defined in ${model.file}, select to open.`;
-                }
-
-                modelsx[name] = {
-                    file: model.file,
-                };
+            if (!models) return;
+            Object.keys(models).forEach((name) => {
+                modelNames.push({
+                    label: `$(star-delete) ${name}`,
+                    detail: `$(file-code) Defined in ${models[name].file}, select to open.`,
+                });
             });
 
-            fieldnames = await getFieldNames(modelsx);
+            fieldnames = await getFieldNames(models);
         } catch (err) {
             console.error(err);
         }
@@ -94,7 +81,7 @@ export function activate(context: vscode.ExtensionContext): void {
 
         if (!val) return;
 
-        const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', modelsx[val.label.split(' ')[1]].file);
+        const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', models[val.label.split(' ')[1]].file);
 
         const doc = await vscode.workspace.openTextDocument(filePath);
         const editor = await vscode.window.showTextDocument(doc);

@@ -1,7 +1,7 @@
 {
     "index": [
         "// index.js",
-        "var User = require('../models/user.model');",
+        "const User = require('../models/user.model');",
         "",
         "// Sample code for usage",
         "function collectData(req, res) {",
@@ -32,8 +32,8 @@
         "// user.model.js",
         "const mongoose = require('mongoose');",
         "// Declare the Schema of the Mongo model",
-        "var userSchema = new mongoose.Schema({",
-        "    name:{",
+        "const userSchema = new mongoose.Schema({",
+        "    name: {",
         "        type: String,",
         "        required: true,",
         "        unique: true,",
@@ -54,6 +54,7 @@
         "        required: true,",
         "    },",
         "});",
+        "",
         "// Export the model",
         "module.exports = mongoose.model('User', userSchema);"
     ]

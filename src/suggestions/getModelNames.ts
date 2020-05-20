@@ -14,23 +14,18 @@ function getFilesInModels(): string[] {
     return files;
 }
 
-async function getModelsInFile(file: string): Promise<{ name: string; file: string }[]> {
+async function getModelsInFile(file: string): Promise<{ [key: string]: { file: string } }> {
     const re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
-    const models: { name: string, file: string }[] = [{
-        name: '',
-        file,
-    }];
 
+    const models: { [key: string]: { file: string } } = {};
     try {
         const data = await readFile(path.join(rootPath, 'models', file), 'utf-8');
 
         const matches = data.match(re);
         if (!!data && !!matches) {
             matches.forEach((match) => {
-                models.push({
-                    name: match,
-                    file,
-                });
+                if (!file) return;
+                models[match] = { file };
             })
         }
         return models;
@@ -40,28 +35,25 @@ async function getModelsInFile(file: string): Promise<{ name: string; file: stri
     }
 }
 
-export default async function getModelsFromFiles(): Promise<{ name: string; file: string }[]> {
+export default async function getModelsFromFiles(): Promise<{ [key: string]: { file: string } }> {
     const files = getFilesInModels();
     if (!files) {
         return undefined;
     }
+    let models: { [key: string]: { file: string } } = {};
     try {
-        const promises: Array<Promise<{ name: string, file: string }[]>> = [];
+        const promises: Array<Promise<{ [key: string]: { file: string } }>> = [];
         files.forEach((file) => {
             promises.push(getModelsInFile(file));
         });
 
-        let temp: { name: string, file: string }[] = [];
-        (await Promise.all(promises)).forEach((models) => {
-            temp = temp.concat(models);
+        (await Promise.all(promises)).forEach((newModels) => {
+            models = { ...models, ...newModels };
         });
-        
-        const objects = temp.filter((t) => !!t.name);
-        const modelobjects = objects.filter((el) => !!el && !!el.name && !!el.file);
-        return modelobjects;
+        return models;
     } catch (err) {
         console.error(err);
-        return [{ name: '', file: '' }];
+        return models;
     }
 }
 
