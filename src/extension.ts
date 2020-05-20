@@ -46,7 +46,7 @@ export function activate(context: vscode.ExtensionContext): void {
         viewCollectionJson();
     });
 
-    let modelnames: { label: string; detail: string }[] = [];
+    let modelNames: { label: string; detail: string }[] = [];
     let modelsx: { [key: string]: { file: string } } = {};
     let fieldnames: string[] = [];
 
@@ -54,7 +54,7 @@ export function activate(context: vscode.ExtensionContext): void {
         try {
             const models = await getModelsFromFiles();
             modelsx = {};
-            modelnames = [];
+            modelNames = [];
 
             if (!models || !models.length) return;
 
@@ -62,13 +62,13 @@ export function activate(context: vscode.ExtensionContext): void {
                 const { name } = model;
 
                 if (!modelsx[name]) {
-                    modelnames.push({
+                    modelNames.push({
                         label: `$(star-delete) ${name}`,
                         detail: `$(file-code) Defined in ${model.file}, select to open.`,
                     });
                 } else if (modelsx[name].file !== model.file) {
-                    const index = modelnames.findIndex((modelname) => modelname.label.includes(name));
-                    modelnames[index].detail = `$(file-code) Defined in ${model.file}, select to open.`;
+                    const index = modelNames.findIndex((modelname) => modelname.label.includes(name));
+                    modelNames[index].detail = `$(file-code) Defined in ${model.file}, select to open.`;
                 }
 
                 modelsx[name] = {
@@ -83,12 +83,12 @@ export function activate(context: vscode.ExtensionContext): void {
     }, repeatTime);
 
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
-        if (!modelnames || !modelnames.length) {
+        if (!modelNames || !modelNames.length) {
             vscode.window.showWarningMessage('Still looking for models... Try again!');
             return;
         }
 
-        const val: { label: string, detail: string } = await vscode.window.showQuickPick(modelnames, {
+        const val: { label: string, detail: string } = await vscode.window.showQuickPick(modelNames, {
             placeHolder: 'Select a model to open it\'s source file...',
         });
 
@@ -106,14 +106,14 @@ export function activate(context: vscode.ExtensionContext): void {
         editor.revealRange(editor.selection, vscode.TextEditorRevealType.Default);
     });
 
-    // to complete modelnames
+    // to complete modelNames
     const provider1 = vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
         language: 'javascript',
     }, {
         provideCompletionItems() {
             const items: any = [];
-            modelnames.forEach((model: any) => {
+            modelNames.forEach((model: any) => {
                 const modelname = model.label.split(' ')[1];
                 const complete = new vscode.CompletionItem(modelname);
                 complete.commitCharacters = ['.'];
@@ -126,14 +126,14 @@ export function activate(context: vscode.ExtensionContext): void {
         },
     });
 
-    // to complete after `modelnames.`
+    // to complete after `modelNames.`
     const provider2 = vscode.languages.registerCompletionItemProvider({
         scheme: 'file',
         language: 'javascript',
     }, {
         provideCompletionItems(document: any, position: any) {
             const items: any = [];
-            modelnames.forEach((model: any): any => {
+            modelNames.forEach((model: any): any => {
                 const modelname = model.label.split(' ')[1];
                 const linePrefix = document.lineAt(position).text.substr(0, position.character);
                 if (!linePrefix.endsWith(`${modelname}.`)) {
