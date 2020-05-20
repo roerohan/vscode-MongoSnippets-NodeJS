@@ -92,6 +92,11 @@
         "pack-src": "ncc build src/extension.ts -o dist && mv dist/index.js dist/extension.js",
         "pack": "npm run clean && npm run pack-src && npm run snippets"
     },
+    "husky": {
+        "hooks": {
+            "pre-commit": "npm run lint"
+        }
+    },
     "devDependencies": {
         "@types/mocha": "^2.2.42",
         "@types/mongoose": "^5.7.12",
@@ -104,6 +109,7 @@
         "eslint-config-airbnb-base": "^14.1.0",
         "eslint-config-airbnb-typescript": "^7.2.1",
         "eslint-plugin-import": "^2.20.2",
+        "husky": "^4.2.5",
         "typescript": "^3.3.1",
         "vsce": "^1.75.0"
     },
