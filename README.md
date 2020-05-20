@@ -110,14 +110,14 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 - The boilerplate is set up in the `root directory` of the workspace. In order to set up the boilerplate code in a certain directory, that directory must be open in a new workspace. (Open the folder you want the boilerplate code in with VSCode).
 
-- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names containing models defined in them will not show up as suggestions.
+- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names are not checked, hence models defined in them will not show up as suggestions.
 
 - In files where models are described, to be able to detect the models, mongoose must be imported as `mongoose` only. For example,
    * const mongoose = require('mongoose');
    * import mongoose from 'mongoose';
 
 - The model must be created in the models folder as follows:
-   * var modelName = mongoose.model('modelName', modelSchema)
+   * const modelName = mongoose.model('modelName', modelSchema)
 
 - Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
 
