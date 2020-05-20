@@ -84,7 +84,7 @@
         "test": "node ./node_modules/vscode/bin/test",
         "lint": "eslint src/**/*.ts",
         "clean": "rimraf dist/",
-        "build": "npm run clean && tsc",
+        "build": "npm run clean && tsc && npm run snippets",
         "watch": "tsc -watch -p ./",
         "snippets": "mkdir dist/snippets && cp src/snippets/snippets.json dist/snippets/snippets.json",
         "vscode:prepublish": "npm run pack",
