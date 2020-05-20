@@ -83,25 +83,27 @@ export function activate(context: vscode.ExtensionContext): void {
     }, repeatTime);
 
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
-        if (modelnames != null && modelnames.length > 0) {
-            const val: any = await vscode.window.showQuickPick(modelnames, {
-                placeHolder: 'Select a model to open it\'s source file...',
-            });
-            if (!val) return;
-            const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', modelsx[val.label.split(' ')[1]].file);
-            vscode.workspace.openTextDocument(filePath).then(async (doc: any) => {
-                vscode.window.showTextDocument(doc).then((editor: any) => {
-                    const text = doc.getText();
-                    const match = RegExp(val.label.split(' ')[1]).exec(text);
-                    const startPos = doc.positionAt(match.index);
-                    const endPos = doc.positionAt(match.index + match[0].length);
-                    editor.selection = new vscode.Selection(startPos, endPos);
-                    editor.revealRange(editor.selection, vscode.TextEditorRevealType.Default);
-                });
-            });
-        } else {
-            vscode.window.showWarningMessage('Looking for models...');
+        if (!modelnames || !modelnames.length) {
+            vscode.window.showWarningMessage('Still looking for models... Try again!');
+            return;
         }
+
+        const val: { label: string, detail: string } = await vscode.window.showQuickPick(modelnames, {
+            placeHolder: 'Select a model to open it\'s source file...',
+        });
+
+        if (!val) return;
+
+        const filePath = path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, 'models', modelsx[val.label.split(' ')[1]].file);
+
+        const doc = await vscode.workspace.openTextDocument(filePath);
+        const editor = await vscode.window.showTextDocument(doc);
+        const match = RegExp(val.label.split(' ')[1]).exec(doc.getText());
+        editor.selection = new vscode.Selection(
+            doc.positionAt(match.index),
+            doc.positionAt(match.index + match[0].length),
+        );
+        editor.revealRange(editor.selection, vscode.TextEditorRevealType.Default);
     });
 
     // to complete modelnames
@@ -180,12 +182,16 @@ export function activate(context: vscode.ExtensionContext): void {
     },
         '{');
 
-    context.subscriptions.push(mongooseDocs);
-    context.subscriptions.push(extensionDocs);
-    context.subscriptions.push(setup);
-    context.subscriptions.push(seeModels);
-    context.subscriptions.push(viewCollections);
-    context.subscriptions.push(provider1, provider2, provider3);
+    context.subscriptions.push(
+        mongooseDocs,
+        extensionDocs,
+        setup,
+        seeModels,
+        viewCollections,
+        provider1,
+        provider2,
+        provider3,
+    );
 }
 exports.activate = activate;
 
