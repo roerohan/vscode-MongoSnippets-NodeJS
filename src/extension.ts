@@ -1,7 +1,3 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
-
-
 import * as vscode from 'vscode';
 import path from 'path';
 
@@ -10,25 +6,13 @@ import setupBoilerplate from './boilerplate/setup';
 import viewCollectionJson from './connect/viewJson';
 import getModelsFromFiles, { getFieldNames } from './suggestions/getModelNames';
 
-let repeatTime = 0;
-
-// this method is called when your extension is activated
-// your extension is activated the very first time the command is executed
-
 /**
  * @param {vscode.ExtensionContext} context
  */
 export function activate(context: vscode.ExtensionContext): void {
-    // Use the console to output diagnostic information (console.log) and errors (console.error)
-    // This line of code will only be executed once when your extension is activated
-
     console.log('Mongo Snippets has been activated.');
     const mongooseLink = 'https://mongoosejs.com/docs/api.html#Model';
     const extensionLink = 'https://github.com/roerohan/vscode-MongoSnippets-NodeJS/blob/master/README.md';
-
-    // The command has been defined in the package.json file
-    // Now provide the implementation of the command with registerCommand
-    // The commandId parameter must match the command field in package.json
 
     const mongooseDocs = vscode.commands.registerCommand('extension.mongoosejsDocs', () => {
         vscode.commands.executeCommand('vscode.open', vscode.Uri.parse(mongooseLink));
@@ -67,7 +51,7 @@ export function activate(context: vscode.ExtensionContext): void {
         } catch (err) {
             console.error(err);
         }
-    }, repeatTime);
+    }, 2000);
 
     const seeModels = vscode.commands.registerCommand('extension.seeModels', async () => {
         if (!modelNames || !modelNames.length) {
