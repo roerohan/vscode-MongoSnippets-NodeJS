@@ -1,6 +1,4 @@
-
 import fs, { PathLike } from 'fs';
-
 
 function makeDir(path: PathLike): void {
     if (!fs.existsSync(path)) {
