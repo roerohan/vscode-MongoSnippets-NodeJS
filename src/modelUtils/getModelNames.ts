@@ -5,13 +5,16 @@ import util from 'util';
 
 const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 const readFile = util.promisify(fs.readFile);
+const readdir = util.promisify(fs.readdir);
 
-function getFilesInModels(): string[] {
-    if (!fs.existsSync(path.join(rootPath, 'models'))) {
-        return undefined;
+async function getFilesInModels(): Promise<string[]> {
+    try {
+        const files = await readdir(path.join(rootPath, 'models'));
+        return files;
+    } catch (err) {
+        console.error(err);
+        return [];
     }
-    const files = fs.readdirSync(path.join(rootPath, 'models'));
-    return files;
 }
 
 async function getModelsInFile(file: string): Promise<{ [key: string]: { file: string } }> {
@@ -36,8 +39,8 @@ async function getModelsInFile(file: string): Promise<{ [key: string]: { file: s
 }
 
 export default async function getModelsFromFiles(): Promise<{ [key: string]: { file: string } }> {
-    const files = getFilesInModels();
-    if (!files) {
+    const files = await getFilesInModels();
+    if (!files || !files.length) {
         return undefined;
     }
     let models: { [key: string]: { file: string } } = {};
