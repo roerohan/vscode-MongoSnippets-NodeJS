@@ -127,6 +127,16 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.2.5
+
+- Refactor:
+   * Lots of code refactor, remove lint warnings and errors.
+   * Code quality improvements.
+
+- Feat:
+   * Code should run faster now.
+   * Should take lesser processing power.
+
 ### v1.2.4
 
 - Fix:

@@ -14,6 +14,16 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
    * Dependencies updated
    * Security risks resolved
 
+### v1.2.5
+
+- Refactor:
+   * Lots of code refactor, remove lint warnings and errors.
+   * Code quality improvements.
+
+- Feat:
+   * Code should run faster now.
+   * Should take lesser processing power.
+
 ### v1.2.4
 
 - Fix:
