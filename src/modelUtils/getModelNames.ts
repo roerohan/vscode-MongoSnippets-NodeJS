@@ -1,7 +1,7 @@
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
-import * as vscode from 'vscode';
+import vscode from 'vscode';
 
 const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 const readFile = util.promisify(fs.readFile);
