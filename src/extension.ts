@@ -5,6 +5,7 @@ import setupBoilerplate from './boilerplate/setup';
 import viewCollectionJson from './connect/viewJson';
 import getModelsFromFiles, { getFieldNames } from './modelUtils/getModelNames';
 import seeModelsUtil from './modelUtils/seeModels';
+import completionItemProviders from './modelUtils/completionItemProviders.js';
 
 /**
  * @param {vscode.ExtensionContext} context
@@ -57,96 +58,7 @@ export function activate(context: vscode.ExtensionContext): void {
         await seeModelsUtil(modelNames, models);
     });
 
-    // to complete modelNames
-    const provider1 = vscode.languages.registerCompletionItemProvider({
-        scheme: 'file',
-        language: 'javascript',
-    }, {
-        provideCompletionItems() {
-            const items: vscode.CompletionItem[] = [];
-            modelNames.forEach((model) => {
-                const modelname = model.label.split(' ')[1];
-                const complete = new vscode.CompletionItem(modelname);
-                complete.commitCharacters = ['.'];
-                complete.kind = vscode.CompletionItemKind.Field;
-                complete.detail = `Press '.' to get ${modelname}`;
-                complete.documentation = new vscode.MarkdownString(
-                    `**Mongo Snippets: Model Name Suggestion - \`${modelname}.\`**`,
-                );
-                items.push(complete);
-            });
-            return items;
-        },
-    });
-
-    // to complete after `modelNames.`
-    const provider2 = vscode.languages.registerCompletionItemProvider({
-        scheme: 'file',
-        language: 'javascript',
-    }, {
-        provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-            const items: vscode.CompletionItem[] = [];
-            modelNames.forEach((model) => {
-                const modelname = model.label.split(' ')[1];
-                const linePrefix = document.lineAt(position).text.substr(0, position.character);
-                if (!linePrefix.endsWith(`${modelname}.`)) {
-                    return;
-                }
-                fieldnames.forEach((field) => {
-                    const complete = new vscode.CompletionItem(
-                        field,
-                        vscode.CompletionItemKind.Field,
-                    );
-
-                    complete.documentation = new vscode.MarkdownString(
-                        `**Mongo Snippets: Field Name Suggestion - \`${field}\`**`,
-                    );
-                    items.push(complete);
-                });
-            });
-            return items;
-        },
-    },
-    '.');
-
-    // to complete within {}
-    const provider3 = vscode.languages.registerCompletionItemProvider({
-        scheme: 'file',
-        language: 'javascript',
-    }, {
-        provideCompletionItems(document: vscode.TextDocument, position: vscode.Position) {
-            // get field names
-            const items: vscode.CompletionItem[] = [];
-            const startPos = document.positionAt(0);
-
-            const preText = document.getText(new vscode.Range(startPos, position));
-            const openbraces = preText.split('{').length - 1;
-            const closedbraces = preText.split('}').length - 1;
-
-            if (openbraces <= closedbraces) {
-                return items;
-            }
-
-            const linePrefix = document.lineAt(position).text.substr(0, position.character);
-            if (linePrefix.endsWith('{')) {
-                return items;
-            }
-
-            fieldnames.forEach((field) => {
-                const complete = new vscode.CompletionItem(
-                    field,
-                    vscode.CompletionItemKind.Field,
-                );
-
-                complete.documentation = new vscode.MarkdownString(
-                    `**Mongo Snippets: Field Name Suggestion - \`${field}\`**`,
-                );
-                items.push(complete);
-            });
-            return items;
-        },
-    },
-    '{');
+    const providers = completionItemProviders(modelNames, fieldnames);
 
     context.subscriptions.push(
         mongooseDocs,
@@ -154,9 +66,7 @@ export function activate(context: vscode.ExtensionContext): void {
         setup,
         seeModels,
         viewCollections,
-        provider1,
-        provider2,
-        provider3,
+        ...providers,
     );
 }
 exports.activate = activate;
