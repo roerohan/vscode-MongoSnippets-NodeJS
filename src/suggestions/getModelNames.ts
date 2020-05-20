@@ -26,7 +26,7 @@ async function getModelsInFile(file: string): Promise<{ [key: string]: { file: s
             matches.forEach((match) => {
                 if (!file) return;
                 models[match] = { file };
-            })
+            });
         }
         return models;
     } catch (err) {

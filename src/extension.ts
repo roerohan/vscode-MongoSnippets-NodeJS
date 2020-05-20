@@ -59,7 +59,7 @@ export function activate(context: vscode.ExtensionContext): void {
             return;
         }
 
-        const val: { label: string, detail: string } = await vscode.window.showQuickPick(modelNames, {
+        const val: { label: string; detail: string } = await vscode.window.showQuickPick(modelNames, {
             placeHolder: 'Select a model to open it\'s source file...',
         });
 
@@ -119,7 +119,7 @@ export function activate(context: vscode.ExtensionContext): void {
             return items;
         },
     },
-        '.');
+    '.');
 
     // to complete within {}
     const provider3 = vscode.languages.registerCompletionItemProvider({
@@ -151,7 +151,7 @@ export function activate(context: vscode.ExtensionContext): void {
             return items;
         },
     },
-        '{');
+    '{');
 
     context.subscriptions.push(
         mongooseDocs,
