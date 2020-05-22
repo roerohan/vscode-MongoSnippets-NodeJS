@@ -5,6 +5,7 @@ export default async function (
     models: { [key: string]: { file: string } },
 ): Promise<void> {
     const modelNames: { label: string; detail: string }[] = [];
+
     Object.keys(models).forEach((name) => {
         modelNames.push({
             label: `$(star-delete) ${name}`,
