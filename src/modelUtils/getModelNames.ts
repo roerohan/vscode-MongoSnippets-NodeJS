@@ -91,7 +91,7 @@ export async function getFieldNames(
 
     const promises: Array<Promise<string>> = [];
     const filenames: string[] = [];
-    const fields: string[] = [];
+    const fieldsMap: { [key: string]: Promise<{ schema: { obj: object } }> } = {};
 
     Object.keys(models).forEach((model) => {
         const { file } = models[model];
@@ -103,18 +103,22 @@ export async function getFieldNames(
     });
 
     const files = (await Promise.all(promises)).filter((file) => !!file);
-    files.forEach(async (file) => {
-        try {
-            const temp = await import(`${sourceDir}/models/${file}`);
-            if (temp.schema) {
-                Object.keys(temp.schema.obj).forEach((key: string) => {
-                    fields.push(key);
-                });
-            }
-        } catch {
-            return '';
-        }
-        return '';
-    });
-    return fields;
+
+    async function getFields(): Promise<string[]> {
+        files.forEach((file) => {
+            const target = import(`${sourceDir}/models/${file}`);
+            fieldsMap[file] = target;
+        });
+
+        const schemaObjs = await Promise.all(Object.values(fieldsMap));
+        let fields: string[] = [];
+
+        schemaObjs.forEach((schemaObj) => {
+            if (!schemaObj.schema) return;
+            fields = fields.concat(Object.keys(schemaObj.schema.obj));
+        });
+        return fields;
+    }
+
+    return getFields();
 }

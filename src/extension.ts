@@ -57,7 +57,7 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
         } catch (err) {
             console.error(err);
         }
-    }, 5000);
+    }, 10000);
 }
 exports.activate = activate;
 
