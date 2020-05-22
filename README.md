@@ -127,6 +127,14 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.3.0
+
+- Feat:
+   * Get `sourceDir` from `.vscode/settings.json` under key `mongosnippets`.
+
+- Fix:
+   * Set up boilerplate, make folders awaited.
+
 ### v1.2.5
 
 - Refactor:

@@ -6,13 +6,17 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Suggested features
 - Issues (if any)
-- Issue: Field names are updated only on reload.
 
 - Allow mongo queries on display of Database as JSON
 
-- Fix: 
-   * Dependencies updated
-   * Security risks resolved
+
+### v1.3.0
+
+- Feat:
+   * Get `sourceDir` from `.vscode/settings.json` under key `mongosnippets`.
+
+- Fix:
+   * Set up boilerplate, make folders awaited.
 
 ### v1.2.5
 
