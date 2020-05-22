@@ -34,13 +34,11 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
    * Opens the [Repository](https://github.com/roerohan/vscode-MongoSnippets-NodeJS) on a web browser.
 
 - **Mongo Snippets: Set up Mongo Boilerplate Code**
-   * Sets up folders named `routes` and `models` if they do not exist, in the workspace root directory with files containing boilerplate.
+   * Creates folders named `routes` and `models` - if they do not exist - in the [`source directory`](#source-directory), and adds files containing boilerplate code.
 
 - **Mongo Snippets: Show Existing Models**
-   * Shows a list of names of models present in the `models` folder in the `workspace root directory`.
+   * Shows a list of names of models present in the `models` folder in the `source directory`.
    * Highlights the model definition in the file where it had been created.
-   * Suggests field names for models. E.G. if the model `User` has a field `name`, on typing `User.`, `name` is suggested.
-   * Field names are also suggested inside `{...}`.
 
 - **Mongo Snippets: View MongoDB Collection as JSON**
 > Note: This is a beta feature and will be receive updates soon.
@@ -51,8 +49,10 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 > Note: See User's Notes for details.
 
 - Model name suggestions:
-   * First it identifies the names of the models in a folder named models (if any) in the `workspace root directory`.
+   * First it identifies the names of the models in a folder named models (if any) in the `source directory`.
    * It stores the model and field names and provides completion suggestions when you type.
+   * Suggests field names for models. E.G. if the model `User` has a field `name`, on typing `User.`, `name` is suggested.
+   * Field names are also suggested inside `{...}`.
 
 ### **Snippets:**
 
@@ -108,9 +108,25 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 ## User's Notes
 
-- The boilerplate is set up in the `root directory` of the workspace. In order to set up the boilerplate code in a certain directory, that directory must be open in a new workspace. (Open the folder you want the boilerplate code in with VSCode).
+### Source Directory
 
-- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `root directory` of the workspace. Folders with other names are not checked, hence models defined in them will not show up as suggestions.
+- The source directory, as mentioned multiple times, is by default the root directory of your workspace. It can be modified by adding the following to `.vscode/settings.json` in your workspace root directory.
+
+```json
+{
+   "mongosnippets": {
+      "sourceDir": "src"
+   }
+}
+```
+
+- The above line changes the `source directory` from the root directory of the workspace to a folder named `src` in the root directory.
+
+### Other
+
+- The boilerplate is set up in the `source directory` of the workspace. In order to set up the boilerplate code in a certain directory, that directory must be open in a new workspace. (Open the folder you want the boilerplate code in with VSCode).
+
+- Model name suggestions are only given for those models defined in files present in a directory called `models` in the `source directory` of the workspace. Folders with other names are not checked, hence models defined in them will not show up as suggestions.
 
 - In files where models are described, to be able to detect the models, mongoose must be imported as `mongoose` only. For example,
    * const mongoose = require('mongoose');
@@ -119,7 +135,7 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 - The model must be created in the models folder as follows:
    * const modelName = mongoose.model('modelName', modelSchema)
 
-- Mongo Snippets: See Existing Models command shows models only in the `root directory` of the workspace.
+- Mongo Snippets: See Existing Models command shows models only in the `source directory` of the workspace.
 
 - For field name suggestions, each model should be exported in a seperate file, and the file should not have errors.
 
