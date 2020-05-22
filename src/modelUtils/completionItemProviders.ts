@@ -54,6 +54,7 @@ export default async function (
                     complete.documentation = new vscode.MarkdownString(
                         `**Mongo Snippets: Field Name Suggestion - \`${field}\`**`,
                     );
+                    if (items.includes(complete)) return;
                     items.push(complete);
                 });
             });
@@ -95,6 +96,8 @@ export default async function (
                 complete.documentation = new vscode.MarkdownString(
                     `**Mongo Snippets: Field Name Suggestion - \`${field}\`**`,
                 );
+                if (items.includes(complete)) return;
+
                 items.push(complete);
             });
             return items;
