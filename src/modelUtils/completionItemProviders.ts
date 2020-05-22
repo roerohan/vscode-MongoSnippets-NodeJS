@@ -3,8 +3,9 @@ import { getFieldNames } from './getModelNames';
 
 export default async function (
     models: { [key: string]: { file: string } },
+    sourceDir: string,
 ): Promise<vscode.Disposable[]> {
-    const fieldNames = await getFieldNames(models);
+    const fieldNames = await getFieldNames(models, sourceDir);
 
     const modelNameCompletionProvider = (
         language: string,

@@ -1,28 +1,29 @@
-import vscode from 'vscode';
 import fs from 'fs';
 import path from 'path';
 import util from 'util';
 
-const rootPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
 const readFile = util.promisify(fs.readFile);
 const readdir = util.promisify(fs.readdir);
 
-async function getFilesInModels(): Promise<string[]> {
+async function getFilesInModels(sourceDir: string): Promise<string[]> {
     try {
-        const files = await readdir(path.join(rootPath, 'models'));
+        const files = await readdir(path.join(sourceDir, 'models'));
         return files;
     } catch (err) {
-        console.error(err);
+        if (err.code !== 'ENOENT') console.error(err);
         return [];
     }
 }
 
-async function getModelsInFile(file: string): Promise<{ [key: string]: { file: string } }> {
+async function getModelsInFile(
+    file: string,
+    sourceDir: string,
+): Promise<{ [key: string]: { file: string } }> {
     const re = /(?<=[Mm]ongoose.model\s*\(\s*(["'`])).+(?=(?:(?=(\\?))\2.)*?\1.*\))/gi;
 
     const models: { [key: string]: { file: string } } = {};
     try {
-        const data = await readFile(path.join(rootPath, 'models', file), 'utf-8');
+        const data = await readFile(path.join(sourceDir, 'models', file), 'utf-8');
 
         const matches = data.match(re);
         if (!!data && !!matches) {
@@ -38,8 +39,10 @@ async function getModelsInFile(file: string): Promise<{ [key: string]: { file: s
     }
 }
 
-export default async function getModelsFromFiles(): Promise<{ [key: string]: { file: string } }> {
-    const files = await getFilesInModels();
+export default async function getModelsFromFiles(
+    sourceDir: string,
+): Promise<{ [key: string]: { file: string } }> {
+    const files = await getFilesInModels(sourceDir);
     if (!files || !files.length) {
         return undefined;
     }
@@ -47,7 +50,7 @@ export default async function getModelsFromFiles(): Promise<{ [key: string]: { f
     try {
         const promises: Array<Promise<{ [key: string]: { file: string } }>> = [];
         files.forEach((file) => {
-            promises.push(getModelsInFile(file));
+            promises.push(getModelsInFile(file, sourceDir));
         });
 
         (await Promise.all(promises)).forEach((newModels) => {
@@ -60,11 +63,11 @@ export default async function getModelsFromFiles(): Promise<{ [key: string]: { f
     }
 }
 
-async function getExportFile(file: string): Promise<string> {
+async function getExportFile(file: string, sourceDir: string): Promise<string> {
     try {
         const data = await readFile(
             path.join(
-                rootPath,
+                sourceDir,
                 'models',
                 file,
             ),
@@ -82,6 +85,7 @@ async function getExportFile(file: string): Promise<string> {
 
 export async function getFieldNames(
     models: { [key: string]: { file: string } },
+    sourceDir: string,
 ): Promise<string[]> {
     if (!models) return [];
 
@@ -95,13 +99,13 @@ export async function getFieldNames(
             return;
         }
         filenames.push(file);
-        promises.push(getExportFile(file));
+        promises.push(getExportFile(file, sourceDir));
     });
 
     const files = (await Promise.all(promises)).filter((file) => !!file);
     files.forEach(async (file) => {
         try {
-            const temp = await import(`${rootPath}/models/${file}`);
+            const temp = await import(`${sourceDir}/models/${file}`);
             if (temp.schema) {
                 Object.keys(temp.schema.obj).forEach((key: string) => {
                     fields.push(key);

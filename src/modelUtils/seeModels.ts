@@ -3,7 +3,13 @@ import path from 'path';
 
 export default async function (
     models: { [key: string]: { file: string } },
+    sourceDir: string,
 ): Promise<void> {
+    if (!models) {
+        vscode.window.showWarningMessage(`Searching for models in ${sourceDir}/models...`);
+        return;
+    }
+
     const modelNames: { label: string; detail: string }[] = [];
 
     Object.keys(models).forEach((name) => {
@@ -12,11 +18,6 @@ export default async function (
             detail: `$(file-code) Defined in ${models[name].file}, select to open.`,
         });
     });
-
-    if (!modelNames || !modelNames.length) {
-        vscode.window.showWarningMessage('Still looking for models... Try again!');
-        return;
-    }
 
     const val: {
         label: string;
@@ -28,7 +29,7 @@ export default async function (
     if (!val) return;
 
     const filePath = path.join(
-        vscode.workspace.workspaceFolders[0].uri.fsPath,
+        sourceDir,
         'models',
         models[val.label.split(' ')[1]].file,
     );

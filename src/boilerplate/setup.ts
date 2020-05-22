@@ -1,21 +1,19 @@
-import vscode from 'vscode';
 import path from 'path';
 
 import makeFolders, { makeFiles } from './appModel';
 import precode from './precode.json';
 
-export default function setup(): void {
-    const folderPath = vscode.workspace.workspaceFolders[0].uri.fsPath;
-    makeFolders([
-        path.join(folderPath, 'models'),
-        path.join(folderPath, 'routes'),
+export default async function setup(sourceDir: string): Promise<void> {
+    await makeFolders([
+        path.join(sourceDir, 'models'),
+        path.join(sourceDir, 'routes'),
     ]);
 
     makeFiles(
         [
-            path.join(folderPath, 'routes/index.js'),
-            path.join(folderPath, 'models/db.js'),
-            path.join(folderPath, 'models/user.model.js'),
+            path.join(sourceDir, 'routes/index.js'),
+            path.join(sourceDir, 'models/db.js'),
+            path.join(sourceDir, 'models/user.model.js'),
         ],
         [
             precode.index.join('\n'),

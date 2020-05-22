@@ -2,7 +2,7 @@ import vscode from 'vscode';
 import path from 'path';
 import { listAllCollections, listDocs } from './showDB';
 
-export default async function viewJson(): Promise<void> {
+export default async function viewJson(sourceDir: string): Promise<void> {
     const dbName = await vscode.window.showInputBox({
         placeHolder: 'Enter a connection string to the database.',
         value: 'mongodb://',
@@ -22,7 +22,7 @@ export default async function viewJson(): Promise<void> {
 
         const docs = await listDocs(dbName, choice);
 
-        const newFile = vscode.Uri.parse(`untitled:${path.join(vscode.workspace.workspaceFolders[0].uri.fsPath, `${choice}.json`)}`);
+        const newFile = vscode.Uri.parse(`untitled:${path.join(sourceDir, `${choice}.json`)}`);
         const document = await vscode.workspace.openTextDocument(newFile);
 
         const edit = new vscode.WorkspaceEdit();

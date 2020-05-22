@@ -1,10 +1,11 @@
 import fs, { PathLike } from 'fs';
+import util from 'util';
 
-function makeDir(path: PathLike): void {
+const mkdir = util.promisify(fs.mkdir);
+
+async function makeDir(path: PathLike): Promise<void> {
     if (!fs.existsSync(path)) {
-        fs.mkdir(path, { recursive: true }, (err) => {
-            if (err) throw err;
-        });
+        await mkdir(path, { recursive: true });
     }
 }
 
@@ -20,6 +21,8 @@ export function makeFiles(files: string[], text: string[]): void {
     files.forEach((file, index) => makeFile(file, text[index]));
 }
 
-export default function makeFolders(names: string[]): void {
-    names.forEach((name) => makeDir(name));
+export default async function makeFolders(names: string[]): Promise<void> {
+    const promises: Promise<void>[] = [];
+    names.forEach((name) => promises.push(makeDir(name)));
+    await Promise.all(promises);
 }
