@@ -37,7 +37,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
    * Creates folders named `routes` and `models` - if they do not exist - in the [`source directory`](#source-directory), and adds files containing boilerplate code.
 
 - **Mongo Snippets: Show Existing Models**
-   * Shows a list of names of models present in the `models` folder in the `source directory`.
+   * Shows a list of names of models present in the `models` folder in the [`source directory`](#source-directory).
    * Highlights the model definition in the file where it had been created.
 
 - **Mongo Snippets: View MongoDB Collection as JSON**
@@ -49,7 +49,7 @@ This Visual Studio Code extension is built for Node-js projects. It provides:
 > Note: See User's Notes for details.
 
 - Model name suggestions:
-   * First it identifies the names of the models in a folder named models (if any) in the `source directory`.
+   * First it identifies the names of the models in a folder named models (if any) in the [`source directory`](#source-directory).
    * It stores the model and field names and provides completion suggestions when you type.
    * Suggests field names for models. E.G. if the model `User` has a field `name`, on typing `User.`, `name` is suggested.
    * Field names are also suggested inside `{...}`.
