@@ -1,7 +1,5 @@
 # Mongo Snippets
 
-![Publish Extension](https://github.com/roerohan/vscode-MongoSnippets-NodeJS/workflows/Publish%20Extension/badge.svg)
-
 > vscode-id: [roerohan.mongo-snippets-for-node-js](https://marketplace.visualstudio.com/items?itemName=roerohan.mongo-snippets-for-node-js)
 
 This Visual Studio Code extension is built for Node-js projects. It provides:
