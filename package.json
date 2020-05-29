@@ -89,7 +89,7 @@
         "watch": "tsc -watch -p ./",
         "snippets": "mkdir dist/snippets && cp src/snippets/snippets.json dist/snippets/snippets.json",
         "vscode:prepublish": "npm run pack",
-        "package": "vsce package -o vsix",
+        "package": "vsce package -o vsix/mongo-snippets-latest.vsix",
         "pack-src": "ncc build src/extension.ts -o dist && mv dist/index.js dist/extension.js",
         "pack": "npm run clean && npm run pack-src && npm run snippets"
     },
