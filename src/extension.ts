@@ -59,7 +59,6 @@ export async function activate(context: vscode.ExtensionContext): Promise<void> 
         }
     }, 10000);
 }
-exports.activate = activate;
 
 export function deactivate(): void {
     console.log('Deactivated Mongo Snippets.');
