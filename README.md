@@ -143,6 +143,12 @@ Please report issues on [vscode-MongoSnippets-NodeJS](https://github.com/roeroha
 
 These are the release notes for mongo-snippets-for-node-js.
 
+### v1.3.2
+
+- Feat:
+   * Use VSCE to publish.
+   * Publish using GitHub actions.
+
 ### v1.3.1
 
 - Fix:
