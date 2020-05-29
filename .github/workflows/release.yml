@@ -23,7 +23,6 @@ jobs:
         with:
           file: package.json
           failBuild: false
-          tagFormat: v${version}
 
       - name: Echo variables
         run: |
@@ -43,8 +42,8 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
-          tag_name: ${{ steps.check.outputs.releaseVersion }}
-          release_name: Release ${{ steps.check.outputs.releaseVersion }}
+          tag_name: v${{ steps.check.outputs.releaseVersion }}
+          release_name: Release v${{ steps.check.outputs.releaseVersion }}
           draft: false
           prerelease: false
 
@@ -56,6 +55,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         with:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
-          asset_path: ./vsix/mongo-snippets-for-node-js-${{ steps.check.outputs.releaseVersion }}.vsix
+          asset_path: vsix/mongo-snippets-for-node-js-${{ steps.check.outputs.releaseVersion }}.vsix
           asset_name: mongo-snippets.vsix
           asset_content_type: application/unknown
