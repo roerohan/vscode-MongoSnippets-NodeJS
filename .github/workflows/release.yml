@@ -58,4 +58,4 @@ jobs:
           upload_url: ${{ steps.create_release.outputs.upload_url }}
           asset_path: ./vsix/mongo-snippets-for-node-js-${{ steps.check.outputs.releaseVersion }}.vsix
           asset_name: mongo-snippets.vsix
-          asset_content_type: application/vsix
+          asset_content_type: application/unknown
