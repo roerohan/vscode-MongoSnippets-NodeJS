@@ -34,7 +34,7 @@ jobs:
         if: steps.check.outputs.versionChanged == 'true'
         run: |
           npm install
-          npm run pack
+          npm run package
 
       - name: Create Release
         id: create_release
