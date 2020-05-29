@@ -1,4 +1,4 @@
-name: ytdl-publish
+name: Publish Extension
 
 on:
   push:
