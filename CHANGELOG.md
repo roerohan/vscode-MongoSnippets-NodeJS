@@ -9,6 +9,11 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Allow mongo queries on display of Database as JSON
 
+### v1.3.5
+
+- Fix:
+  * Bump lodash to newer version.
+
 ### v1.3.4
 
 - Fix:
