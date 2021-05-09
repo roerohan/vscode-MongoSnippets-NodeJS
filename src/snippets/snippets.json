@@ -273,13 +273,29 @@
             "}, {",
             "    ${4:update-field}: ${5:filter}",
             "}",
-            "}, (err) => {",
+            "(err) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   }",
             "});"
         ],
         "description": "Generates code for updateOne query in mongoose."
+    },
+    "MongoDB replaceOne": {
+        "prefix": "!mdbro",
+        "body": [
+            "${1:Model}.replaceOne({ ",
+            "    ${2:find-field}: ${3:filter}",
+            "}, {",
+            "    ${4:field}: ${5:value}",
+            "}",
+            " (err) => {",
+            "   if(err){",    
+            "       console.log(`Error: ` + err)",
+            "   }",
+            "});"
+        ],
+        "description": "Generates code for replaceOne query in mongoose."
     },
     "MongoDB updateMany": {
         "prefix": "!mdbum",
@@ -289,7 +305,7 @@
             "}, {",
             "    ${4:update-field}: ${5:filter}",
             "}",
-            "}, (err) => {",
+            "(err) => {",
             "   if(err){",    
             "       console.log(`Error: ` + err)",
             "   }",
