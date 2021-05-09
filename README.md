@@ -78,6 +78,8 @@ The following are some of the snippets that can be generated with this extension
 |            1.            |    **!mdbf**   |         MongoDB Find        |       *Model.find* query       |
 |            2.            |   **!mdbfo**   |       MongoDB FindOne       |      *Model.findOne* query     |
 |            3.            |   **!mdbfbi**  |       MongoDB FindById      |     *Model.findById* query     |
+|        **Replace:**      |                |                             |                                |
+|            1.            |   **!mdbro**   |      MongoDB ReplaceOne     |     *Model.replaceOne* query   |
 |        **Update:**       |                |                             |                                |
 |            1.            |  **!mdbfoau**  |   MongoDB FindOneAndUpdate  | *Model.findOneAndUpdate* query |
 |            2.            |   **!mdbuo**   |      MongoDB UpdateOne      |     *Model.updateOne* query    |
