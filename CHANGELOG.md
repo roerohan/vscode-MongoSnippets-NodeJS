@@ -9,6 +9,11 @@ All notable changes to the "mongo-snippets-for-node-js" extension will be docume
 
 - Allow mongo queries on display of Database as JSON
 
+- Feature: Add snippet for replaceOne() mongo query.
+- Fix: 
+   * snippet for updateOne() mongo query
+   * snippet for updateMany() mongo query
+
 ### v1.3.5
 
 - Fix:
