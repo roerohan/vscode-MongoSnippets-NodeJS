@@ -221,9 +221,9 @@ Thanks goes to these wonderful people ([emoji key](https://allcontributors.org/d
 <!-- prettier-ignore-start -->
 <!-- markdownlint-disable -->
 <table>
-  <tr>
-    <td align="center"><a href="https://github.com/jvmolu"><img src="https://avatars.githubusercontent.com/u/44413960?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anmol Singhal</b></sub></a><br /><a href="https://github.com/roerohan/vscode-MongoSnippets-NodeJS/commits?author=jvmolu" title="Code">💻</a> <a href="https://github.com/roerohan/vscode-MongoSnippets-NodeJS/commits?author=jvmolu" title="Documentation">📖</a></td>
+  <tr> 
     <td align="center"><a href="https://github.com/roerohan"><img src="https://avatars.githubusercontent.com/u/42958812?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Rohan Mukherjee</b></sub></a><br /><a href="https://github.com/roerohan/vscode-MongoSnippets-NodeJS/commits?author=roerohan" title="Code">💻</a> <a href="https://github.com/roerohan/vscode-MongoSnippets-NodeJS/commits?author=roerohan" title="Documentation">📖</a> <a href="#infra-roerohan" title="Infrastructure (Hosting, Build-Tools, etc)">🚇</a></td>
+    <td align="center"><a href="https://github.com/jvmolu"><img src="https://avatars.githubusercontent.com/u/44413960?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Anmol Singhal</b></sub></a><br /><a href="https://github.com/roerohan/vscode-MongoSnippets-NodeJS/commits?author=jvmolu" title="Code">💻</a> <a href="https://github.com/roerohan/vscode-MongoSnippets-NodeJS/commits?author=jvmolu" title="Documentation">📖</a></td>
   </tr>
 </table>
 
