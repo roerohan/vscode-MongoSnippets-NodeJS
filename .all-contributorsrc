@@ -1,0 +1,25 @@
+{
+  "files": [
+    "README.md"
+  ],
+  "imageSize": 100,
+  "commit": false,
+  "contributors": [
+    {
+      "login": "jvmolu",
+      "name": "Anmol Singhal",
+      "avatar_url": "https://avatars.githubusercontent.com/u/44413960?v=4",
+      "profile": "https://github.com/jvmolu",
+      "contributions": [
+        "code",
+        "doc"
+      ]
+    }
+  ],
+  "contributorsPerLine": 7,
+  "projectName": "vscode-MongoSnippets-NodeJS",
+  "projectOwner": "roerohan",
+  "repoType": "github",
+  "repoHost": "https://github.com",
+  "skipCi": true
+}
