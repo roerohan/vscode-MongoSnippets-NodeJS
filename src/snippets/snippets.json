@@ -21,6 +21,28 @@
         ],
         "description": "Generates code for MongoConnect using mongoose library in npm."
     },
+    "MongoDB Connect With Cloud": {
+        "prefix": "!mdbcc",
+        "body": [
+            "const mongoose = require('mongoose');",
+            "",
+            "mongoose.Promise = global.Promise;",
+            "",
+            "// Connect MongoDB at default port 27017.",
+            "mongoose.connect('mongodb+srv://${1:Username}:${2:Password}@${3:Database Name In Lowercase}.osusz.mongodb.net/${Database Name}?retryWrites=true&w=majority', {",
+            "    useNewUrlParser: true,",
+            "    useCreateIndex: true,",
+            "}, (err) => {",
+            "    if (!err) {",
+            "        console.log('MongoDB Connection Succeeded.')",
+            "    } else {",
+            "        console.log('Error in DB connection: ' + err)",
+            "    }",
+            "});",
+            "$0"
+        ],
+        "description": "Generates code for MongoConnect using mongoose library in npm to connect to mongo cloud."
+    },
     "MongoDB Generate User Model": {
         "prefix": "!mdbgum",
         "body": [
