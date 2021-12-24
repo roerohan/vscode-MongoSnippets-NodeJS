@@ -101,6 +101,13 @@
         ],
         "description": "Generates code for createCollection query in mongoose."
     },
+    "MongoDB createIndex": {
+        "prefix": "!mdbcc",
+        "body": [
+            "${1:Model}.index({ ${1:field}: ${2:value}, ${3:field}: ${4:value} })"
+        ],
+        "description": "Generates code for creating indexes on models in mongoose."
+    },
     "MongoDB insertMany": {
         "prefix": "!mdbim",
         "body": [
